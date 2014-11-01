@@ -108,9 +108,8 @@ public class HiveMainActivity extends ActionBarActivity implements EventListingF
                 if(mNearbyFragment == null){
                     //set up map
                     mNearbyFragment = NearbyFragment.newInstance(null,null);
-                    getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container,mNearbyFragment,"NearbyFragment").commit();
+                   // getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container,mNearbyFragment,"NearbyFragment").commit();
                 }
-                mNearbyFragment.setUpMap();
                 break;
             case 2:
                 break;

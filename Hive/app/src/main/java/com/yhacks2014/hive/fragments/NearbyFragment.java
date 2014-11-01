@@ -44,13 +44,13 @@ public class NearbyFragment extends Fragment {
 
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
-    private SupportMapFragment mMapFragment;
+   public  SupportMapFragment mMapFragment;
     private EventListingFragment mEventListingFragment;
 
     @Override
     public void onResume() {
         super.onResume();
-        setUpMapIfNeeded();
+       // setUpMapIfNeeded();
     }
 
     /**
@@ -68,7 +68,7 @@ public class NearbyFragment extends Fragment {
      * stopped or paused), {@link #onCreate(Bundle)} may not be called again so we should call this
      * method in {@link #onResume()} to guarantee that it will be called.
      */
-    private void setUpMapIfNeeded() {
+ /*   private void setUpMapIfNeeded() {
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
             // Try to obtain the map from the SupportMapFragment.
@@ -96,7 +96,7 @@ public class NearbyFragment extends Fragment {
         }
 
     }
-
+*/
     /**
      * This is where we can add markers or lines, add listeners or move the camera. In this case, we
      * just add a marker near Africa.
@@ -145,7 +145,6 @@ public class NearbyFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -156,6 +155,11 @@ public class NearbyFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v=inflater.inflate(R.layout.fragment_nearby,container, false);
+        EventListingFragment eventListingFragment=new EventListingFragment();
+        getFragmentManager().beginTransaction().replace(R.id.listContainer,eventListingFragment).commit();
+
+        mMapFragment=(SupportMapFragment) getFragmentManager().findFragmentById(R.id.mapContainer);
+        setUpMap();
         return v;
     }
 

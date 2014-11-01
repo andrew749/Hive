@@ -126,7 +126,7 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
                 "Login", Context.MODE_PRIVATE);
         String token = prefs.getString("Token", "0");
         if(token!=null){
-            AutoLogin mAuthTask = new AutoLogin(token);
+            AutoLogin mAuthTask = new AutoLogin(token,this);
             mAuthTask.execute((Void) null);
         }
 
@@ -353,9 +353,10 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
     class AutoLogin extends AsyncTask<Void, Void, Boolean> {
         HiveCommunicator communicator;
         private final String mToken;
-
-        AutoLogin(String t) {
+        private final Context c;
+        AutoLogin(String t,Context cxt) {
             mToken = t;
+            c = cxt;
         }
 
         @Override
@@ -368,6 +369,17 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
                 return true;
             }else{
                 return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            mAuthTask = null;
+
+            if (success) {
+                Intent intent = new Intent(c, HiveMainActivity.class);
+                startActivity(intent);
+                finish();
             }
         }
     }
