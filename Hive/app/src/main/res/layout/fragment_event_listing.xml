@@ -21,4 +21,10 @@
         android:layout_alignParentBottom="true"
         android:verticalSpacing="10dp"
         android:id="@+id/mainlayout"></GridView>
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:text="Looks like there are no events near you."
+        android:visibility="invisible"
+        android:id="@+id/errorText"/>
 </RelativeLayout>
