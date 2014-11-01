@@ -156,12 +156,15 @@ exports.postEdit = function(req, res, next) {
     return res.json({error:"Not logged in"});
   } 
   else {
-    Event.findById(req.body.id, function(err, event) {
+    var _ObjectId = require('mongoose').Types.ObjectId;
+    query_id =  new _ObjectId(req.body.id);
+    var query = Event.where({_id: query_id});
+    query.findOne(function(err, event){
       //console.log(err);
       if (err) return next(err);
 
       event.name = req.body.name || event.name;
-      event.location.coordinates = [ parseFloat(req.body.lng || event.location.lng), parseFloat(req.body.lat || event.location.lat)];
+      event.location.coordinates = [ parseFloat(req.body.lng || event.location.coordinates[0]), parseFloat(req.body.lat || event.location.coordinates[1])];
       event.datetime = req.body.datetime || event.datetime;
       event.visibility = req.body.visibility || event.visibility;
       event.description = req.body.description || event.description;
@@ -194,6 +197,37 @@ exports.postDeleteEvent = function(req, res, next) {
       res.json({ msg: 'Your event has been deleted.' });
     });
   }
+};
+
+/**
+ * POST /event/comment
+ * Comment on an event
+ */
+
+exports.postComment = function(req, res) {
+  console.log(req.body);
+
+  if (!req.user){
+    console.log("can't");
+    return res.json({error:"Not logged in"});
+  } 
+  else {
+    var _ObjectId = require('mongoose').Types.ObjectId;
+    query_id =  new _ObjectId(req.body.id);
+    var query = Event.where({_id: query_id});
+    query.findOne(function(err, event){
+      if (err) return next(err);
+
+      event.comments.push({user: req.user.email, comment: req.body.commentMsg, datetime: new Date()});
+
+      event.save(function(err) {
+      if (!err)
+        res.json({status:'ok'});
+      else
+        res.json({status:err});
+      });   
+    });
+  }      
 };
 
 /**
