@@ -46,7 +46,7 @@ exports.getInfo = function(req, res) {
  */
 
 exports.postNearMe = function(req, res) {
-  if (!req.body.user){
+  if (!req.user){
     console.log("can't");
     return res.json({error:"Not logged in"});
   } 
@@ -73,7 +73,7 @@ exports.postNearMe = function(req, res) {
  */
 
 exports.postByUser = function(req, res) {
-  if (!req.body.user){
+  if (!req.user){
     console.log("can't");
     return res.json({error:"Not logged in"});
   } 
@@ -81,10 +81,9 @@ exports.postByUser = function(req, res) {
     if(!req.body.lng||!req.body.lat||!req.body.distance){
         //todo return errors
     }
-    var _ObjectId = require('mongoose').Types.ObjectId;
-    userQuery = new _ObjectId(req.body.user);
-
-    Event.find({createdBy: userQuery})
+    // var _ObjectId = require('mongoose').Types.ObjectId;
+    // userQuery = new _ObjectId(req.body.user);
+    Event.find({createdBy: req.user})
     .exec(function(err,data) {
         if(err)res.send(err);
         console.log(err);
@@ -113,7 +112,7 @@ exports.postCreate = function(req, res) {
 
     console.log(req.body);
 
-    if (!req.body.user){
+    if (!req.user){
       console.log("can't");
       return res.json({error:"Not logged in"});
     } 
@@ -151,7 +150,7 @@ exports.postCreate = function(req, res) {
  */
 
 exports.postEdit = function(req, res, next) {
-  if (!req.body.user){
+  if (!req.user){
     console.log("can't");
     return res.json({error:"Not logged in"});
   } 
@@ -182,7 +181,7 @@ exports.postEdit = function(req, res, next) {
  */
 
 exports.postDeleteEvent = function(req, res, next) {
-  if (!req.body.user){
+  if (!req.user){
     console.log("can't");
     return res.json({error:"Not logged in"});
   } 
