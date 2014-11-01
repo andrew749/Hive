@@ -27,6 +27,7 @@ var connectAssets = require('connect-assets');
 
 var homeController = require('./controllers/home');
 var userController = require('./controllers/user');
+var eventController = require('./controllers/event');
 var apiController = require('./controllers/api');
 var contactController = require('./controllers/contact');
 
@@ -56,7 +57,7 @@ mongoose.connection.on('error', function() {
  * CSRF whitelist.
  */
 
-var csrfExclude = ['/url1', '/url2'];
+var csrfExclude = ['/event', '/url2'];
 
 /**
  * Express configuration.
@@ -88,7 +89,8 @@ app.use(flash());
 app.use(function(req, res, next) {
   // CSRF protection.
   if (_.contains(csrfExclude, req.path)) return next();
-  csrf(req, res, next);
+  //csrf(req, res, next);
+    next();
 });
 app.use(function(req, res, next) {
   // Make user object available in templates.
@@ -127,6 +129,21 @@ app.post('/account/profile', passportConf.isAuthenticated, userController.postUp
 app.post('/account/password', passportConf.isAuthenticated, userController.postUpdatePassword);
 app.post('/account/delete', passportConf.isAuthenticated, userController.postDeleteAccount);
 app.get('/account/unlink/:provider', passportConf.isAuthenticated, userController.getOauthUnlink);
+
+/**
+ * EVENT RELATED API ENDPOINTS
+ */
+
+//TODO add the auth check
+
+app.get('/event/info/:id', eventController.getInfo);
+
+app.post('/event/nearMe', eventController.postNearMe); //passportConf.isAuthenticated,
+app.post('/event/create', eventController.postCreate); //passportConf.isAuthenticated, 
+
+//app.post('/event/rsvp', passportConf.isAuthenticated, userController.postUpdatePassword);
+//app.post('/event/comment', passportConf.isAuthenticated, userController.postUpdatePassword);
+//app.post('/event/rsvp', passportConf.isAuthenticated, userController.postUpdatePassword);
 
 /**
  * API examples routes.
