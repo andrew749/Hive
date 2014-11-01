@@ -24,7 +24,16 @@ exports.getInfo = function(req, res) {
     .exec(function(err,data) {
         if(err)res.send(err);
         console.log(err);
-        res.json(data);
+        //console.log(data[0].datetime_start);
+        //console.log(new Date(data[0].datetime_start).getTime());
+        var response = data[0];
+        //convert to epoch time
+        response.datetime_start_epoch = new Date(response.datetime_start).getTime();
+        response.datetime_end_epoch = new Date(response.datetime_end).getTime();
+        
+        console.log(response.datetime_start);
+        console.log(response);
+        res.json(response);
     });
 };
 
@@ -62,8 +71,8 @@ exports.postCreate = function(req, res) {
     var errors = req.validationErrors();
 
     if (errors) {
-    req.flash('errors', errors);
-    return res.redirect('/signup');
+    //req.flash();
+    return res.json({'errors': errors});
     }
     console.log(req.body);
     var event = new Event({
@@ -73,7 +82,8 @@ exports.postCreate = function(req, res) {
         },
         datetime: req.body.datetime,
         visibility: req.body.visibility,
-        picture: req.body.pic
+        picture: req.body.pic,
+        createdBy: req.user
     });
 
     /*

@@ -37,8 +37,8 @@ var contactController = require('./controllers/contact');
 
 var secrets = require('./config/secrets');
 var passportConf = require('./config/passport');
-var jwt = require('jwt-simple');
-
+var jwtauth = require('./controllers/jwtverify.js');
+var bodyParser = require('body-parser');
 /**
  * Create Express server.
  */
@@ -143,6 +143,7 @@ app.get('/account/unlink/:provider', passportConf.isAuthenticated, userControlle
  */
 
 //TODO add the auth check
+app.all('/api/*', [bodyParser(), jwtauth]); //the super awesome middleware
 
 app.get('/event/info/:id', eventController.getInfo);
 

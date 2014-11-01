@@ -16,7 +16,8 @@ var eventSchema = new mongoose.Schema({
         },
         coordinates: [Number]
     },
-    datetime: { type: Date, default: Date.now },
+    datetime_start: { type: Date, default: Date.now },
+    datetime_end: { type: Date, default: Date.now },
     visibility: Boolean,
     guests: Array,
     comments: Array,
