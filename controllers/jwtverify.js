@@ -12,7 +12,9 @@ module.exports = function(req, res, next) {
         if (decoded.exp <= Date.now()) {
           return res.json({msg:'Access token has expired'});
         }
-        User.findOne({ _id: decoded.iss }, function(err, user) {
+        var _ObjectId = require('mongoose').Types.ObjectId;
+        query_id =  new _ObjectId(decoded.iss);
+        User.findOne({ _id: query_id }, function(err, user) {
           req.user = user;
         });
       } catch (err) {
