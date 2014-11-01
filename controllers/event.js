@@ -98,7 +98,7 @@ exports.postCreate = function(req, res) {
 exports.postEdit = function(req, res, next) {
   
   Event.findById(req.body.id, function(err, event) {
-    console.log(err);
+    //console.log(err);
     if (err) return next(err);
 
     event.name = req.body.name || event.name;
@@ -113,6 +113,19 @@ exports.postEdit = function(req, res, next) {
       //res.redirect('/event');
       res.json({status:"You da real mvp"});
     });
+  });
+};
+
+/**
+ * POST /event/delete
+ * Delete event.
+ */
+
+exports.postDeleteEvent = function(req, res, next) {
+  Event.remove({ _id: req.body.id }, function(err) {
+    //console.log(err);
+    if (err) return next(err);
+    res.json({ msg: 'Your event has been deleted.' });
   });
 };
 
