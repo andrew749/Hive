@@ -40,8 +40,8 @@ public class CardAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         LayoutInflater inflater= (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view=inflater.inflate(R.layout.maincard,null,false);
-        TextView tv=(TextView)view.findViewById(R.id.nameText);
-        tv.setText(events.get(i).name);
+        //TextView tv=(TextView)view.findViewById(R.id.nameText);
+        //tv.setText(events.get(i).name);
         return view;
     }
 }

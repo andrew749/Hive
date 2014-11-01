@@ -23,4 +23,6 @@ public class LoginActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
       //  Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
     }
+
+
 }
