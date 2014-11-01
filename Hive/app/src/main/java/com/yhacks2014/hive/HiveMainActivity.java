@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.widget.GridLayout;
 import android.widget.GridView;
 
+import com.google.android.gms.maps.SupportMapFragment;
 import com.yhacks2014.hive.fragments.DrawerFragment;
 import com.yhacks2014.hive.fragments.EventListingFragment;
 import com.yhacks2014.hive.fragments.NearbyFragment;
@@ -103,6 +104,9 @@ public class HiveMainActivity extends ActionBarActivity implements EventListingF
                 break;
             case 1:
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container,NearbyFragment.newInstance(null,null)).commit();
+                //set up map
+                NearbyFragment mNearbyFragment = (NearbyFragment) getSupportFragmentManager().findFragmentById(R.id.mapContainer);
+                mNearbyFragment.setUpMap();
                 break;
             case 2:
                 break;

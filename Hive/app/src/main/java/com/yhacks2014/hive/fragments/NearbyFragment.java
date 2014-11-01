@@ -2,6 +2,7 @@ package com.yhacks2014.hive.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -84,12 +86,6 @@ public class NearbyFragment extends Fragment {
                 fragmentTransaction.add(R.id.mapContainer, mMapFragment,"mapfragment");
                 fragmentTransaction.commit();
             }
-
-            mMap = mMapFragment.getMap();
-            // Check if we were successful in obtaining the map.
-            if (mMap != null) {
-                setUpMap();
-            }
         }
         mEventListingFragment = (EventListingFragment) getFragmentManager().findFragmentByTag("listingfragment");
         if (mEventListingFragment == null){
@@ -107,8 +103,22 @@ public class NearbyFragment extends Fragment {
      * <p/>
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
-    private void setUpMap() {
+    public void setUpMap() {
+        mMap = mMapFragment.getMap();
+
+        // Check if we were successful in obtaining the map.
+        if (mMap == null) {
+            return;
+        }
         mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+        mMap.setMyLocationEnabled(true);
+        mMap.setBuildingsEnabled(true);
+        mMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
+            @Override
+            public void onMyLocationChange(Location location) {
+                mMap.animateCamera(CameraUpdateFactory.newLatLng(new LatLng(location.getLatitude(),location.getLongitude())));
+            }
+        });
     }
     /**
      * Use this factory method to create a new instance of
@@ -141,22 +151,18 @@ public class NearbyFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-SupportMapFragment fragment;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v=inflater.inflate(R.layout.fragment_nearby,null, false);
-
-
-        setUpMapIfNeeded();
+        View v=inflater.inflate(R.layout.fragment_nearby,container, false);
         return v;
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.map,fragment).commit();
+        //getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.map,fragment).commit();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -169,7 +175,7 @@ SupportMapFragment fragment;
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        fragment=new SupportMapFragment();
+        //fragment=new SupportMapFragment();
 
         try {
             mListener = (OnFragmentInteractionListener) activity;

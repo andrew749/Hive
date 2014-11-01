@@ -216,18 +216,29 @@ exports.postEdit = function(req, res, next) {
  */
 
 exports.postDeleteEvent = function(req, res, next) {
-  if (!req.user){
+    var decoded = jwt.decode(req.body.access_token, req.app.get('jwtTokenSecret'));
+    if (decoded.exp <= Date.now()) {
+      return res.json({msg:'Access token has expired'});
+    }
+    var _ObjectId = require('mongoose').Types.ObjectId;
+    query_id =  new _ObjectId(decoded.iss);
+    User.findOne({ _id: query_id }, function(err, user) {
+      req.user = user;
+    if (!req.user){
     console.log("can't");
     return res.json({error:"Not logged in"});
-  } 
-  else {
+    } 
+    else {
     Event.remove({ _id: req.body.id }, function(err) {
       //console.log(err);
       if (err) return next(err);
       res.json({ msg: 'Your event has been deleted.' });
     });
-  }
-};
+    }
+    });
+}
+                 
+                
 
 /**
  * POST /event/comment
