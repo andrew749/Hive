@@ -76,37 +76,39 @@ exports.postNearMe = function(req, res) {
  */
 
 exports.postByUser = function(req, res) {
-    console.log(req.body);
-    console.log(req.user);
-    
     var decoded = jwt.decode(req.body.access_token, req.app.get('jwtTokenSecret'));
     console.log(decoded);
     if (decoded.exp <= Date.now()) {
       return res.json({msg:'Access token has expired'});
     }
-    User.findOne({ _id: decoded.iss }, function(err, user) {
-        console.log(req.user);
-      req.user = user;
-    });
-    console.log(req.user);
     
-  if (!req.user){
-    console.log("can't");
-    return res.json({error:"Not logged in"});
-  } 
-  else {
-    if(!req.body.lng||!req.body.lat||!req.body.distance){
-        //todo return errors
+    var _ObjectId = require('mongoose').Types.ObjectId;
+    query_id =  new _ObjectId(decoded.iss);
+    
+    User.findOne({ _id: query_id }, function(err, user) {
+      req.user = user;
+        
+    console.log("req.user : " + req.user);
+    if (!req.user){
+        console.log("can't");
+        return res.json({error:"Not logged in"});
+    } 
+    else {
+        if(!req.body.lng||!req.body.lat||!req.body.distance){
+            //todo return errors
+        }
+        // var _ObjectId = require('mongoose').Types.ObjectId;
+        // userQuery = new _ObjectId(req.body.user);
+        Event.find({createdBy: req.user})
+        .exec(function(err,data) {
+            if(err)res.send(err);
+            //console.log(err);
+            res.json(data);
+        });
     }
-    // var _ObjectId = require('mongoose').Types.ObjectId;
-    // userQuery = new _ObjectId(req.body.user);
-    Event.find({createdBy: req.user})
-    .exec(function(err,data) {
-        if(err)res.send(err);
-        console.log(err);
-        res.json(data);
     });
-  }
+    
+
 };
 
 
