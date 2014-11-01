@@ -97,20 +97,21 @@ exports.postCreate = function(req, res) {
 
 exports.postEdit = function(req, res, next) {
   
-  Event.findById(req.params.id, function(err, event) {
+  Event.findById(req.body.id, function(err, event) {
+    console.log(err);
     if (err) return next(err);
-    event.name = req.body.name || '';
-    event.location = {
-      coordinates: [parseFloat(req.body.lng),parseFloat(req.body.lat)]
-    } || '';
-    event.datetime = req.body.datetime || '';
-    event.visibility = req.body.visibility || '';
-    event.picture = req.body.pic || '';
+
+    event.name = req.body.name || event.name;
+    event.location.coordinates = [ parseFloat(req.body.lng || event.location.lng), parseFloat(req.body.lat || event.location.lat)];
+    event.datetime = req.body.datetime || event.datetime;
+    event.visibility = req.body.visibility || event.visibility;
+    event.picture = req.body.pic || event.picture;
 
     event.save(function(err) {
       if (err) return next(err);
       req.flash('success', { msg: 'Event information updated.' });
-      res.redirect('/event');
+      //res.redirect('/event');
+      res.json({status:"You da real mvp"});
     });
   });
 };
