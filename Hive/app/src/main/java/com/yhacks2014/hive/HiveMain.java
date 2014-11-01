@@ -51,28 +51,29 @@ public class HiveMain extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
-    class getCats extends AsyncTask<Void,Void,Void>{
+    class getCats extends AsyncTask<Void,Void,ArrayList<Event>>{
 HiveCommunicator communicator;
         JSONObject result;
         @Override
-        protected Void doInBackground(Void... voids) {
+        protected ArrayList<Event> doInBackground(Void... voids) {
              communicator=new HiveCommunicator();
             Log.d("result","getting");
             result= communicator.getJSONFromUrl("545470d17fd5470b00393775");
             String[]co={"0.0","0.0"};
             Log.d("creating evenet","ww");
             communicator.createEvent("Andrew",1,2,true,co);
-
+            communicator.deleteEntry("54548fa669b617fc392ba401");
             return null ;
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {
+        protected void onPostExecute(ArrayList<Event> aVoid) {
             super.onPostExecute(aVoid);
             Log.d("Info",result.toString());
             Log.d("Latitude/long",communicator.getCoordinates(result)[0]+","+communicator.getCoordinates(result)[1]);
             Log.d("name",communicator.getName(result));
             Log.d("date",communicator.getTime(result).toString());
+            
         }
     }
 }

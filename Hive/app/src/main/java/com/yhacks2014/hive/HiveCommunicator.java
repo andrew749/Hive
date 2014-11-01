@@ -154,11 +154,11 @@ public class HiveCommunicator {
         else return false;
     }
 
-    public boolean deleteEntry(long id) {
+    public boolean deleteEntry(String id) {
         HttpResponse httpResponse = null;
         try {
             HttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost(URL_CREATE);
+            HttpPost httpPost = new HttpPost(URL_DELETE);
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
             nameValuePairs.add(new BasicNameValuePair("id", id + ""));
             httpResponse = httpClient.execute(httpPost);
