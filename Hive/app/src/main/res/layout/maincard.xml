@@ -15,6 +15,8 @@
         android:textColor="#000"
         android:textAppearance="?android:attr/textAppearanceLarge"
 
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
 
         android:text="Name of Event"
         android:id="@+id/nameText" />
@@ -26,7 +28,6 @@
         android:text="00:00"
         android:id="@+id/textView"
         android:layout_alignParentRight="true"
-        android:layout_alignRight="@id/nameText"
         android:layout_alignParentEnd="true"
         android:textColor="#000"/>
 

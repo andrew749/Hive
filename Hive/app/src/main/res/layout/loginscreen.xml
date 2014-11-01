@@ -105,14 +105,14 @@
             android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="50dp"
-            android:paddingRight="50dp"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
             android:gravity="center_horizontal">
 
             <Button
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
-                android:text="Faceboook"
+                android:text="Facebook"
                 android:id="@+id/facebook"/>
 
             <Button

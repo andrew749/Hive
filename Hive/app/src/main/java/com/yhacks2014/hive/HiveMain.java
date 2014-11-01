@@ -1,6 +1,7 @@
 package com.yhacks2014.hive;
 
 import android.app.Activity;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,17 +16,16 @@ import java.util.ArrayList;
 
 
 public class HiveMain extends Activity {
-
+    ArrayList<Event> events=new ArrayList<Event>();
+    CardAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hive_main);
         ArrayList<Event> events=new ArrayList<Event>();
         //events will be an array of events
-        events.add(new Event(0,0,"Hello",null));
-        events.add(new Event(0,0,"RuoTaiSun",null));
         GridView layout= (GridView) findViewById(R.id.mainlayout);
-        CardAdapter adapter=new CardAdapter(getApplicationContext(), events);
+        adapter=new CardAdapter(getApplicationContext(), events);
         layout.setAdapter(adapter);
         HiveCommunicator communicator=new HiveCommunicator();
         getCats cats=new getCats();
@@ -61,19 +61,21 @@ HiveCommunicator communicator;
             result= communicator.getJSONFromUrl("545470d17fd5470b00393775");
             String[]co={"0.0","0.0"};
             Log.d("creating evenet","ww");
-            communicator.createEvent("Andrew",1,2,true,co);
-            communicator.deleteEntry("54548fa669b617fc392ba401");
+            //communicator.createEvent("Andrew",1,2,true,co);
+            //communicator.deleteEntry("54548fa669b617fc392ba401");
             return null ;
         }
 
         @Override
         protected void onPostExecute(ArrayList<Event> aVoid) {
             super.onPostExecute(aVoid);
-            Log.d("Info",result.toString());
+            Log.d("Info", result.toString());
             Log.d("Latitude/long",communicator.getCoordinates(result)[0]+","+communicator.getCoordinates(result)[1]);
             Log.d("name",communicator.getName(result));
             Log.d("date",communicator.getTime(result).toString());
-            
+            adapter=new CardAdapter(getApplicationContext(),aVoid);
+            adapter.notifyDataSetChanged();
+            Log.d("Done","a");
         }
     }
 }
