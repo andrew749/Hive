@@ -1,6 +1,7 @@
 package com.yhacks2014.hive;
 
 import android.location.Location;
+import android.opengl.Visibility;
 
 /**
  * Created by andrew on 31/10/14.
@@ -17,6 +18,7 @@ public class Event {
     long startTime;
     long endtime;
     Location location;
+
     public Event(long startTime,long endTime, String name, Location location){
         this.name=name;
         this.startTime=startTime;

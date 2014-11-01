@@ -57,7 +57,12 @@ HiveCommunicator communicator;
         @Override
         protected Void doInBackground(Void... voids) {
              communicator=new HiveCommunicator();
+            Log.d("result","getting");
             result= communicator.getJSONFromUrl("545470d17fd5470b00393775");
+            String[]co={"0.0","0.0"};
+            Log.d("creating evenet","ww");
+            communicator.createEvent("Andrew",1,2,true,co);
+
             return null ;
         }
 
