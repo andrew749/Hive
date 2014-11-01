@@ -11,7 +11,7 @@ module.exports = function(req, res, next) {
         var decoded = jwt.decode(token, app.get('jwtTokenSecret'));
 
         if (decoded.exp <= Date.now()) {
-          res.json({msg:'Access token has expired'});
+          return res.json({msg:'Access token has expired'});
         }
         User.findOne({ _id: decoded.iss }, function(err, user) {
           req.user = user;

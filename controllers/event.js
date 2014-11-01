@@ -27,12 +27,14 @@ exports.getInfo = function(req, res) {
         //console.log(data[0].datetime_start);
         //console.log(new Date(data[0].datetime_start).getTime());
         var response = data[0];
+        //var res1 = {};
         //convert to epoch time
-        response.datetime_start_epoch = new Date(response.datetime_start).getTime();
-        response.datetime_end_epoch = new Date(response.datetime_end).getTime();
+        response.datetime_start = new Date(response.datetime_start).getTime();
+        response.datetime_end = new Date(response.datetime_end).getTime();
+        //var target = _.extend(res1, response);
         
-        console.log(response.datetime_start);
-        console.log(response.datetime_start_epoch);
+        //console.log(response.datetime_start);
+        //console.log(response.datetime_start_epoch);
         res.json(response);
     });
 };
@@ -57,6 +59,28 @@ exports.postNearMe = function(req, res) {
         res.json(results);
     });
 };
+
+/**
+ * POST /events/byUser
+ * Finds nearby events
+ * requires location [longitude,latitude] and distance parameters
+ */
+
+exports.postByUser = function(req, res) {
+    if(!req.body.lng||!req.body.lat||!req.body.distance){
+        //todo return errors
+    }
+    var _ObjectId = require('mongoose').Types.ObjectId;
+    userQuery = new _ObjectId(req.body.user);
+
+    Event.find({createdBy: userQuery})
+    .exec(function(err,data) {
+        if(err)res.send(err);
+        console.log(err);
+        res.json(data);
+    });
+};
+
 
 /**
  * POST /event/create
