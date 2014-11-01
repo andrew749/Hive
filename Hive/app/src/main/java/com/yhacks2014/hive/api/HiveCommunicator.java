@@ -271,12 +271,19 @@ token=object.getString("token");
         if (httpResponse != null) return true;
         else return false;
     }
-
+    public String getId(JSONObject response){
+        try {
+            return response.getString("id");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
     public ArrayList<Event> getEvents(JSONArray response) {
         ArrayList<Event> events = new ArrayList<Event>();
         for (int i = 0; i < response.length(); i++) {
             try {
-                events.add(new Event(getTime(response.getJSONObject(i))[0].getTime(), getTime(response.getJSONObject(i))[1].getTime(), getName(response.getJSONObject(i)), getCoordinates(response.getJSONObject(i))));
+                events.add(new Event(getId(response.getJSONObject(i)),getTime(response.getJSONObject(i))[0].getTime(), getTime(response.getJSONObject(i))[1].getTime(), getName(response.getJSONObject(i)), getCoordinates(response.getJSONObject(i))));
             } catch (JSONException e) {
                 e.printStackTrace();
             }

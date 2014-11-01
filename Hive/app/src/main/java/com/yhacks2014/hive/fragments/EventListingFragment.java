@@ -1,6 +1,7 @@
 package com.yhacks2014.hive.fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,10 +10,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
 
 import com.yhacks2014.hive.CardAdapter;
+import com.yhacks2014.hive.DetailActivity;
 import com.yhacks2014.hive.Event;
 import com.yhacks2014.hive.api.HiveCommunicator;
 import com.yhacks2014.hive.R;
@@ -42,7 +45,7 @@ GridView layout;
     private OnFragmentInteractionListener mListener;
     private View v;
     CardAdapter adapter;
-
+    ArrayList<Event> events=new ArrayList<Event>();
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -81,7 +84,7 @@ GridView layout;
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_event_listing, container, false);
         errorText=(TextView)v.findViewById(R.id.errorText);
-        ArrayList<Event> events=new ArrayList<Event>();
+        final ArrayList<Event> events=new ArrayList<Event>();
 
         //events will be an array of events
          layout= (GridView) v.findViewById(R.id.mainlayout);
@@ -90,6 +93,16 @@ GridView layout;
         HiveCommunicator communicator=new HiveCommunicator();
         getCats cats=new getCats();
         cats.execute();
+        layout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent=new Intent(getActivity(),DetailActivity.class);
+                intent.putExtra("data",events);
+                startActivity(intent);
+            }
+        });
         return v;
     }
 
@@ -153,7 +166,7 @@ GridView layout;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<Event> aVoid) {
+        protected void onPostExecute(final ArrayList<Event> aVoid) {
             super.onPostExecute(aVoid);
 
             adapter = new CardAdapter(getActivity(), aVoid);
@@ -161,7 +174,18 @@ GridView layout;
             adapter.notifyDataSetChanged();
             if(aVoid.size()<=0)
                 errorText.setVisibility(View.VISIBLE);
+               errorText.setVisibility(View.VISIBLE);
             Log.d("Done", "a");
+            layout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Intent intent=new Intent(getActivity(),DetailActivity.class);
+                    intent.putExtra("data",aVoid.get(i));
+                    startActivity(intent);
+                }
+            });
         }
     }
 
