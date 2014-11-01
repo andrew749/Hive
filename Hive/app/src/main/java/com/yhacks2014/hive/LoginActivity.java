@@ -6,8 +6,10 @@ import android.annotation.TargetApi;
 
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -16,6 +18,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,6 +32,7 @@ import android.widget.TextView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.SignInButton;
+import com.yhacks2014.hive.api.HiveCommunicator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -115,6 +119,16 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
         mProgressView = findViewById(R.id.login_progress);
         mEmailLoginFormView = findViewById(R.id.email_login_form);
         mSignOutButtons = findViewById(R.id.plus_sign_out_buttons);
+
+        //try to auto login
+        SharedPreferences prefs = this.getSharedPreferences(
+                "Login", Context.MODE_PRIVATE);
+        String token = prefs.getString("Token", "0");
+        if(token!=null){
+            AutoLogin mAuthTask = new AutoLogin(token);
+            mAuthTask.execute((Void) null);
+        }
+
     }
 
     private void populateAutoComplete() {
@@ -330,6 +344,32 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
 
         mEmailView.setAdapter(adapter);
     }
+    public void savePreferences(String token){
+        SharedPreferences prefs = this.getSharedPreferences(
+                "Login", Context.MODE_PRIVATE);
+        prefs.edit().putString("Token", token).apply();
+    }
+    class AutoLogin extends AsyncTask<Void, Void, Boolean> {
+        HiveCommunicator communicator;
+        private final String mToken;
+
+        AutoLogin(String t) {
+            mToken = t;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            HiveCommunicator communicator = new HiveCommunicator();
+            String token = communicator.validateToken(mToken);
+            if(token != null){
+                //valid login
+                savePreferences(token);
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
 
     /**
      * Represents an asynchronous login/registration task used to authenticate
@@ -347,25 +387,15 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
+            HiveCommunicator communicator = new HiveCommunicator();
+            String token = communicator.loginWithCredentials(mEmail, mPassword);
+            if(token != null){
+                //valid login
+                savePreferences(token);
+                return true;
+            }else{
                 return false;
             }
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-
-            // TODO: register the new account here.
-            return true;
         }
 
         @Override

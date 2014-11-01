@@ -119,6 +119,7 @@ app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 
 app.post('/api/login', userController.postApiLogin);
+app.post('/api/validate', userController.postApiLoginValidate);
 
 app.get('/logout', userController.logout);
 app.get('/forgot', userController.getForgot);

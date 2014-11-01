@@ -51,7 +51,39 @@ exports.postLogin = function(req, res, next) {
     });
   })(req, res, next);
 };
+/**
+ * POST /api/validate
+ * Validates token
+ * @param token
+ * @return new token
+ */
 
+exports.postApiLoginValidate = function(req, res, next) {
+    var decoded = jwt.decode(req.body.access_token, req.app.get('jwtTokenSecret'));
+    if (decoded.exp <= Date.now()) {
+      return res.json({msg:'Access token has expired'});
+    }
+    var _ObjectId = require('mongoose').Types.ObjectId;
+    query_id =  new _ObjectId(decoded.iss);
+    User.findOne({ _id: query_id }, function(err, user) {
+          req.user = user;
+        if (!req.user){
+            return res.json({error:"Not logged in"});
+        }else{
+            var expires = moment().add('days', 7).valueOf();
+            var token = jwt.encode({
+              iss: user._id,
+              exp: expires
+            }, req.app.get('jwtTokenSecret'));
+
+            res.json({
+              token : token,
+              expires: expires,
+              user: user.toJSON()
+            });
+        }
+    }
+};
 /**
  * POST /api/login
  * Sign in using email and password, for APIs

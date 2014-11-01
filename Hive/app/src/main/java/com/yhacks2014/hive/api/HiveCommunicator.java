@@ -45,6 +45,7 @@ public class HiveCommunicator {
     String URL_DELETE = "http://hive-events.herokuapp.com/event/delete/";
     String result = "";
     String URL_LOGIN = "http://hive-events.herokuapp.com/api/login/";
+    String URL_VALIDATE = "http://hive-events.herokuapp.com/api/validate/";
     String URL_GETALL = "http://hive-events.herokuapp.com/event/byUser/";
 
     public HiveCommunicator() {
@@ -95,6 +96,7 @@ token=object.getString("token");
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
         return token;
 
     }
@@ -293,5 +295,52 @@ token=object.getString("token");
             }
         }
         return events;
+    }
+
+    public String validateToken(String mToken) {
+        HttpResponse httpResponse = null;
+        HttpEntity httpEntity=null;
+        String json=null;
+        try {
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost(URL_VALIDATE);
+            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+            nameValuePairs.add(new BasicNameValuePair("token", mToken));
+
+            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            httpResponse = httpClient.execute(httpPost);
+            httpEntity = httpResponse.getEntity();
+            is = httpEntity.getContent();
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(
+                    is, "iso-8859-1"), 8);
+            StringBuilder sb = new StringBuilder();
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line + "");
+            }
+            is.close();
+            json = sb.toString();
+        } catch (Exception e) {
+            Log.e("Buffer Error", "Error converting result " + e.toString());
+        }
+        JSONObject object = new JSONObject();
+        String token = null;
+        try {
+            object = new JSONObject(json);
+            token=object.getString("token");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return token;
     }
 }
