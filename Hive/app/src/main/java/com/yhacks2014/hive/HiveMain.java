@@ -1,11 +1,15 @@
 package com.yhacks2014.hive;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.GridLayout;
 import android.widget.GridView;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -17,12 +21,15 @@ public class HiveMain extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hive_main);
         ArrayList<Event> events=new ArrayList<Event>();
+        //events will be an array of events
         events.add(new Event(0,0,"Hello",null));
         events.add(new Event(0,0,"RuoTaiSun",null));
         GridView layout= (GridView) findViewById(R.id.mainlayout);
         CardAdapter adapter=new CardAdapter(getApplicationContext(), events);
         layout.setAdapter(adapter);
-
+        HiveCommunicator communicator=new HiveCommunicator();
+        getCats cats=new getCats();
+        cats.execute();
     }
 
 
@@ -43,5 +50,23 @@ public class HiveMain extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    class getCats extends AsyncTask<Void,Void,Void>{
+HiveCommunicator communicator;
+        JSONObject result;
+        @Override
+        protected Void doInBackground(Void... voids) {
+             communicator=new HiveCommunicator();
+            result= communicator.getJSONFromUrl("545470d17fd5470b00393775");
+            return null ;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Log.d("Info",result.toString());
+            Log.d("Latitude/long",communicator.getCoordinates(result)[0]+","+communicator.getCoordinates(result)[1]);
+
+        }
     }
 }
