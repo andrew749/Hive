@@ -18,6 +18,7 @@ var eventSchema = new mongoose.Schema({
     },
     datetime_start: { type: Date, default: Date.now },
     datetime_end: { type: Date, default: Date.now },
+    description: String,
     visibility: Boolean,
     guests: Array,
     comments: Array,
