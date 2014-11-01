@@ -18,6 +18,7 @@ public class HiveMain extends Activity {
         setContentView(R.layout.activity_hive_main);
         ArrayList<Event> events=new ArrayList<Event>();
         events.add(new Event(0,0,"Hello",null));
+        events.add(new Event(0,0,"RuoTaiSun",null));
         GridView layout= (GridView) findViewById(R.id.mainlayout);
         CardAdapter adapter=new CardAdapter(getApplicationContext(), events);
         layout.setAdapter(adapter);
