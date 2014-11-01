@@ -60,7 +60,8 @@ public class DetailActivity extends ActionBarActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            communicator.deleteEntry(event.id,communicator.loginWithCredentials("me@me.com", "abc123"));
+            String token=communicator.loginWithCredentials("me@me.com", "abc123");
+            communicator.deleteEntry(event.id,token);
 
             return null;
         }

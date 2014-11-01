@@ -256,9 +256,12 @@ token=object.getString("token");
         try {
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(URL_DELETE);
+            httpPost.setHeader("Content-Type",
+                    "application/x-www-form-urlencoded;charset=UTF-8");
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-            nameValuePairs.add(new BasicNameValuePair("id", id + ""));
+            nameValuePairs.add(new BasicNameValuePair("id", id));
             nameValuePairs.add(new BasicNameValuePair("access_token", token));
+
             httpResponse = httpClient.execute(httpPost);
             HttpEntity httpEntity = httpResponse.getEntity();
         } catch (UnsupportedEncodingException e) {
@@ -273,7 +276,8 @@ token=object.getString("token");
     }
     public String getId(JSONObject response){
         try {
-            return response.getString("id");
+            String id=response.getString("_id");
+            return id;
         } catch (JSONException e) {
             e.printStackTrace();
         }
