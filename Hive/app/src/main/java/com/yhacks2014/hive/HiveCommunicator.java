@@ -4,6 +4,7 @@ package com.yhacks2014.hive;
 
 
 import android.location.Location;
+import android.text.format.Time;
 import android.util.Log;
 
 
@@ -29,6 +30,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by andrew on 01/11/14.
@@ -95,4 +101,32 @@ public class HiveCommunicator {
 
         return result;
     }
+    public String getName(JSONObject response){
+        try {
+            return response.getString("name");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public boolean getVisibility(JSONObject response){
+        try {
+            return response.getBoolean("visibility");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public Date getTime(JSONObject response){
+        Date date=new Date();
+        try {
+            date=new SimpleDateFormat("yy-MM-dd HH:mm:ss").parse(response.getString("datetime"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
+
 }

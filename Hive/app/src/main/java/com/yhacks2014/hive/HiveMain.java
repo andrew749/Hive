@@ -66,7 +66,8 @@ HiveCommunicator communicator;
             super.onPostExecute(aVoid);
             Log.d("Info",result.toString());
             Log.d("Latitude/long",communicator.getCoordinates(result)[0]+","+communicator.getCoordinates(result)[1]);
-
+            Log.d("name",communicator.getName(result));
+            Log.d("date",communicator.getTime(result).toString());
         }
     }
 }
