@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import com.yhacks2014.hive.CardAdapter;
 import com.yhacks2014.hive.Event;
@@ -33,14 +34,14 @@ public class EventListingFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+GridView layout;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    TextView errorText;
     private OnFragmentInteractionListener mListener;
     private View v;
-    private CardAdapter adapter;
+    CardAdapter adapter;
 
     /**
      * Use this factory method to create a new instance of
@@ -79,10 +80,11 @@ public class EventListingFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_event_listing, container, false);
-
+        errorText=(TextView)v.findViewById(R.id.errorText);
         ArrayList<Event> events=new ArrayList<Event>();
+
         //events will be an array of events
-        GridView layout= (GridView) v.findViewById(R.id.mainlayout);
+         layout= (GridView) v.findViewById(R.id.mainlayout);
         adapter=new CardAdapter(getActivity(), events);
         layout.setAdapter(adapter);
         HiveCommunicator communicator=new HiveCommunicator();
@@ -130,31 +132,36 @@ public class EventListingFragment extends Fragment {
         public void onFragmentInteraction(Uri uri);
     }
 
-    class getCats extends AsyncTask<Void,Void,ArrayList<Event>> {
+    class getCats extends AsyncTask<Void, Void, ArrayList<Event>> {
         HiveCommunicator communicator;
-        JSONObject result;
+
         @Override
         protected ArrayList<Event> doInBackground(Void... voids) {
-            communicator=new HiveCommunicator();
+            communicator = new HiveCommunicator();
             Log.d("result", "getting");
-            result= communicator.getJSONFromUrl("545470d17fd5470b00393775");
-            String[]co={"0.0","0.0"};
-            Log.d("creating evenet","ww");
+            ArrayList<Event> events1=new ArrayList<Event>();
+            try {
+                events1 = communicator.getEvents(communicator.getAllUserEvents(communicator.loginWithCredentials(communicator.email, communicator.password)));
+                Log.d("creating event", "ww");
+            }catch(NullPointerException e){
+                e.printStackTrace();
+            }
             //communicator.createEvent("Andrew",1,2,true,co);
             //communicator.deleteEntry("54548fa669b617fc392ba401");
-            return null ;
+
+            return events1;
         }
 
         @Override
         protected void onPostExecute(ArrayList<Event> aVoid) {
             super.onPostExecute(aVoid);
-            Log.d("Info", result.toString());
-            Log.d("Latitude/long",communicator.getCoordinates(result)[0]+","+communicator.getCoordinates(result)[1]);
-            Log.d("name",communicator.getName(result));
-            Log.d("date",communicator.getTime(result).toString());
-            adapter=new CardAdapter(getActivity(),aVoid);
+
+            adapter = new CardAdapter(getActivity(), aVoid);
+            layout.setAdapter(adapter);
             adapter.notifyDataSetChanged();
-            Log.d("Done","a");
+            if(aVoid.size()<=0)
+                errorText.setVisibility(View.VISIBLE);
+            Log.d("Done", "a");
         }
     }
 

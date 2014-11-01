@@ -14,6 +14,9 @@
         android:layout_height="wrap_content"
         android:textColor="#000"
         android:textAppearance="?android:attr/textAppearanceLarge"
+
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:text="Name of Event"
         android:id="@+id/nameText" />
 
