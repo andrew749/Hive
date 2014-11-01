@@ -73,6 +73,7 @@ exports.postNearMe = function(req, res) {
  */
 
 exports.postByUser = function(req, res) {
+    console.log(req.body);
   if (!req.user){
     console.log("can't");
     return res.json({error:"Not logged in"});

@@ -1,6 +1,7 @@
 package com.yhacks2014.hive.fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -25,7 +26,6 @@ import com.yhacks2014.hive.R;
  * create an instance of this fragment.
  */
 public class NearbyFragment extends Fragment {
-
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -66,9 +66,8 @@ public class NearbyFragment extends Fragment {
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
             // Try to obtain the map from the SupportMapFragment.
-            FragmentManager myFM = getActivity().getSupportFragmentManager();
-            final SupportMapFragment myMAPF = (SupportMapFragment) myFM
-                    .findFragmentById(R.id.map);
+            final SupportMapFragment myMAPF =  fragment;
+            if(myMAPF!=null)
             mMap = myMAPF.getMap();
             // Check if we were successful in obtaining the map.
             if (mMap != null) {
@@ -111,19 +110,28 @@ public class NearbyFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+SupportMapFragment fragment;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_nearby, container, false);
-        //setUpMapIfNeeded();
+        View v=inflater.inflate(R.layout.fragment_nearby,null, false);
+
+
+        setUpMapIfNeeded();
         return v;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.map,fragment).commit();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -136,6 +144,8 @@ public class NearbyFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        fragment=new SupportMapFragment();
+
         try {
             mListener = (OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
