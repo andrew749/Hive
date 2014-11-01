@@ -47,8 +47,9 @@ var app = express();
 /**
  * Connect to MongoDB.
  */
-
-mongoose.connect(secrets.db);
+var db_url = "mongodb://heroku:1e426eca7e06b2e0da4678e610d6f823@dogen.mongohq.com:10003/app31167768";
+//var db_url = secrets.db;
+mongoose.connect(db_url);
 mongoose.connection.on('error', function() {
   console.error('MongoDB Connection Error. Make sure MongoDB is running.');
 });
@@ -81,7 +82,7 @@ app.use(session({
   resave: true,
   saveUninitialized: true,
   secret: secrets.sessionSecret,
-  store: new MongoStore({ url: secrets.db, auto_reconnect: true })
+  store: new MongoStore({ url: db_url, auto_reconnect: true })
 }));
 app.use(passport.initialize());
 app.use(passport.session());
