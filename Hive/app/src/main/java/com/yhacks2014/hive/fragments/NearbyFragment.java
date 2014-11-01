@@ -6,11 +6,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -40,6 +42,8 @@ public class NearbyFragment extends Fragment {
 
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
+    private SupportMapFragment mMapFragment;
+    private EventListingFragment mEventListingFragment;
 
     @Override
     public void onResume() {
@@ -66,14 +70,35 @@ public class NearbyFragment extends Fragment {
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
             // Try to obtain the map from the SupportMapFragment.
-            final SupportMapFragment myMAPF =  fragment;
-            if(myMAPF!=null)
-            mMap = myMAPF.getMap();
+            mMapFragment = (SupportMapFragment) getFragmentManager().findFragmentByTag("mapfragment");
+            //create the fragment
+            if (mMapFragment == null){
+                GoogleMapOptions options = new GoogleMapOptions();
+                options.mapType(GoogleMap.MAP_TYPE_NORMAL) //TODO OPTIONS
+                        .compassEnabled(true)
+                        .rotateGesturesEnabled(true)
+                        .scrollGesturesEnabled(true)
+                        .tiltGesturesEnabled(true);
+                mMapFragment = SupportMapFragment.newInstance(options);
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.add(R.id.mapContainer, mMapFragment,"mapfragment");
+                fragmentTransaction.commit();
+            }
+
+            mMap = mMapFragment.getMap();
             // Check if we were successful in obtaining the map.
             if (mMap != null) {
                 setUpMap();
             }
         }
+        mEventListingFragment = (EventListingFragment) getFragmentManager().findFragmentByTag("listingfragment");
+        if (mEventListingFragment == null){
+            mEventListingFragment = EventListingFragment.newInstance(null,null);
+            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+            fragmentTransaction.add(R.id.listContainer, mEventListingFragment,"listingfragment");
+            fragmentTransaction.commit();
+        }
+
     }
 
     /**

@@ -153,6 +153,7 @@ app.post('/event/edit', eventController.postEdit);
 app.post('/event/byUser', eventController.postByUser);
 app.post('/event/delete', eventController.postDeleteEvent);
 app.post('/event/comment', eventController.postComment);
+//app.post('/event/delComment', eventController.postDeleteComment);
 
 //app.post('/event/rsvp', passportConf.isAuthenticated, userController.postUpdatePassword);
 //app.post('/event/comment', passportConf.isAuthenticated, userController.postUpdatePassword);
