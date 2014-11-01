@@ -17,13 +17,12 @@ public class Event {
     String name;
     long startTime;
     long endtime;
-    Location location;
-
-    public Event(long startTime,long endTime, String name, Location location){
+    String[] coordinates;
+    public Event(long startTime,long endTime, String name,String[] coordinates){
         this.name=name;
         this.startTime=startTime;
         this.endtime=endTime;
-        this.location=location;
+        this.coordinates=coordinates;
     }
 
 }

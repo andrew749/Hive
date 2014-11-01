@@ -1,13 +1,11 @@
 package com.yhacks2014.hive;
 
 import android.app.Activity;
-import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.GridLayout;
 import android.widget.GridView;
 
 import org.json.JSONObject;
@@ -16,19 +14,20 @@ import java.util.ArrayList;
 
 
 public class HiveMain extends Activity {
-    ArrayList<Event> events=new ArrayList<Event>();
+    ArrayList<Event> events = new ArrayList<Event>();
     CardAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hive_main);
-        ArrayList<Event> events=new ArrayList<Event>();
+        ArrayList<Event> events = new ArrayList<Event>();
         //events will be an array of events
-        GridView layout= (GridView) findViewById(R.id.mainlayout);
-        adapter=new CardAdapter(getApplicationContext(), events);
+        GridView layout = (GridView) findViewById(R.id.mainlayout);
+        adapter = new CardAdapter(getApplicationContext(), events);
         layout.setAdapter(adapter);
-        HiveCommunicator communicator=new HiveCommunicator();
-        getCats cats=new getCats();
+        HiveCommunicator communicator = new HiveCommunicator();
+        getCats cats = new getCats();
         cats.execute();
     }
 
@@ -51,31 +50,36 @@ public class HiveMain extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
-    class getCats extends AsyncTask<Void,Void,ArrayList<Event>>{
-HiveCommunicator communicator;
+
+    class getCats extends AsyncTask<Void, Void, ArrayList<Event>> {
+        HiveCommunicator communicator;
         JSONObject result;
+
         @Override
         protected ArrayList<Event> doInBackground(Void... voids) {
-             communicator=new HiveCommunicator();
-            Log.d("result","getting");
-            result= communicator.getJSONFromUrl("545470d17fd5470b00393775");
-            String[]co={"0.0","0.0"};
-            Log.d("creating evenet","ww");
+            communicator = new HiveCommunicator();
+            Log.d("result", "getting");
+            ArrayList<Event> events1=new ArrayList<Event>();
+            events1=communicator.getEvents(communicator.getJSONFromUrl("id"));
+            String[] co = {"0.0", "0.0"};
+            Log.d("creating event", "ww");
             //communicator.createEvent("Andrew",1,2,true,co);
             //communicator.deleteEntry("54548fa669b617fc392ba401");
-            return null ;
+            //need to return array of event objects
+
+            return events1;
         }
 
         @Override
         protected void onPostExecute(ArrayList<Event> aVoid) {
             super.onPostExecute(aVoid);
             Log.d("Info", result.toString());
-            Log.d("Latitude/long",communicator.getCoordinates(result)[0]+","+communicator.getCoordinates(result)[1]);
-            Log.d("name",communicator.getName(result));
-            Log.d("date",communicator.getTime(result).toString());
-            adapter=new CardAdapter(getApplicationContext(),aVoid);
+            Log.d("Latitude/long", communicator.getCoordinates(result)[0] + "," + communicator.getCoordinates(result)[1]);
+            Log.d("name", communicator.getName(result));
+            Log.d("date", communicator.getTime(result).toString());
+            adapter = new CardAdapter(getApplicationContext(), aVoid);
             adapter.notifyDataSetChanged();
-            Log.d("Done","a");
+            Log.d("Done", "a");
         }
     }
 }

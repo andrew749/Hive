@@ -13,6 +13,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -43,7 +44,7 @@ public class HiveCommunicator {
     public HiveCommunicator() {
     }
 
-    public JSONObject getJSONFromUrl(String id) {
+    public JSONArray getJSONFromUrl(String id) {
         // Making HTTP request
         try {
             // defaultHttpClient
@@ -72,15 +73,13 @@ public class HiveCommunicator {
         } catch (Exception e) {
             Log.e("Buffer Error", "Error converting result " + e.toString());
         }
-
-        // try parse the string to a JSON object
+           JSONArray array=new JSONArray();
         try {
-            jObj = new JSONObject(json);
+             array=new JSONArray(json);
         } catch (JSONException e) {
-            Log.e("JSON Parser", "Error parsing data " + e.toString());
+            e.printStackTrace();
         }
-        // return JSON String
-        return jObj;
+        return array;
     }
 
     //gets the coordinates of the location
@@ -172,5 +171,16 @@ public class HiveCommunicator {
         }
         if (httpResponse != null) return true;
         else return false;
+    }
+    public ArrayList<Event> getEvents(JSONArray response){
+        ArrayList<Event> events=new ArrayList<Event>();
+        for(int i=0;i<response.length();i++){
+            try {
+                events.add(new Event(getTime(response.getJSONObject(i))[0].getTime(),getTime(response.getJSONObject(i))[1].getTime(),getName(response.getJSONObject(i)),getCoordinates(response.getJSONObject(i))));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+       return events;
     }
 }
