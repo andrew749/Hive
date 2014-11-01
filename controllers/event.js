@@ -124,6 +124,7 @@ exports.postCreate = function(req, res) {
           },
           datetime: req.body.datetime,
           visibility: req.body.visibility,
+          description: req.body.description,
           picture: req.body.pic,
           createdBy: req.user
       });
@@ -163,6 +164,7 @@ exports.postEdit = function(req, res, next) {
       event.location.coordinates = [ parseFloat(req.body.lng || event.location.lng), parseFloat(req.body.lat || event.location.lat)];
       event.datetime = req.body.datetime || event.datetime;
       event.visibility = req.body.visibility || event.visibility;
+      event.description = req.body.description || event.description;
       event.picture = req.body.pic || event.picture;
 
       event.save(function(err) {
