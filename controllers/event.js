@@ -29,15 +29,10 @@ exports.getInfo = function(req, res) {
         console.log(err);
         //console.log(data[0].datetime_start);
         //console.log(new Date(data[0].datetime_start).getTime());
-        var response = data[0];
-        //var res1 = {};
+        var response = data[0].toObject();
         //convert to epoch time
-        response.datetime_start = new Date(response.datetime_start).getTime();
-        response.datetime_end = new Date(response.datetime_end).getTime();
-        //var target = _.extend(res1, response);
-        
-        //console.log(response.datetime_start);
-        //console.log(response.datetime_start_epoch);
+        response.datetime_start_unix = new Date(response.datetime_start).getTime();
+        response.datetime_end_unix = new Date(response.datetime_end).getTime();
         res.json(response);
     });
 };
@@ -64,7 +59,18 @@ exports.postNearMe = function(req, res) {
     distanceMultiplier: 6378137 , spherical : true }, function(err, results, stats) {
       if(err)res.send(err);
       console.log(err + " " + results+ " " + stats);
-      res.json(results);
+        var response = results;
+        var resTotal = [];
+        for (index = 0; index < response.length; ++index) {
+            //console.log(a[index]);            
+            //convert to epoch time
+            var reso = response[index].toObject();
+            reso.datetime_start_unix = new Date(reso.datetime_start).getTime();
+            reso.datetime_end_unix = new Date(reso.datetime_end).getTime();
+            resTotal.push(reso);
+        }
+
+        res.json(resTotal);
     });
   }
 };
@@ -76,19 +82,6 @@ exports.postNearMe = function(req, res) {
  */
 
 exports.postByUser = function(req, res) {
-    var decoded = jwt.decode(req.body.access_token, req.app.get('jwtTokenSecret'));
-    console.log(decoded);
-    if (decoded.exp <= Date.now()) {
-      return res.json({msg:'Access token has expired'});
-    }
-    
-    var _ObjectId = require('mongoose').Types.ObjectId;
-    query_id =  new _ObjectId(decoded.iss);
-    
-    User.findOne({ _id: query_id }, function(err, user) {
-      req.user = user;
-        
-    console.log("req.user : " + req.user);
     if (!req.user){
         console.log("can't");
         return res.json({error:"Not logged in"});
@@ -103,12 +96,20 @@ exports.postByUser = function(req, res) {
         .exec(function(err,data) {
             if(err)res.send(err);
             //console.log(err);
-            res.json(data);
+            var response = data;
+            var resTotal = [];
+            for (index = 0; index < response.length; ++index) {
+                //console.log(a[index]);            
+                //convert to epoch time
+                var reso = response[index].toObject();
+                reso.datetime_start_unix = new Date(reso.datetime_start).getTime();
+                reso.datetime_end_unix = new Date(reso.datetime_end).getTime();
+                resTotal.push(reso);
+            }
+        
+            res.json(resTotal);
         });
-    }
-    });
-    
-
+    } 
 };
 
 
