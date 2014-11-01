@@ -69,7 +69,7 @@ public class NearbyFragment extends Fragment {
             FragmentManager myFM = getActivity().getSupportFragmentManager();
             final SupportMapFragment myMAPF = (SupportMapFragment) myFM
                     .findFragmentById(R.id.map);
-//            mMap = myMAPF.getMap();
+            mMap = myMAPF.getMap();
             // Check if we were successful in obtaining the map.
             if (mMap != null) {
                 setUpMap();
@@ -122,7 +122,7 @@ public class NearbyFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_nearby, container, false);
-        setUpMapIfNeeded();
+        //setUpMapIfNeeded();
         return v;
     }
 
