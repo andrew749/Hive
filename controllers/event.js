@@ -46,6 +46,11 @@ exports.getInfo = function(req, res) {
  */
 
 exports.postNearMe = function(req, res) {
+  if (!req.body.user){
+    console.log("can't");
+    return res.json({error:"Not logged in"});
+  } 
+  else {
     if(!req.body.lng||!req.body.lat||!req.body.distance){
         //todo return errors
     }
@@ -53,11 +58,12 @@ exports.postNearMe = function(req, res) {
     var point = {type: 'Point', coordinates: [parseFloat(req.body.lng), parseFloat(req.body.lat)]};
 
     Event.geoNear(point, {maxDistance: req.body.distance/ 6378137,
-  distanceMultiplier: 6378137 , spherical : true }, function(err, results, stats) {
-        if(err)res.send(err);
-        console.log(err + " " + results+ " " + stats);
-        res.json(results);
+    distanceMultiplier: 6378137 , spherical : true }, function(err, results, stats) {
+      if(err)res.send(err);
+      console.log(err + " " + results+ " " + stats);
+      res.json(results);
     });
+  }
 };
 
 /**
@@ -67,6 +73,11 @@ exports.postNearMe = function(req, res) {
  */
 
 exports.postByUser = function(req, res) {
+  if (!req.body.user){
+    console.log("can't");
+    return res.json({error:"Not logged in"});
+  } 
+  else {
     if(!req.body.lng||!req.body.lat||!req.body.distance){
         //todo return errors
     }
@@ -79,6 +90,7 @@ exports.postByUser = function(req, res) {
         console.log(err);
         res.json(data);
     });
+  }
 };
 
 
@@ -92,36 +104,45 @@ exports.postCreate = function(req, res) {
     //req.assert('password', 'Password must be at least 4 characters long').len(4);
     //req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
 
-    var errors = req.validationErrors();
+    // var errors = req.validationErrors();
 
-    if (errors) {
-    //req.flash();
-    return res.json({'errors': errors});
-    }
+    // if (errors) {
+    // //req.flash();
+    // return res.json({'errors': errors});
+    // }
+
     console.log(req.body);
-    var event = new Event({
-        name: req.body.name,
-        location: {
-             coordinates: [parseFloat(req.body.lng),parseFloat(req.body.lat)]
-        },
-        datetime: req.body.datetime,
-        visibility: req.body.visibility,
-        picture: req.body.pic,
-        createdBy: req.user
-    });
 
-    /*
-    User.findOne({ email: req.body.email }, function(err, existingUser) {
-    if (existingUser) {
-      req.flash('errors', { msg: 'Account with that email address already exists.' });
-      return res.redirect('/signup');
-    } */
-    event.save(function(err) {
+    if (!req.body.user){
+      console.log("can't");
+      return res.json({error:"Not logged in"});
+    } 
+    else {
+      var event = new Event({
+          name: req.body.name,
+          location: {
+               coordinates: [parseFloat(req.body.lng),parseFloat(req.body.lat)]
+          },
+          datetime: req.body.datetime,
+          visibility: req.body.visibility,
+          picture: req.body.pic,
+          createdBy: req.user
+      });
+
+      /*
+      User.findOne({ email: req.body.email }, function(err, existingUser) {
+      if (existingUser) {
+        req.flash('errors', { msg: 'Account with that email address already exists.' });
+        return res.redirect('/signup');
+      } */
+
+      event.save(function(err) {
       if (!err)
         res.json({status:'ok'});
-    else
+      else
         res.json({status:err});
-    });
+    });   
+  }  
 };
 
 /**
@@ -130,24 +151,29 @@ exports.postCreate = function(req, res) {
  */
 
 exports.postEdit = function(req, res, next) {
-  
-  Event.findById(req.body.id, function(err, event) {
-    //console.log(err);
-    if (err) return next(err);
-
-    event.name = req.body.name || event.name;
-    event.location.coordinates = [ parseFloat(req.body.lng || event.location.lng), parseFloat(req.body.lat || event.location.lat)];
-    event.datetime = req.body.datetime || event.datetime;
-    event.visibility = req.body.visibility || event.visibility;
-    event.picture = req.body.pic || event.picture;
-
-    event.save(function(err) {
+  if (!req.body.user){
+    console.log("can't");
+    return res.json({error:"Not logged in"});
+  } 
+  else {
+    Event.findById(req.body.id, function(err, event) {
+      //console.log(err);
       if (err) return next(err);
-      req.flash('success', { msg: 'Event information updated.' });
-      //res.redirect('/event');
-      res.json({status:"You da real mvp"});
+
+      event.name = req.body.name || event.name;
+      event.location.coordinates = [ parseFloat(req.body.lng || event.location.lng), parseFloat(req.body.lat || event.location.lat)];
+      event.datetime = req.body.datetime || event.datetime;
+      event.visibility = req.body.visibility || event.visibility;
+      event.picture = req.body.pic || event.picture;
+
+      event.save(function(err) {
+        if (err) return next(err);
+        req.flash('success', { msg: 'Event information updated.' });
+        //res.redirect('/event');
+        res.json({status:"You da real mvp"});
+      });
     });
-  });
+  }
 };
 
 /**
@@ -156,11 +182,17 @@ exports.postEdit = function(req, res, next) {
  */
 
 exports.postDeleteEvent = function(req, res, next) {
-  Event.remove({ _id: req.body.id }, function(err) {
-    //console.log(err);
-    if (err) return next(err);
-    res.json({ msg: 'Your event has been deleted.' });
-  });
+  if (!req.body.user){
+    console.log("can't");
+    return res.json({error:"Not logged in"});
+  } 
+  else {
+    Event.remove({ _id: req.body.id }, function(err) {
+      //console.log(err);
+      if (err) return next(err);
+      res.json({ msg: 'Your event has been deleted.' });
+    });
+  }
 };
 
 /**
