@@ -5,6 +5,9 @@ var nodemailer = require('nodemailer');
 var passport = require('passport');
 var Event = require('../models/Event');
 var secrets = require('../config/secrets');
+var User = require('../models/User');
+var jwt = require('jwt-simple');
+
 /**
  * GET /events/info
  * Sends info about a given event
@@ -46,7 +49,7 @@ exports.getInfo = function(req, res) {
  */
 
 exports.postNearMe = function(req, res) {
-  if (!req.body.user){
+  if (!req.user){
     console.log("can't");
     return res.json({error:"Not logged in"});
   } 
@@ -73,7 +76,21 @@ exports.postNearMe = function(req, res) {
  */
 
 exports.postByUser = function(req, res) {
-  if (!req.body.user){
+    console.log(req.body);
+    console.log(req.user);
+    
+    var decoded = jwt.decode(req.body.access_token, req.app.get('jwtTokenSecret'));
+    console.log(decoded);
+    if (decoded.exp <= Date.now()) {
+      return res.json({msg:'Access token has expired'});
+    }
+    User.findOne({ _id: decoded.iss }, function(err, user) {
+        console.log(req.user);
+      req.user = user;
+    });
+    console.log(req.user);
+    
+  if (!req.user){
     console.log("can't");
     return res.json({error:"Not logged in"});
   } 
@@ -81,10 +98,9 @@ exports.postByUser = function(req, res) {
     if(!req.body.lng||!req.body.lat||!req.body.distance){
         //todo return errors
     }
-    var _ObjectId = require('mongoose').Types.ObjectId;
-    userQuery = new _ObjectId(req.body.user);
-
-    Event.find({createdBy: userQuery})
+    // var _ObjectId = require('mongoose').Types.ObjectId;
+    // userQuery = new _ObjectId(req.body.user);
+    Event.find({createdBy: req.user})
     .exec(function(err,data) {
         if(err)res.send(err);
         console.log(err);
@@ -113,7 +129,7 @@ exports.postCreate = function(req, res) {
 
     console.log(req.body);
 
-    if (!req.body.user){
+    if (!req.user){
       console.log("can't");
       return res.json({error:"Not logged in"});
     } 
@@ -125,6 +141,7 @@ exports.postCreate = function(req, res) {
           },
           datetime: req.body.datetime,
           visibility: req.body.visibility,
+          description: req.body.description,
           picture: req.body.pic,
           createdBy: req.user
       });
@@ -151,19 +168,23 @@ exports.postCreate = function(req, res) {
  */
 
 exports.postEdit = function(req, res, next) {
-  if (!req.body.user){
+  if (!req.user){
     console.log("can't");
     return res.json({error:"Not logged in"});
   } 
   else {
-    Event.findById(req.body.id, function(err, event) {
+    var _ObjectId = require('mongoose').Types.ObjectId;
+    query_id =  new _ObjectId(req.body.id);
+    var query = Event.where({_id: query_id});
+    query.findOne(function(err, event){
       //console.log(err);
       if (err) return next(err);
 
       event.name = req.body.name || event.name;
-      event.location.coordinates = [ parseFloat(req.body.lng || event.location.lng), parseFloat(req.body.lat || event.location.lat)];
+      event.location.coordinates = [ parseFloat(req.body.lng || event.location.coordinates[0]), parseFloat(req.body.lat || event.location.coordinates[1])];
       event.datetime = req.body.datetime || event.datetime;
       event.visibility = req.body.visibility || event.visibility;
+      event.description = req.body.description || event.description;
       event.picture = req.body.pic || event.picture;
 
       event.save(function(err) {
@@ -182,7 +203,7 @@ exports.postEdit = function(req, res, next) {
  */
 
 exports.postDeleteEvent = function(req, res, next) {
-  if (!req.body.user){
+  if (!req.user){
     console.log("can't");
     return res.json({error:"Not logged in"});
   } 
@@ -193,6 +214,37 @@ exports.postDeleteEvent = function(req, res, next) {
       res.json({ msg: 'Your event has been deleted.' });
     });
   }
+};
+
+/**
+ * POST /event/comment
+ * Comment on an event
+ */
+
+exports.postComment = function(req, res) {
+  console.log(req.body);
+
+  if (!req.user){
+    console.log("can't");
+    return res.json({error:"Not logged in"});
+  } 
+  else {
+    var _ObjectId = require('mongoose').Types.ObjectId;
+    query_id =  new _ObjectId(req.body.id);
+    var query = Event.where({_id: query_id});
+    query.findOne(function(err, event){
+      if (err) return next(err);
+
+      event.comments.push({user: req.user.email, comment: req.body.commentMsg, datetime: new Date()});
+
+      event.save(function(err) {
+      if (!err)
+        res.json({status:'ok'});
+      else
+        res.json({status:err});
+      });   
+    });
+  }      
 };
 
 /**

@@ -4,14 +4,21 @@
 
 package com.yhacks2014.hive;
 
-import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.ActionBarActivity;
 
-public class NearbyActivity extends Activity {
+import com.yhacks2014.hive.fragments.NearbyFragment;
+
+public class NearbyActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nearbyactivity);
+        NearbyFragment fragment=new NearbyFragment();
+        FragmentManager manager=getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.map,fragment).commit();
     }
 }
