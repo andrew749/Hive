@@ -256,9 +256,12 @@ token=object.getString("token");
         try {
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(URL_DELETE);
+            httpPost.setHeader("Content-Type",
+                    "application/x-www-form-urlencoded;charset=UTF-8");
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-            nameValuePairs.add(new BasicNameValuePair("id", id + ""));
+            nameValuePairs.add(new BasicNameValuePair("id", id));
             nameValuePairs.add(new BasicNameValuePair("access_token", token));
+
             httpResponse = httpClient.execute(httpPost);
             HttpEntity httpEntity = httpResponse.getEntity();
         } catch (UnsupportedEncodingException e) {
@@ -271,12 +274,20 @@ token=object.getString("token");
         if (httpResponse != null) return true;
         else return false;
     }
-
+    public String getId(JSONObject response){
+        try {
+            String id=response.getString("_id");
+            return id;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
     public ArrayList<Event> getEvents(JSONArray response) {
         ArrayList<Event> events = new ArrayList<Event>();
         for (int i = 0; i < response.length(); i++) {
             try {
-                events.add(new Event(getTime(response.getJSONObject(i))[0].getTime(), getTime(response.getJSONObject(i))[1].getTime(), getName(response.getJSONObject(i)), getCoordinates(response.getJSONObject(i))));
+                events.add(new Event(getId(response.getJSONObject(i)),getTime(response.getJSONObject(i))[0].getTime(), getTime(response.getJSONObject(i))[1].getTime(), getName(response.getJSONObject(i)), getCoordinates(response.getJSONObject(i))));
             } catch (JSONException e) {
                 e.printStackTrace();
             }

@@ -9,7 +9,11 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by andrew on 31/10/14.
@@ -42,6 +46,16 @@ public class CardAdapter extends BaseAdapter {
         view=inflater.inflate(R.layout.maincard,null,false);
         TextView tv=(TextView)view.findViewById(R.id.nameText);
         tv.setText(events.get(i).name);
+        TextView locationtv=(TextView)view.findViewById(R.id.Location);
+        locationtv.setText(events.get(i).coordinates[0]+","+events.get(i).coordinates[1]);
+        TextView timetv=(TextView)view.findViewById(R.id.timetext);
+        DateFormat format=new SimpleDateFormat("MMM dd");
+        Date date= null;
+        date = new Date(events.get(i).startTime);
+
+            timetv.setText(format.format(date));
+
+
         return view;
     }
 }

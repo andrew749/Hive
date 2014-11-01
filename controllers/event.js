@@ -40,20 +40,22 @@ exports.getInfo = function(req, res) {
 /**
  * POST /events/nearMe
  * Finds nearby events
- * requires location [longitude,latitude] and distance parameters
+ * Requires location [longitude,latitude] and distance parameters
  */
 
 exports.postNearMe = function(req, res) {
+  //Ensure user is logged in
   if (!req.user){
     console.log("can't");
     return res.json({error:"Not logged in"});
   } 
   else {
+    //check to see if parameters are all there
     if(!req.body.lng||!req.body.lat||!req.body.distance){
-        //todo return errors
+      console.log("Missing parameters");
     }
-    console.log(req.body);
-    var point = {type: 'Point', coordinates: [parseFloat(req.body.lng), parseFloat(req.body.lat)]};
+    else{
+      var point = {type: 'Point', coordinates: [parseFloat(req.body.lng), parseFloat(req.body.lat)]};
 
     Event.geoNear(point, {maxDistance: req.body.distance/ 6378137,
     distanceMultiplier: 6378137 , spherical : true }, function(err, results, stats) {
@@ -129,28 +131,16 @@ exports.postByUser = function(req, res) {
  */
 
 exports.postCreate = function(req, res) {
-    //req.assert('email', 'Email is not valid').isEmail();
-    //req.assert('password', 'Password must be at least 4 characters long').len(4);
-    //req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
-
-    // var errors = req.validationErrors();
-
-    // if (errors) {
-    // //req.flash();
-    // return res.json({'errors': errors});
-    // }
-
-    console.log(req.body);
-
     if (!req.user){
       console.log("can't");
       return res.json({error:"Not logged in"});
     } 
     else {
+      //creating an event from parameters
       var event = new Event({
           name: req.body.name,
           location: {
-               coordinates: [parseFloat(req.body.lng),parseFloat(req.body.lat)]
+            coordinates: [parseFloat(req.body.lng),parseFloat(req.body.lat)]
           },
           datetime: req.body.datetime,
           visibility: req.body.visibility,
@@ -159,18 +149,11 @@ exports.postCreate = function(req, res) {
           createdBy: req.user
       });
 
-      /*
-      User.findOne({ email: req.body.email }, function(err, existingUser) {
-      if (existingUser) {
-        req.flash('errors', { msg: 'Account with that email address already exists.' });
-        return res.redirect('/signup');
-      } */
-
       event.save(function(err) {
       if (!err)
-        res.json({status:'ok'});
+        res.json({status:'Successfully reated a new event!'});
       else
-        res.json({status:err});
+        res.json({error: err});
     });   
   }  
 };
@@ -180,18 +163,19 @@ exports.postCreate = function(req, res) {
  * Edit event
  */
 
-exports.postEdit = function(req, res, next) {
+exports.postEdit = function(req, res) {
   if (!req.user){
     console.log("can't");
     return res.json({error:"Not logged in"});
   } 
   else {
+    //Find event and replace values with those in parameters
     var _ObjectId = require('mongoose').Types.ObjectId;
     query_id =  new _ObjectId(req.body.id);
     var query = Event.where({_id: query_id});
     query.findOne(function(err, event){
       //console.log(err);
-      if (err) return next(err);
+      if (err) return res.json({error: err});
 
       event.name = req.body.name || event.name;
       event.location.coordinates = [ parseFloat(req.body.lng || event.location.coordinates[0]), parseFloat(req.body.lat || event.location.coordinates[1])];
@@ -201,10 +185,8 @@ exports.postEdit = function(req, res, next) {
       event.picture = req.body.pic || event.picture;
 
       event.save(function(err) {
-        if (err) return next(err);
+        if (err) return res.json({error:err});
         req.flash('success', { msg: 'Event information updated.' });
-        //res.redirect('/event');
-        res.json({status:"You da real mvp"});
       });
     });
   }
@@ -231,7 +213,7 @@ exports.postDeleteEvent = function(req, res, next) {
     else {
     Event.remove({ _id: req.body.id }, function(err) {
       //console.log(err);
-      if (err) return next(err);
+      if (err) return res.json({error:err});
       res.json({ msg: 'Your event has been deleted.' });
     });
     }
@@ -246,30 +228,62 @@ exports.postDeleteEvent = function(req, res, next) {
  */
 
 exports.postComment = function(req, res) {
-  console.log(req.body);
 
   if (!req.user){
     console.log("can't");
     return res.json({error:"Not logged in"});
   } 
   else {
+    //Find event on which you want to comment
     var _ObjectId = require('mongoose').Types.ObjectId;
     query_id =  new _ObjectId(req.body.id);
     var query = Event.where({_id: query_id});
     query.findOne(function(err, event){
       if (err) return next(err);
-
+      //Add a comment with the date/time
       event.comments.push({user: req.user.email, comment: req.body.commentMsg, datetime: new Date()});
 
       event.save(function(err) {
       if (!err)
-        res.json({status:'ok'});
+        res.json({status:'Pushed a comment to the event'});
       else
-        res.json({status:err});
+        res.json({error:err});
       });   
     });
   }      
 };
+
+/**
+ * POST /event/deleteComment
+ * Delete a comment on an event
+ */
+//_.find(event.comments, function(e){
+      //return e.where(
+// exports.postDeleteComment = function(req, res) {
+//   if (!req.user){
+//     console.log("can't");
+//     return res.json({error:"Not logged in"});
+//   } 
+//   else {
+//     var _ObjectId = require('mongoose').Types.ObjectId;
+//     query_id =  new _ObjectId(req.body.id);
+//     var query = Event.where({_id: query_id});
+//     var item = {  
+//     user: req.user.email,
+//     comment: req.body.msg,
+//     datetime: req.body.datetime
+//    };
+//     query.findOne({comment: item},function(err, event){
+
+//       });
+//       for (var i=0; i < event.comments.length; i++){
+//         if (event.comments[i] == item){
+//           array.splice(i,1);
+//         }
+//       }
+//     });
+//   }      
+// };
 
 /**
  * POST /login
