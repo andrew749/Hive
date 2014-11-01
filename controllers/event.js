@@ -32,7 +32,7 @@ exports.getInfo = function(req, res) {
         response.datetime_end_epoch = new Date(response.datetime_end).getTime();
         
         console.log(response.datetime_start);
-        console.log(response);
+        console.log(response.datetime_start_epoch);
         res.json(response);
     });
 };
