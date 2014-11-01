@@ -141,6 +141,7 @@ app.get('/event/info/:id', eventController.getInfo);
 
 app.post('/event/nearMe', eventController.postNearMe); //passportConf.isAuthenticated,
 app.post('/event/create', eventController.postCreate); //passportConf.isAuthenticated, 
+app.post('/event/edit', eventController.postEdit);
 
 //app.post('/event/rsvp', passportConf.isAuthenticated, userController.postUpdatePassword);
 //app.post('/event/comment', passportConf.isAuthenticated, userController.postUpdatePassword);

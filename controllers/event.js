@@ -91,6 +91,31 @@ exports.postCreate = function(req, res) {
 };
 
 /**
+ * POST /event/edit
+ * Edit event
+ */
+
+exports.postEdit = function(req, res, next) {
+  
+  Event.findById(req.params.id, function(err, event) {
+    if (err) return next(err);
+    event.name = req.body.name || '';
+    event.location = {
+      coordinates: [parseFloat(req.body.lng),parseFloat(req.body.lat)]
+    } || '';
+    event.datetime = req.body.datetime || '';
+    event.visibility = req.body.visibility || '';
+    event.picture = req.body.pic || '';
+
+    event.save(function(err) {
+      if (err) return next(err);
+      req.flash('success', { msg: 'Event information updated.' });
+      res.redirect('/event');
+    });
+  });
+};
+
+/**
  * POST /login
  * Sign in using email and password.
  * @param email
