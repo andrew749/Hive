@@ -85,6 +85,7 @@ exports.postByUser = function(req, res) {
       return res.json({msg:'Access token has expired'});
     }
     User.findOne({ _id: decoded.iss }, function(err, user) {
+        console.log(req.user);
       req.user = user;
     });
     console.log(req.user);
