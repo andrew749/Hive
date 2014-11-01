@@ -1,5 +1,5 @@
 // @file jwtverify.js
-//Checks fif the token is valid
+//Checks if the token is valid
  
 var User = require('../models/User');
 var jwt = require('jwt-simple');
@@ -9,7 +9,6 @@ module.exports = function(req, res, next) {
     if (token) {
       try {
         var decoded = jwt.decode(token, app.get('jwtTokenSecret'));
-        console.log(decoded);
         if (decoded.exp <= Date.now()) {
           return res.json({msg:'Access token has expired'});
         }

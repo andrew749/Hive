@@ -5,6 +5,9 @@ var nodemailer = require('nodemailer');
 var passport = require('passport');
 var Event = require('../models/Event');
 var secrets = require('../config/secrets');
+var User = require('../models/User');
+var jwt = require('jwt-simple');
+
 /**
  * GET /events/info
  * Sends info about a given event
@@ -75,6 +78,17 @@ exports.postNearMe = function(req, res) {
 exports.postByUser = function(req, res) {
     console.log(req.body);
     console.log(req.user);
+    
+    var decoded = jwt.decode(req.body.access_token, req.app.get('jwtTokenSecret'));
+    console.log(decoded);
+    if (decoded.exp <= Date.now()) {
+      return res.json({msg:'Access token has expired'});
+    }
+    User.findOne({ _id: decoded.iss }, function(err, user) {
+      req.user = user;
+    });
+    console.log(req.user);
+    
   if (!req.user){
     console.log("can't");
     return res.json({error:"Not logged in"});
