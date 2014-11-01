@@ -24,7 +24,7 @@ exports.getInfo = function(req, res) {
     .exec(function(err,data) {
         if(err)res.send(err);
         console.log(err);
-        res.send(data);
+        res.json(data);
     });
 };
 
@@ -45,7 +45,7 @@ exports.postNearMe = function(req, res) {
   distanceMultiplier: 6378137 , spherical : true }, function(err, results, stats) {
         if(err)res.send(err);
         console.log(err + " " + results+ " " + stats);
-        res.send(results);
+        res.json(results);
     });
 };
 
@@ -84,9 +84,9 @@ exports.postCreate = function(req, res) {
     } */
     event.save(function(err) {
       if (!err)
-        res.send("OK!");
+        res.json({status:'ok'});
     else
-        res.send("You suck! " + err);
+        res.json({status:err});
     });
 };
 

@@ -5,6 +5,8 @@ var nodemailer = require('nodemailer');
 var passport = require('passport');
 var User = require('../models/User');
 var secrets = require('../config/secrets');
+var jwt = require('jwt-simple');
+var moment = require('moment');
 
 /**
  * GET /login
@@ -49,6 +51,98 @@ exports.postLogin = function(req, res, next) {
     });
   })(req, res, next);
 };
+
+/**
+ * POST /api/login
+ * Sign in using email and password, for APIs
+ * @param email
+ * @param password
+ * @return token
+ */
+
+exports.postApiLogin = function(req, res, next) {
+  req.assert('email', 'Email is not valid').isEmail();
+  req.assert('password', 'Password cannot be blank').notEmpty();
+
+  var errors = req.validationErrors();
+
+  if (errors) {
+    //req.flash('errors', errors);
+    return res.json( { msg: errors });
+  }
+
+  passport.authenticate('local', function(err, user, info) {
+    if (err) return next(err);
+    if (!user) {
+      return res.json( { msg: info.message });
+    }
+    req.logIn(user, function(err) {
+        if (err) return next(err);
+        var expires = moment().add('days', 7).valueOf();
+        var token = jwt.encode({
+          iss: user._id,
+          exp: expires
+        }, req.app.get('jwtTokenSecret'));
+
+        res.json({
+          token : token,
+          expires: expires,
+          user: user.toJSON()
+        });
+    });
+  })(req, res, next);
+};
+
+/**
+ * POST /api/signup
+ * Create a new local account for Apis and receive a token.
+ * @param email
+ * @param password
+ */
+
+exports.postApiSignup = function(req, res, next) {
+  req.assert('email', 'Email is not valid').isEmail();
+  req.assert('password', 'Password must be at least 4 characters long').len(4);
+
+  var errors = req.validationErrors();
+
+  if (errors) {
+    res.json({'errors': errors});
+    //return res.redirect('/signup');
+  }
+
+  var user = new User({
+    email: req.body.email,
+    password: req.body.password
+  });
+
+  User.findOne({ email: req.body.email }, function(err, existingUser) {
+    if (existingUser) {
+      return res.json({ msg: 'Account with that email address already exists.' });
+    }
+    user.save(function(err) {
+      if (err) return next(err);
+      req.logIn(user, function(err) {
+        if (err) return next(err);
+    req.logIn(user, function(err) {
+        if (err) return next(err);
+        var expires = moment().add('days', 7).valueOf();
+        var token = jwt.encode({
+          iss: user._id,
+          exp: expires
+        }, req.app.get('jwtTokenSecret'));
+
+        res.json({
+          token : token,
+          expires: expires,
+          user: user.toJSON()
+        });
+    });
+      });
+    });
+  });
+};
+
 
 /**
  * GET /logout

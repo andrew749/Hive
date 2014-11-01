@@ -20,7 +20,8 @@ var eventSchema = new mongoose.Schema({
     visibility: Boolean,
     guests: Array,
     comments: Array,
-    picture: String
+    picture: String,
+    createdBy: {type: mongoose.Schema.ObjectId, ref: 'User'} //TODO
 });
 eventSchema.index({
     location: '2dsphere'

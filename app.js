@@ -37,13 +37,14 @@ var contactController = require('./controllers/contact');
 
 var secrets = require('./config/secrets');
 var passportConf = require('./config/passport');
+var jwt = require('jwt-simple');
 
 /**
  * Create Express server.
  */
 
 var app = express();
-
+app.set('jwtTokenSecret', 'HELLOWORLD');
 /**
  * Connect to MongoDB.
  */
@@ -116,6 +117,9 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
 app.get('/', homeController.index);
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
+
+app.post('/api/login', userController.postApiLogin);
+
 app.get('/logout', userController.logout);
 app.get('/forgot', userController.getForgot);
 app.post('/forgot', userController.postForgot);
@@ -123,6 +127,9 @@ app.get('/reset/:token', userController.getReset);
 app.post('/reset/:token', userController.postReset);
 app.get('/signup', userController.getSignup);
 app.post('/signup', userController.postSignup);
+
+app.post('/api/signup', userController.postApiSignup);
+
 app.get('/contact', contactController.getContact);
 app.post('/contact', contactController.postContact);
 app.get('/account', passportConf.isAuthenticated, userController.getAccount);
