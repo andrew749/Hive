@@ -34,6 +34,7 @@ public class HiveMainActivity extends ActionBarActivity implements EventListingF
     private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
+    private NearbyFragment mNearbyFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,9 +104,12 @@ public class HiveMainActivity extends ActionBarActivity implements EventListingF
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container,EventListingFragment.newInstance(null,null)).commit();
                 break;
             case 1:
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container,NearbyFragment.newInstance(null,null)).commit();
-                //set up map
-                NearbyFragment mNearbyFragment = (NearbyFragment) getSupportFragmentManager().findFragmentById(R.id.mapContainer);
+                mNearbyFragment = (NearbyFragment) getSupportFragmentManager().findFragmentByTag("NearbyFragment");
+                if(mNearbyFragment == null){
+                    //set up map
+                    mNearbyFragment = NearbyFragment.newInstance(null,null);
+                    getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container,mNearbyFragment,"NearbyFragment").commit();
+                }
                 mNearbyFragment.setUpMap();
                 break;
             case 2:
