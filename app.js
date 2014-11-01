@@ -47,7 +47,7 @@ var app = express();
 /**
  * Connect to MongoDB.
  */
-var db_url = "mongodb://heroku:1e426eca7e06b2e0da4678e610d6f823@dogen.mongohq.com:10003/app31167768";
+var db_url = "mongodb://cvpress:cvpress@ds039000.mongolab.com:39000/heroku_app29779563";
 //var db_url = secrets.db;
 mongoose.connect(db_url);
 mongoose.connection.on('error', function() {
