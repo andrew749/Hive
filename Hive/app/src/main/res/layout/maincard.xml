@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:id="@+id/card"
+    android:layout_margin="10dp"
+    android:padding="20dp"
+    android:background="#FFF">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Name of Event"
+        android:id="@+id/nameText" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="00:00"
+        android:id="@+id/textView"
+        android:layout_alignBottom="@+id/nameText"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Location"
+        android:id="@+id/textView2"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/nameText"
+        android:layout_alignStart="@+id/nameText" />
+
+</RelativeLayout>
