@@ -48,7 +48,7 @@ exports.postNearMe = function(req, res) {
   if (!req.user){
     console.log("can't");
     return res.json({error:"Not logged in"});
-  } 
+  }
   else {
     //check to see if parameters are all there
     if(!req.body.lng||!req.body.lat||!req.body.distance){
@@ -64,7 +64,7 @@ exports.postNearMe = function(req, res) {
         var response = results;
         var resTotal = [];
         for (index = 0; index < response.length; ++index) {
-            //console.log(a[index]);            
+            //console.log(a[index]);
             //convert to epoch time
             var reso = response[index].toObject();
             reso.datetime_start_unix = new Date(reso.datetime_start).getTime();
@@ -75,6 +75,7 @@ exports.postNearMe = function(req, res) {
         res.json(resTotal);
     });
   }
+}
 };
 
 /**
@@ -95,7 +96,7 @@ exports.postByUser = function(req, res) {
     if (!req.user){
         console.log("can't");
         return res.json({error:"Not logged in"});
-    } 
+    }
     else {
         if(!req.body.lng||!req.body.lat||!req.body.distance){
             //todo return errors
@@ -109,17 +110,17 @@ exports.postByUser = function(req, res) {
             var response = data;
             var resTotal = [];
             for (index = 0; index < response.length; ++index) {
-                //console.log(a[index]);            
+                //console.log(a[index]);
                 //convert to epoch time
                 var reso = response[index].toObject();
                 reso.datetime_start_unix = new Date(reso.datetime_start).getTime();
                 reso.datetime_end_unix = new Date(reso.datetime_end).getTime();
                 resTotal.push(reso);
             }
-        
+
             res.json(resTotal);
         });
-    } 
+    }
     });
 
 };
@@ -134,7 +135,7 @@ exports.postCreate = function(req, res) {
     if (!req.user){
       console.log("can't");
       return res.json({error:"Not logged in"});
-    } 
+    }
     else {
       //creating an event from parameters
       var event = new Event({
@@ -154,8 +155,8 @@ exports.postCreate = function(req, res) {
         res.json({status:'Successfully reated a new event!'});
       else
         res.json({error: err});
-    });   
-  }  
+    });
+  }
 };
 
 /**
@@ -167,7 +168,7 @@ exports.postEdit = function(req, res) {
   if (!req.user){
     console.log("can't");
     return res.json({error:"Not logged in"});
-  } 
+  }
   else {
     //Find event and replace values with those in parameters
     var _ObjectId = require('mongoose').Types.ObjectId;
@@ -209,7 +210,7 @@ exports.postDeleteEvent = function(req, res, next) {
     if (!req.user){
     console.log("can't");
     return res.json({error:"Not logged in"});
-    } 
+    }
     else {
     Event.remove({ _id: req.body.id }, function(err) {
       //console.log(err);
@@ -219,8 +220,8 @@ exports.postDeleteEvent = function(req, res, next) {
     }
     });
 }
-                 
-                
+
+
 
 /**
  * POST /event/comment
@@ -232,7 +233,7 @@ exports.postComment = function(req, res) {
   if (!req.user){
     console.log("can't");
     return res.json({error:"Not logged in"});
-  } 
+  }
   else {
     //Find event on which you want to comment
     var _ObjectId = require('mongoose').Types.ObjectId;
@@ -248,9 +249,9 @@ exports.postComment = function(req, res) {
         res.json({status:'Pushed a comment to the event'});
       else
         res.json({error:err});
-      });   
+      });
     });
-  }      
+  }
 };
 
 /**
@@ -263,12 +264,12 @@ exports.postComment = function(req, res) {
 //   if (!req.user){
 //     console.log("can't");
 //     return res.json({error:"Not logged in"});
-//   } 
+//   }
 //   else {
 //     var _ObjectId = require('mongoose').Types.ObjectId;
 //     query_id =  new _ObjectId(req.body.id);
 //     var query = Event.where({_id: query_id});
-//     var item = {  
+//     var item = {
 //     user: req.user.email,
 //     comment: req.body.msg,
 //     datetime: req.body.datetime
@@ -282,37 +283,5 @@ exports.postComment = function(req, res) {
 //         }
 //       }
 //     });
-//   }      
+//   }
 // };
-
-/**
- * POST /login
- * Sign in using email and password.
- * @param email
- * @param password
- */
-
-exports.postLogin = function(req, res, next) {
-  req.assert('email', 'Email is not valid').isEmail();
-  req.assert('password', 'Password cannot be blank').notEmpty();
-
-  var errors = req.validationErrors();
-
-  if (errors) {
-    req.flash('errors', errors);
-    return res.redirect('/login');
-  }
-
-  passport.authenticate('local', function(err, user, info) {
-    if (err) return next(err);
-    if (!user) {
-      req.flash('errors', { msg: info.message });
-      return res.redirect('/login');
-    }
-    req.logIn(user, function(err) {
-      if (err) return next(err);
-      req.flash('success', { msg: 'Success! You are logged in.' });
-      res.redirect(req.session.returnTo || '/');
-    });
-  })(req, res, next);
-};

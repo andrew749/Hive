@@ -82,7 +82,7 @@ exports.postApiLoginValidate = function(req, res, next) {
               user: user.toJSON()
             });
         }
-    }
+    });
 };
 /**
  * POST /api/login
