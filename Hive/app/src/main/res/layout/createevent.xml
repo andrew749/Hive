@@ -85,7 +85,8 @@ android:weightSum="1"
             android:layout_weight="0.7"
             android:layout_toEndOf="@+id/textView2"
             android:layout_alignTop="@+id/textView2"
-            android:layout_toRightOf="@+id/textView2" />
+            android:layout_toRightOf="@+id/textView2"
+            android:layout_width="wrap_content" />
     </LinearLayout>
 
     <HorizontalScrollView
@@ -100,17 +101,57 @@ android:weightSum="1"
             android:layout_width="fill_parent"
             android:layout_height="match_parent">
             <Button
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
                 android:background="@drawable/round_button"/>
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:background="@drawable/round_button"/>
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/round_button"/>
+            android:background="@drawable/round_button"
+             />
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_button"/>
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_button"/>
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_button"
+                />
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_button"/>
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_button"/>
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_button"
+                />
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_button"/>
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_button"/>
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_button"
+                />
         </LinearLayout>
         </HorizontalScrollView>
     <LinearLayout
