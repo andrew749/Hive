@@ -79,7 +79,7 @@ exports.postNearMe = function(req, res) {
 
 /**
  * POST /events/byUser
- * Finds nearby events
+ * Finds events that a user RVVP's to
  * requires location [longitude,latitude] and distance parameters
  */
 
@@ -102,7 +102,7 @@ exports.postByUser = function(req, res) {
         }
         // var _ObjectId = require('mongoose').Types.ObjectId;
         // userQuery = new _ObjectId(req.body.user);
-        Event.find({createdBy: req.user})
+        Event.find({guests: req.user})
         .exec(function(err,data) {
             if(err)res.send(err);
             //console.log(err);
@@ -135,7 +135,6 @@ exports.postCreate = function(req, res) {
       console.log("can't");
       //return res.json({error:"Not logged in"});
     }
-    else {
       //creating an event from parameters
       var event = new Event({
           name: req.body.name,
@@ -155,7 +154,6 @@ exports.postCreate = function(req, res) {
       else
         res.json({error: err});
     });
-  }
 };
 
 /**

@@ -383,11 +383,20 @@ public String registerUser(String email, String password){
         }
         return "";
     }
+    public String getDescription(JSONObject response){
+        try {
+            String id=response.getString("description");
+            return id;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
     public ArrayList<Event> getEvents(JSONArray response) {
         ArrayList<Event> events = new ArrayList<Event>();
         for (int i = 0; i < response.length(); i++) {
             try {
-                events.add(new Event(getId(response.getJSONObject(i)),getTime(response.getJSONObject(i))[0].getTime(), getTime(response.getJSONObject(i))[1].getTime(), getName(response.getJSONObject(i)), getCoordinates(response.getJSONObject(i))));
+                events.add(new Event(getId(response.getJSONObject(i)),getTime(response.getJSONObject(i))[0].getTime(), getTime(response.getJSONObject(i))[1].getTime(), getName(response.getJSONObject(i)), getCoordinates(response.getJSONObject(i)),getDescription(response.getJSONObject(i))));
             } catch (JSONException e) {
                 e.printStackTrace();
             }

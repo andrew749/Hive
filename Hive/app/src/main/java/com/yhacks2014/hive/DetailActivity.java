@@ -41,7 +41,9 @@ public class DetailActivity extends ActionBarActivity {
         date2=new Date(event.endtime);
         TextView nameText = (TextView) findViewById(R.id.namePlace);
         TextView duration = (TextView) findViewById(R.id.durationView);
+        TextView description = (TextView) findViewById(R.id.description);
         nameText.setText(event.name);
+        description.setText(event.description);
         duration.setText(format.format(date1) + " - " + format.format(date2));
         LatLng position = new LatLng( Double.parseDouble(event.coordinates[1]),Double.parseDouble(event.coordinates[0]));
         map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
