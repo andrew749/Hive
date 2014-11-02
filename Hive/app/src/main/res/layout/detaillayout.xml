@@ -16,7 +16,10 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:textColor="#000"
-        android:layout_margin="20dp"/>
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="5dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -27,13 +30,44 @@
         android:layout_below="@+id/namePlace"
         android:layout_alignLeft="@+id/namePlace"
         android:layout_alignStart="@+id/namePlace"
-        android:layout_marginBottom="20dip"
+        android:textColor="#000"
+        android:layout_marginBottom="20dp"/>
 
-        android:textColor="#000"/>
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/durationView"
+        android:layout_marginLeft="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:text="@string/description"
+            android:textColor="#000"
+            android:id="@+id/description"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="4dp"
+            android:textColor="#000"
+            android:layout_marginBottom="20dp"
+            android:text="@string/loremipsum"
+            android:layout_toRightOf="@id/description"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/textView" />
+
+        </RelativeLayout>
+
+
     <fragment
         android:layout_width="fill_parent"
         android:layout_height="400dip"
-class="com.google.android.gms.maps.MapFragment"
+        class="com.google.android.gms.maps.MapFragment"
         android:id="@+id/map"
         android:background="#000"
         android:layout_alignParentBottom="true"
@@ -49,9 +83,8 @@ class="com.google.android.gms.maps.MapFragment"
         fab:fab_colorNormal="@color/primary"
         fab:fab_colorPressed="@color/primary_pressed"
         fab:fab_colorRipple="@color/ripple"
-        android:layout_above="@+id/map"
-        android:layout_margin="20dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignBottom="@+id/map"
+        android:layout_alignLeft="@+id/map"
+        android:layout_margin="20dp"/>
 
 </RelativeLayout>
