@@ -267,8 +267,8 @@ token=object.getString("token");
         Date dateStart = new Date();
         Date dateEnd = new Date();
         try {
-            dateStart = new SimpleDateFormat("yy-MM-dd HH:mm:ss").parse(response.getString("datetime_start"));
-            dateEnd = new SimpleDateFormat("yy-MM-dd HH:mm:ss").parse(response.getString("datetime_end"));
+            dateStart = new SimpleDateFormat("yy-MM-dd HH:mm:ss").parse(response.getString("datetime_start_unix"));
+            dateEnd = new SimpleDateFormat("yy-MM-dd HH:mm:ss").parse(response.getString("datetime_end_unix"));
         } catch (ParseException e) {
             e.printStackTrace();
         } catch (JSONException e) {

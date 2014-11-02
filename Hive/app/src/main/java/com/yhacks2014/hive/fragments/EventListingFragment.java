@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 import com.melnykov.fab.FloatingActionButton;
+import com.yhacks2014.hive.AddEventActivity;
 import com.yhacks2014.hive.CardAdapter;
 import com.yhacks2014.hive.DetailActivity;
 import com.yhacks2014.hive.Event;
@@ -103,11 +104,14 @@ GridView layout;
         cats.execute();
 
         FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab);
+        FloatingActionButton fab_prof = (FloatingActionButton) v.findViewById(R.id.fab_prof);
         //fab.attachToListView(layout);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO new event
+                Intent intent = new Intent(getActivity(), AddEventActivity.class);
+                //intent.putExtra("data", events.get(i));
+                startActivity(intent);
             }
         });
 
@@ -228,11 +232,12 @@ GridView layout;
                 errorText.setVisibility(View.VISIBLE);
                errorText.setVisibility(View.VISIBLE);
             Log.d("Done", "a");
-            flingContainer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            // Optionally add an OnItemClickListener
+            flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
                 @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                public void onItemClicked(int itemPosition, Object dataObject) {
                     Intent intent = new Intent(getActivity(), DetailActivity.class);
-                    intent.putExtra("data", events.get(i));
+                    intent.putExtra("data", events.get(itemPosition));
                     startActivity(intent);
                 }
             });
