@@ -49,7 +49,7 @@ public class HiveCommunicator {
     String URL_VALIDATE = "http://hive-events.herokuapp.com/api/validate/";
     String URL_GETALL = "http://hive-events.herokuapp.com/event/byUser/";
     String URL_NEARBY = "http://hive-events.herokuapp.com/event/nearMe/";
-
+    String URL_REGISTER="http://hive-events.herokuapp.com/api/signup";
     public HiveCommunicator() {
     }
 
@@ -102,7 +102,55 @@ token=object.getString("token");
         return token;
 
     }
+public String registerUser(String email, String password){
+    HttpResponse httpResponse = null;
+    HttpEntity httpEntity=null;
+    String json=null;
+    try {
+        HttpClient httpClient = new DefaultHttpClient();
+        HttpPost httpPost = new HttpPost(URL_REGISTER);
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+        nameValuePairs.add(new BasicNameValuePair("email", email));
+        nameValuePairs.add(new BasicNameValuePair("password", password));
 
+
+        httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+        httpResponse = httpClient.execute(httpPost);
+        httpEntity = httpResponse.getEntity();
+        is = httpEntity.getContent();
+
+    } catch (UnsupportedEncodingException e) {
+        e.printStackTrace();
+    } catch (ClientProtocolException e) {
+        e.printStackTrace();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    try {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(
+                is, "iso-8859-1"), 8);
+        StringBuilder sb = new StringBuilder();
+        String line = null;
+        while ((line = reader.readLine()) != null) {
+            sb.append(line + "");
+        }
+        is.close();
+        json = sb.toString();
+    } catch (Exception e) {
+        Log.e("Buffer Error", "Error converting result " + e.toString());
+    }
+    JSONObject object = new JSONObject();
+    String token = null;
+    try {
+        object = new JSONObject(json);
+        token=object.getString("token");
+    } catch (JSONException e) {
+        e.printStackTrace();
+    }
+
+    return token;
+
+}
     public JSONObject getEventInfo(String id) {
         // Making HTTP request
         try {
