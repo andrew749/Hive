@@ -5,81 +5,89 @@
     android:id="@+id/relative"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+<<<<<<< HEAD
+    android:background="@color/primary"
+    tools:context=".HiveMain">
+
+    <com.lorentzos.flingswipe.SwipeFlingAdapterView xmlns:android="http://schemas.android.com/apk/res/android"
+=======
     tools:context=".HiveMain"
     android:id="@+id/relative"
     android:background="@color/loginbackground">
     <com.lorentzos.flingswipe.SwipeFlingAdapterView
         xmlns:android="http://schemas.android.com/apk/res/android"
+>>>>>>> f4f649c2134ac890a49c03c17061cc7de1274429
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/fling"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:max_visible="4"
-        app:min_adapter_stack="1" /> <!--
-    <GridView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:verticalSpacing="10dp"
-        android:id="@+id/mainlayout"></GridView> -->
+        app:min_adapter_stack="1"
+        app:rotation_degrees="16" />
+    <!--
+       <GridView
+           android:layout_width="fill_parent"
+           android:layout_height="fill_parent"
+           android:layout_alignParentTop="true"
+           android:layout_alignParentLeft="true"
+           android:layout_alignParentStart="true"
+           android:layout_alignParentRight="true"
+           android:layout_alignParentEnd="true"
+           android:layout_alignParentBottom="true"
+           android:verticalSpacing="10dp"
+           android:id="@+id/mainlayout"></GridView> -->
     <TextView
         android:id="@+id/errorText"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:text="Looks like there are no events near you."
-        android:visibility="invisible"
-        android:id="@+id/errorText"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentTop="true"
+        android:text="Looks like there are no events near you."
+        android:visibility="invisible" />
+
     <com.melnykov.fab.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:src="@drawable/ic_action_content_add"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
         android:layout_centerHorizontal="true"
         android:layout_gravity="bottom|right"
         android:layout_marginBottom="20dp"
         android:src="@drawable/ic_action_content_add"
         fab:fab_colorNormal="@color/primary"
         fab:fab_colorPressed="@color/primary_pressed"
-        fab:fab_colorRipple="@color/ripple"/>
+        fab:fab_colorRipple="@color/ripple" />
+
     <com.melnykov.fab.FloatingActionButton
         android:id="@+id/fab_prof"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:src="@drawable/ic_action_social_person"
         android:layout_alignTop="@+id/fab_cal"
-        android:layout_toLeftOf="@+id/fab"
-        android:layout_toStartOf="@+id/fab"
+        android:layout_gravity="bottom|right"
         android:layout_marginBottom="20dp"
         android:layout_marginRight="20dp"
-        fab:fab_type="mini"
+        android:layout_toLeftOf="@+id/fab"
+        android:layout_toStartOf="@+id/fab"
+        android:src="@drawable/ic_action_social_person"
         fab:fab_colorNormal="@color/primary"
         fab:fab_colorPressed="@color/primary_pressed"
-        fab:fab_colorRipple="@color/ripple"/>
+        fab:fab_colorRipple="@color/ripple"
+        fab:fab_type="mini" />
+
     <com.melnykov.fab.FloatingActionButton
         android:id="@+id/fab_cal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:src="@drawable/ic_action_notification_event_available"
         android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/fab"
-        android:layout_toEndOf="@+id/fab"
+        android:layout_gravity="bottom|right"
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dp"
-        fab:fab_type="mini"
+        android:layout_toEndOf="@+id/fab"
+        android:layout_toRightOf="@+id/fab"
+        android:src="@drawable/ic_action_notification_event_available"
         fab:fab_colorNormal="@color/primary"
         fab:fab_colorPressed="@color/primary_pressed"
-        fab:fab_colorRipple="@color/ripple"/>
+        fab:fab_colorRipple="@color/ripple"
+        fab:fab_type="mini" />
 </RelativeLayout>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="loginbackground">#908B7F</color>
-    <color name="primary">#5ACBC0</color>
-    <color name="primary_pressed">#77D2C4</color>
-    <color name="ripple">#9ADBC8</color>
-    <color name="toolbar">#908B7F</color>
+    <color name="loginbackground">#ffcc80</color>
+    <color name="primary">#ff5722</color>
+    <color name="primary_pressed">#e64a19</color>
+    <color name="ripple">#ff5722</color>
+    <color name="toolbar">#fb8c00</color>
 </resources>
