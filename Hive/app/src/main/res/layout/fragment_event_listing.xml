@@ -27,14 +27,6 @@
         android:layout_alignParentBottom="true"
         android:verticalSpacing="10dp"
         android:id="@+id/mainlayout"></GridView> -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Looks like there are no events near you."
-        android:visibility="invisible"
-        android:id="@+id/errorText"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
     <com.melnykov.fab.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"

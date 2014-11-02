@@ -121,7 +121,7 @@ GridView layout;
         fab_rsvp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container,new RSVPListingFragment(),"NearbyFragment").commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container,new RSVPListingFragment(),"NearbyFragment").addToBackStack("Back").commit();
             }
         });
 
@@ -221,7 +221,7 @@ GridView layout;
             try {
                 events1 = communicator.getEvents(communicator.getNearEvents(
                         communicator.loginWithCredentials(communicator.email, communicator.password)
-                        , loc, 1000));
+                        , loc, 100000));
                 Log.d("creating event", "ww");
             }catch(NullPointerException e){
                 e.printStackTrace();
@@ -240,9 +240,6 @@ GridView layout;
             adapter = new CardAdapter(getActivity(), events,myLoc);
             flingContainer.setAdapter(adapter);
             adapter.notifyDataSetChanged();
-            if(events.size()<=0)
-                errorText.setVisibility(View.VISIBLE);
-               errorText.setVisibility(View.VISIBLE);
             Log.d("Done", "a");
             // Optionally add an OnItemClickListener
             flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {

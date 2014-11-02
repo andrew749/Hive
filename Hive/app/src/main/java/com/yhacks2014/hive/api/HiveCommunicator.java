@@ -451,7 +451,7 @@ public String registerUser(String email, String password){
         return token;
     }
 
-    public JSONObject postRSVP(String id,String mToken) {
+    public JSONObject postRSVP(String id, String mToken) {
         // Making HTTP request
         try {
             // defaultHttpClient
@@ -461,7 +461,6 @@ public String registerUser(String email, String password){
                     "application/x-www-form-urlencoded;charset=UTF-8");
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
             nameValuePairs.add(new BasicNameValuePair("access_token", mToken));
-            nameValuePairs.add(new BasicNameValuePair("id", id));
             httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             HttpResponse httpResponse = httpClient.execute(httpPost);
             HttpEntity httpEntity = httpResponse.getEntity();
