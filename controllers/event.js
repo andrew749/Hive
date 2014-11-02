@@ -301,8 +301,7 @@ exports.postConfirm = function(req, res) {
     query_id =  new _ObjectId(decoded.iss);
     User.findOne({ _id: query_id }, function(err, user) {
       req.user = user;
-        });
-  if (!req.user){
+          if (!req.user){
     console.log("can't");
     return res.json({error:"Not logged in"});
   }
@@ -323,6 +322,8 @@ exports.postConfirm = function(req, res) {
       });
     });
   }
+        });
+
 };
 
 /**
