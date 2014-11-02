@@ -22,6 +22,7 @@ import com.yhacks2014.hive.AddEventActivity;
 import com.yhacks2014.hive.CardAdapter;
 import com.yhacks2014.hive.DetailActivity;
 import com.yhacks2014.hive.Event;
+import com.yhacks2014.hive.HiveMainActivity;
 import com.yhacks2014.hive.api.HiveCommunicator;
 import com.yhacks2014.hive.R;
 
@@ -225,7 +226,8 @@ GridView layout;
         protected void onPostExecute(final ArrayList<Event> aVoid) {
             super.onPostExecute(aVoid);
 
-            adapter = new CardAdapter(getActivity(), events);
+            Location myLoc = ((HiveMainActivity)getActivity()).getLocation();
+            adapter = new CardAdapter(getActivity(), events,myLoc);
             flingContainer.setAdapter(adapter);
             adapter.notifyDataSetChanged();
             if(events.size()<=0)

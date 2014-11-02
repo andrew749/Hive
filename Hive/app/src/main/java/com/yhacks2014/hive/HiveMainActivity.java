@@ -18,6 +18,9 @@ import android.view.MenuItem;
 import android.widget.GridLayout;
 import android.widget.GridView;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesClient;
+import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.yhacks2014.hive.fragments.DrawerFragment;
 import com.yhacks2014.hive.fragments.EventListingFragment;
@@ -28,13 +31,15 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 
-public class HiveMainActivity extends ActionBarActivity implements EventListingFragment.OnFragmentInteractionListener, DrawerFragment.OnFragmentInteractionListener, NearbyFragment.OnFragmentInteractionListener{
+public class HiveMainActivity extends ActionBarActivity implements GooglePlayServicesClient.ConnectionCallbacks,
+        GooglePlayServicesClient.OnConnectionFailedListener, EventListingFragment.OnFragmentInteractionListener, DrawerFragment.OnFragmentInteractionListener, NearbyFragment.OnFragmentInteractionListener{
     ArrayList<Event> events=new ArrayList<Event>();
     CardAdapter adapter;
     private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
     private NearbyFragment mNearbyFragment;
+    private LocationClient mLocationClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +54,8 @@ public class HiveMainActivity extends ActionBarActivity implements EventListingF
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container,EventListingFragment.newInstance(null,null)).commit();
+
+        mLocationClient = new LocationClient(this, this, this);
     }
 
     @Override
@@ -118,5 +125,44 @@ public class HiveMainActivity extends ActionBarActivity implements EventListingF
         if(mDrawerLayout.isDrawerOpen(Gravity.START|Gravity.LEFT)){
             mDrawerLayout.closeDrawers();
         }
+    }
+
+        /*
+         * Called when the Activity becomes visible.
+         */
+        @Override
+        protected void onStart() {
+            super.onStart();
+            // Connect the client.
+            mLocationClient.connect();
+        }
+
+        /*
+         * Called when the Activity is no longer visible.
+         */
+        @Override
+        protected void onStop() {
+            // Disconnecting the client invalidates it.
+            mLocationClient.disconnect();
+            super.onStop();
+        }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+
+    }
+
+    @Override
+    public void onDisconnected() {
+
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+
+    }
+
+    public Location getLocation(){
+        return mLocationClient.getLastLocation();
     }
 }
