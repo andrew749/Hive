@@ -291,7 +291,9 @@ exports.postComment = function(req, res) {
  */
 
 exports.postConfirm = function(req, res) {
+    console.log(req.body.access_token);
     var decoded = jwt.decode(req.body.access_token, req.app.get('jwtTokenSecret'));
+    console.log(decoded);
     if (decoded.exp <= Date.now()) {
       return res.json({msg:'Access token has expired'});
     }

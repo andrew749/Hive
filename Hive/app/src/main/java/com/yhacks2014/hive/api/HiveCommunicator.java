@@ -448,6 +448,8 @@ public String registerUser(String email, String password){
             // defaultHttpClient
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(URL_CONFIRM);
+            httpPost.setHeader("Content-Type",
+                    "application/x-www-form-urlencoded;charset=UTF-8");
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
             nameValuePairs.add(new BasicNameValuePair("access_token", mToken));
             nameValuePairs.add(new BasicNameValuePair("id", id));
