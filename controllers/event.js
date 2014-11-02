@@ -50,7 +50,6 @@ exports.postNearMe = function(req, res) {
     console.log("can't");
     //return res.json({error:"Not logged in"});
   }
-  else {
     //check to see if parameters are all there
     if(!req.body.lng||!req.body.lat||!req.body.distance){
       console.log("Missing parameters");
@@ -77,7 +76,6 @@ exports.postNearMe = function(req, res) {
        // res.json(results);
     });
   }
-}
 };
 
 /**
