@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.yhacks2014.hive.api.HiveCommunicator;
@@ -19,25 +21,27 @@ import com.yhacks2014.hive.fragments.TimePickerFragment;
  */
 public class AddEventActivity extends ActionBarActivity implements TimePickerFragment.OnFragmentInteractionListener {
     EditText location, name;
-    Spinner time;
+    TextView time;
     Button create,delete;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.createevent);
         location=(EditText)findViewById(R.id.editText3);
-        time=(Spinner)findViewById(R.id.spinner);
+        time=(TextView)findViewById(R.id.textView4);
 
         name=(EditText)findViewById(R.id.eventName);
         create=(Button)findViewById(R.id.button);
         delete=(Button)findViewById(R.id.button2);
         time.setOnClickListener(new View.OnClickListener() {
+
+
             @Override
-            public void onClick(View view) {
-                    FragmentManager fm = getSupportFragmentManager();
-                    TimePickerFragment editNameDialog = new TimePickerFragment();
-                    editNameDialog.show(fm, "fragment_edit_time");
-                }
+            public void onClick( View view) {
+                FragmentManager fm = getSupportFragmentManager();
+                TimePickerFragment editNameDialog = new TimePickerFragment();
+                editNameDialog.show(fm, "fragment_edit_time");
+            }
         });
         create.setOnClickListener(new View.OnClickListener() {
             @Override

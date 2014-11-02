@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -56,7 +57,10 @@ public class CardAdapter extends BaseAdapter {
         loc.setLongitude(Double.valueOf(events.get(i).coordinates[0]));
 
         TextView locationtv=(TextView)view.findViewById(R.id.Location);
-        locationtv.setText(myLoc.distanceTo(loc) + " " + myLoc.bearingTo(loc));
+        double distance = myLoc.distanceTo(loc)/1000;
+        DecimalFormat df = new DecimalFormat("#.##");
+
+        locationtv.setText(df.format(distance) + " km away");
         //locationtv.setText(events.get(i).coordinates[0]+","+events.get(i).coordinates[1]);
         TextView timetv=(TextView)view.findViewById(R.id.timetext);
         DateFormat format=new SimpleDateFormat("MMM dd HH:MM");
