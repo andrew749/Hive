@@ -52,7 +52,7 @@ public class HiveMainActivity extends ActionBarActivity implements GooglePlaySer
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = new MenuInflater(this);
-        //inflater.inflate(R.menu.hive_main,menu);
+        inflater.inflate(R.menu.hive_main,menu);
         return true;
     }
 

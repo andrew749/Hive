@@ -1,8 +1,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".HiveMain" >
     <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
+        android:title="Refresh"
         android:orderInCategory="100"
-        android:showAsAction="never" />
+        android:icon="@drawable/ic_action_refresh"
+        app:showAsAction="always"
+        />
 </menu>

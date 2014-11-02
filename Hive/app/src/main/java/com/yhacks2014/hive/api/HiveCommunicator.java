@@ -317,6 +317,7 @@ public String registerUser(String email, String password){
         Date dateEnd = new Date();
         try {
             dateStart = new SimpleDateFormat("yy-MM-dd HH:mm:ss").parse(response.getString("datetime_start_unix"));
+
             dateEnd = new SimpleDateFormat("yy-MM-dd HH:mm:ss").parse(response.getString("datetime_end_unix"));
         } catch (ParseException e) {
             e.printStackTrace();
@@ -327,7 +328,7 @@ public String registerUser(String email, String password){
         return time;
     }
 
-    public boolean createEvent(String name, long start, long end, boolean visibility, String[] coordinates, String token) {
+    public JSONObject createEvent(String name, long start, long end, boolean visibility, String[] coordinates, String token) {
         HttpResponse httpResponse = null;
         try {
             HttpClient httpClient = new DefaultHttpClient();
@@ -337,9 +338,13 @@ public String registerUser(String email, String password){
             nameValuePairs.add(new BasicNameValuePair("datetime_start", start + ""));
             nameValuePairs.add(new BasicNameValuePair("datetime_end", end + ""));
             nameValuePairs.add(new BasicNameValuePair("access_token", token));
+            nameValuePairs.add(new BasicNameValuePair("lat", "41.2518650"));
+            nameValuePairs.add(new BasicNameValuePair("lng", "-72.9965810"));
+
             httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             httpResponse = httpClient.execute(httpPost);
             HttpEntity httpEntity = httpResponse.getEntity();
+            is = httpEntity.getContent();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (ClientProtocolException e) {
@@ -347,8 +352,26 @@ public String registerUser(String email, String password){
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (httpResponse != null) return true;
-        else return false;
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(
+                    is, "iso-8859-1"), 8);
+            StringBuilder sb = new StringBuilder();
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line + "");
+            }
+            is.close();
+            json = sb.toString();
+        } catch (Exception e) {
+            Log.e("Buffer Error", "Error converting result " + e.toString());
+        }
+        JSONObject array = new JSONObject();
+        try {
+            array = new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return array;
     }
 
     public boolean deleteEntry(String id, String token) {

@@ -51,9 +51,9 @@ dateend=new Date();
         finishtime.setOnClickListener(this);
         finishdate.setOnClickListener(this);
         final Calendar calendar = Calendar.getInstance();
-        DatePickerDialog datePickerDialog = new DatePickerDialog();
+        datePickerDialog = new DatePickerDialog();
         datePickerDialog=DatePickerDialog.newInstance(null, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
-         com.sleepbot.datetimepicker.time.TimePickerDialog timePickerDialog = com.sleepbot.datetimepicker.time.TimePickerDialog.newInstance(null, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false, true);
+         timePickerDialog = com.sleepbot.datetimepicker.time.TimePickerDialog.newInstance(null, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false, true);
 
         create.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +61,12 @@ dateend=new Date();
                 createEvent();
             }
         });
-
+    delete.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            finish();
+        }
+    });
 
 
     }
@@ -74,7 +79,8 @@ dateend=new Date();
                     public void onDateSet(DatePickerDialog datePickerDialog, int i, int i2, int i3) {
                         datestart.setDate(i3);
                         datestart.setMonth(i2);
-                        datestart.setYear(i);startdate.setText(datestart.toLocaleString());
+                        datestart.setYear(i);
+                        startdate.setText(datestart.toLocaleString());
 
                     }
                 });
@@ -87,6 +93,9 @@ dateend=new Date();
                     public void onTimeSet(RadialPickerLayout radialPickerLayout, int i, int i2) {
                         datestart.setHours(i);
                         datestart.setMinutes(i2);
+                        starttime.setVisibility(View.INVISIBLE);
+                        startdate.setText(datestart.toLocaleString());
+
                     }
                 });
                 timePickerDialog.show(getSupportFragmentManager(),TIMEPICKER_TAG);
@@ -100,10 +109,20 @@ dateend=new Date();
                         dateend.setYear(i);
                         dateend.setMonth(i2);
                         dateend.setDate(i3);
+                        finishdate.setText(dateend.toLocaleString());
                     }
                 });
                 break;
             case R.id.finishtime:
+                timePickerDialog.setOnTimeSetListener(new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(RadialPickerLayout radialPickerLayout, int i, int i2) {
+                        dateend.setHours(i);
+                        dateend.setMinutes(i2);
+                        finishtime.setVisibility(View.INVISIBLE);
+                        finishdate.setText(dateend.toLocaleString());
+                    }
+                });
                 timePickerDialog.show(getSupportFragmentManager(),TIMEPICKEREND);
                 break;
         }
@@ -119,7 +138,7 @@ class createEventTask extends AsyncTask<Void,Void,Void>{
     @Override
     protected Void doInBackground(Void... voids) {
         HiveCommunicator communicator=new HiveCommunicator();
-        String[] coordinates={};
+        String[] coordinates={"-72","41"};
         communicator.createEvent(name.getText().toString(), datestart.getTime(),dateend.getTime(),true,coordinates ,communicator.loginWithCredentials("me@me.com","abc123"));
         return null;
     }

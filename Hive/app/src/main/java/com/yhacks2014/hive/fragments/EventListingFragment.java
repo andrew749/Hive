@@ -240,9 +240,10 @@ GridView layout;
         @Override
         protected void onPostExecute(final ArrayList<Event> aVoid) {
             super.onPostExecute(aVoid);
-
-            Location myLoc = ((HiveMainActivity)getActivity()).getLocation();
-            adapter = new CardAdapter(getActivity(), events,myLoc);
+try {
+    Location myLoc = ((HiveMainActivity) getActivity()).getLocation();
+    adapter = new CardAdapter(getActivity(), events, myLoc);
+}catch (Exception e){e.printStackTrace();}
             flingContainer.setAdapter(adapter);
             adapter.notifyDataSetChanged();
             if(events.size()<=0)
