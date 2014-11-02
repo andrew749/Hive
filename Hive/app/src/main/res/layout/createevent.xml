@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:gravity="center|center_horizontal">
 
 
 
@@ -11,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="What would you like to create?"
+        android:text="What would you like to do?"
         android:id="@+id/textView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
@@ -79,6 +80,7 @@ android:weightSum="1"
 
         <EditText
             android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:inputType="time"
             android:ems="10"
             android:id="@+id/time"
@@ -95,7 +97,8 @@ android:weightSum="1"
         android:layout_below="@+id/linearLayout2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/horizontalScrollView">
+        android:id="@+id/horizontalScrollView"
+        android:visibility="invisible">
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="match_parent">

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HiveMain"
-    android:id="@+id/relative">
+    android:id="@+id/relative"
+    android:background="@color/primary">
     <com.lorentzos.flingswipe.SwipeFlingAdapterView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -43,5 +44,38 @@
         android:src="@drawable/ic_action_content_add"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="20dp"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        fab:fab_colorNormal="@color/primary"
+        fab:fab_colorPressed="@color/primary_pressed"
+        fab:fab_colorRipple="@color/ripple"/>
+    <com.melnykov.fab.FloatingActionButton
+        android:id="@+id/fab_prof"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:src="@drawable/ic_action_social_person"
+        android:layout_alignTop="@+id/fab_cal"
+        android:layout_toLeftOf="@+id/fab"
+        android:layout_toStartOf="@+id/fab"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
+        fab:fab_type="mini"
+        fab:fab_colorNormal="@color/primary"
+        fab:fab_colorPressed="@color/primary_pressed"
+        fab:fab_colorRipple="@color/ripple"/>
+    <com.melnykov.fab.FloatingActionButton
+        android:id="@+id/fab_cal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:src="@drawable/ic_action_notification_event_available"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/fab"
+        android:layout_toEndOf="@+id/fab"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        fab:fab_type="mini"
+        fab:fab_colorNormal="@color/primary"
+        fab:fab_colorPressed="@color/primary_pressed"
+        fab:fab_colorRipple="@color/ripple"/>
 </RelativeLayout>
