@@ -52,15 +52,17 @@ public class CardAdapter extends BaseAdapter {
         tv.setText(events.get(i).name);
 
         //Location
-        Location loc = new Location("dummyprovider");
-        loc.setLatitude(Double.valueOf(events.get(i).coordinates[1]));
-        loc.setLongitude(Double.valueOf(events.get(i).coordinates[0]));
-
+        try {
+            Location loc = new Location("dummyprovider");
+            loc.setLatitude(Double.valueOf(events.get(i).coordinates[1]));
+            loc.setLongitude(Double.valueOf(events.get(i).coordinates[0]));
         TextView locationtv=(TextView)view.findViewById(R.id.Location);
         double distance = myLoc.distanceTo(loc)/1000;
         DecimalFormat df = new DecimalFormat("#.##");
 
         locationtv.setText(df.format(distance) + " km away");
+        }catch (Exception e){}
+
         //locationtv.setText(events.get(i).coordinates[0]+","+events.get(i).coordinates[1]);
         TextView timetv=(TextView)view.findViewById(R.id.timetext);
         DateFormat format=new SimpleDateFormat("MMM dd HH:MM");
