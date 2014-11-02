@@ -284,3 +284,65 @@ exports.postComment = function(req, res) {
 //     });
 //   }
 // };
+
+/**
+ * POST /event/confirm
+ * Confirm event attendance
+ */
+
+exports.postConfirm = function(req, res) {
+  if (!req.user){
+    console.log("can't");
+    //return res.json({error:"Not logged in"});
+  }
+  else {
+    //Find event and replace values with those in parameters
+    var _ObjectId = require('mongoose').Types.ObjectId;
+    query_id =  new _ObjectId(req.body.id);
+    var query = Event.where({_id: query_id});
+    query.findOne(function(err, event){
+      //console.log(err);
+      if (err) return res.json({error: err});
+
+      event.guests.push(req.user);
+
+      event.save(function(err) {
+        if (err) return res.json({error:err});
+        req.flash('success', { msg: 'Confirmed event attendance.' });
+      });
+    });
+  }
+};
+
+/**
+ * POST /event/decline
+ * Decline event attendance
+ */
+
+exports.postDecline = function(req, res) {
+  if (!req.user){
+    console.log("can't");
+    //return res.json({error:"Not logged in"});
+  }
+  else {
+    //Find event and replace values with those in parameters
+    var _ObjectId = require('mongoose').Types.ObjectId;
+    query_id =  new _ObjectId(req.body.id);
+    var query = Event.where({_id: query_id});
+    query.findOne(function(err, event){
+      //console.log(err);
+      if (err) return res.json({error: err});
+
+      for (var i=0; i < event.guests.length; i++){
+        if (event.guests[i] == req.user){
+          event.guests.splice(i,1);
+        }
+      }
+
+      event.save(function(err) {
+        if (err) return res.json({error:err});
+        req.flash('success', { msg: 'Declined event invitation.' });
+      });
+    });
+  }
+};

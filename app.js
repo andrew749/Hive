@@ -154,6 +154,8 @@ app.post('/event/edit', eventController.postEdit);
 app.post('/event/byUser', eventController.postByUser);
 app.post('/event/delete', eventController.postDeleteEvent);
 app.post('/event/comment', eventController.postComment);
+app.post('/event/confirm', eventController.postConfirm);
+app.post('/event/decline', eventController.postDecline);
 //app.post('/event/delComment', eventController.postDeleteComment);
 
 //app.post('/event/rsvp', passportConf.isAuthenticated, userController.postUpdatePassword);
