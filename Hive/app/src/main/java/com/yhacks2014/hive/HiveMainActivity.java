@@ -1,44 +1,36 @@
 package com.yhacks2014.hive;
 
-import android.app.Activity;
 import android.content.res.Configuration;
 import android.location.Location;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.GridLayout;
-import android.widget.GridView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.location.LocationClient;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.yhacks2014.hive.fragments.DrawerFragment;
 import com.yhacks2014.hive.fragments.EventListingFragment;
-import com.yhacks2014.hive.fragments.NearbyFragment;
-
-import org.json.JSONObject;
+import com.yhacks2014.hive.fragments.RSVPFragment;
 
 import java.util.ArrayList;
 
 
 public class HiveMainActivity extends ActionBarActivity implements GooglePlayServicesClient.ConnectionCallbacks,
-        GooglePlayServicesClient.OnConnectionFailedListener, EventListingFragment.OnFragmentInteractionListener, DrawerFragment.OnFragmentInteractionListener, NearbyFragment.OnFragmentInteractionListener{
+        GooglePlayServicesClient.OnConnectionFailedListener, EventListingFragment.OnFragmentInteractionListener, DrawerFragment.OnFragmentInteractionListener, RSVPFragment.OnFragmentInteractionListener{
     ArrayList<Event> events=new ArrayList<Event>();
     CardAdapter adapter;
     private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
-    private NearbyFragment mNearbyFragment;
+    private RSVPFragment mNearbyFragment;
     private LocationClient mLocationClient;
 
     @Override
@@ -111,10 +103,10 @@ public class HiveMainActivity extends ActionBarActivity implements GooglePlaySer
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container,EventListingFragment.newInstance(null,null)).commit();
                 break;
             case 1:
-                mNearbyFragment = (NearbyFragment) getSupportFragmentManager().findFragmentByTag("NearbyFragment");
+                mNearbyFragment = (RSVPFragment) getSupportFragmentManager().findFragmentByTag("NearbyFragment");
                 if(mNearbyFragment == null){
                     //set up map
-                    mNearbyFragment = NearbyFragment.newInstance(null,null);
+                    mNearbyFragment = RSVPFragment.newInstance(null, null);
                    // getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container,mNearbyFragment,"NearbyFragment").commit();
                 }
                 break;
@@ -163,6 +155,8 @@ public class HiveMainActivity extends ActionBarActivity implements GooglePlaySer
     }
 
     public Location getLocation(){
+        if(mLocationClient.isConnected())
         return mLocationClient.getLastLocation();
+        else return null;
     }
 }

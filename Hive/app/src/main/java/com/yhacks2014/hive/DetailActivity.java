@@ -41,7 +41,9 @@ public class DetailActivity extends ActionBarActivity {
         date2=new Date(event.endtime);
         TextView nameText = (TextView) findViewById(R.id.namePlace);
         TextView duration = (TextView) findViewById(R.id.durationView);
+        TextView description = (TextView) findViewById(R.id.description);
         nameText.setText(event.name);
+        description.setText(event.description);
         duration.setText(format.format(date1) + " - " + format.format(date2));
         LatLng position = new LatLng( Double.parseDouble(event.coordinates[1]),Double.parseDouble(event.coordinates[0]));
         map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
@@ -59,17 +61,17 @@ public class DetailActivity extends ActionBarActivity {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            deleteEntry e=new deleteEntry();
+                RSVPTask e=new RSVPTask();
                 e.execute();
             }
         });
     }
-    class deleteEntry extends AsyncTask<Void,Void,Void>{
+    class RSVPTask extends AsyncTask<Void,Void,Void>{
 
         @Override
         protected Void doInBackground(Void... voids) {
             String token=communicator.loginWithCredentials("me@me.com", "abc123");
-            communicator.deleteEntry(event.id,token);
+            communicator.postRSVP(event.id,token);
 
             return null;
         }

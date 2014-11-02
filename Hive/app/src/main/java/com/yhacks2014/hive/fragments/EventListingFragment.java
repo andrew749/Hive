@@ -130,7 +130,7 @@ GridView layout;
                 Log.d("LIST", "removed object!");
                 if(events.size() == 0){
                     String[] arrr = {"0","0"};
-                    events.add(new Event("No More Events To Show!",0,0,null,arrr));
+                    //events.add(new Event("No More Events To Show!",0,0,null,arrr));
                 }else{
                     events.remove(0);
                 }
