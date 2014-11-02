@@ -45,6 +45,7 @@ public class HiveMainActivity extends ActionBarActivity implements EventListingF
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerToggle= new ActionBarDrawerToggle(this, mDrawerLayout,mToolbar, R.string.app_name, R.string.app_name);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container,EventListingFragment.newInstance(null,null)).commit();
     }
