@@ -22,9 +22,23 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 <<<<<<< HEAD
-    compile 'com.google.code.gson:gson:1.7.2'
+
+    compile 'com.google.code.gson:gson:+'
+    compile 'com.google.android.gms:play-services:6.1.71'
+    compile 'com.android.support:appcompat-v7:21.0.0'
+    compile 'com.android.support:support-v4:21.0.0'
+    compile 'com.melnykov:floatingactionbutton:1.0.6'
+    compile project(":libfling")
+    compile 'com.github.flavienlaurent.datetimepicker:library:+'
 =======
-    compile files('/home/andrew/Programming/Hive/Hive/libs/gson-2.2.4.jar')
-    compile 'com.google.android.gms:play-services:5.2.08'
->>>>>>> fcfddce5e07fdbc4711df5bb27735aa3800270f6
+    compile 'com.google.android.gms:play-services:6.1.11'
+    compile 'com.android.support:appcompat-v7:21.0.0'
+    compile 'com.android.support:support-v4:21.0.0'
+    compile 'com.melnykov:floatingactionbutton:1.0.6'
+    compile 'com.lorentzos.swipecards:library:1.0.+@aar'
+    compile 'com.android.support:support-v13:21.0.0'
+
+>>>>>>> 4455c8bae7e53156f7da62e7871d193118f56b22
 }
+
+

@@ -474,7 +474,7 @@ public String registerUser(String email, String password){
         return token;
     }
 
-    public JSONObject postRSVP(String id,String mToken) {
+    public JSONObject postRSVP(String id, String mToken) {
         // Making HTTP request
         try {
             // defaultHttpClient

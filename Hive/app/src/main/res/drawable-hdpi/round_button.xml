@@ -3,9 +3,9 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="oval">
     <solid android:color="#EEEEEE" />
-    <corners android:bottomRightRadius="@dimen/buttonradius"
-        android:bottomLeftRadius="@dimen/buttonradius"
-        android:topRightRadius="@dimen/buttonradius"
-        android:topLeftRadius="@dimen/buttonradius"/>
+    <corners android:bottomRightRadius="@dimen/buttonborderradius"
+        android:bottomLeftRadius="@dimen/buttonborderradius"
+        android:topRightRadius="@dimen/buttonborderradius"
+        android:topLeftRadius="@dimen/buttonborderradius"/>
     <size android:height="32dip" android:width="32dip"/>
 </shape>

@@ -94,17 +94,15 @@ GridView layout;
         getCats cats=new getCats();
         cats.execute();
 
-        /* FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab);
-        FloatingActionButton fab_prof = (FloatingActionButton) v.findViewById(R.id.fab_prof);
-        //fab.attachToListView(layout);
+        FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab_back);
+        //FloatingActionButton fab_prof = (FloatingActionButton) v.findViewById(R.id.fab_prof);
+        fab.attachToListView(layout);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AddEventActivity.class);
-                //intent.putExtra("data", events.get(i));
-                startActivity(intent);
+                getActivity().getSupportFragmentManager().popBackStack();
             }
-        }); */
+        });
 
         return v;
     }
@@ -160,9 +158,9 @@ GridView layout;
             loc.setLongitude(-72.922343);
             loc.setLatitude(41.316324);
             try {
-                events1 = communicator.getEvents(communicator.getNearEvents(
+                events1 = communicator.getEvents(communicator.getAllUserEvents(
                         communicator.loginWithCredentials(communicator.email, communicator.password)
-                        , loc, 1000));
+                        ));
                 Log.d("creating event", "ww");
             }catch(NullPointerException e){
                 e.printStackTrace();
@@ -182,9 +180,6 @@ GridView layout;
             adapter = new CardAdapter(getActivity(), events,myLoc);
             layout.setAdapter(adapter);
             adapter.notifyDataSetChanged();
-            if(events.size()<=0)
-                errorText.setVisibility(View.VISIBLE);
-               errorText.setVisibility(View.VISIBLE);
             Log.d("Done", "a");
             // Optionally add an OnItemClickListener
             layout.setOnItemClickListener(new GridView.OnItemClickListener() {

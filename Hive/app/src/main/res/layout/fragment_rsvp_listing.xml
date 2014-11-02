@@ -7,7 +7,7 @@
     tools:context=".HiveMain"
     android:id="@+id/rsvprelative"
     android:background="@color/loginbackground"
-    android:layout_margin="10dp">
+    >
     <GridView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -18,7 +18,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:verticalSpacing="10dp"
-        android:id="@+id/mainlayout"/>
+        android:id="@+id/mainlayout"
+        android:layout_margin="10dp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -28,45 +29,15 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
     <com.melnykov.fab.FloatingActionButton
-        android:id="@+id/fab1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:src="@drawable/ic_action_content_add"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
-        android:layout_centerHorizontal="true"
-        fab:fab_colorNormal="@color/primary"
-        fab:fab_colorPressed="@color/primary_pressed"
-        fab:fab_colorRipple="@color/ripple"/>
-    <com.melnykov.fab.FloatingActionButton
-        android:id="@+id/fab_prof1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:src="@drawable/ic_action_social_person"
-        android:layout_alignTop="@+id/fab_cal"
-        android:layout_toLeftOf="@+id/fab"
-        android:layout_toStartOf="@+id/fab"
-        android:layout_marginBottom="20dp"
-        android:layout_marginRight="20dp"
-        fab:fab_type="mini"
-        fab:fab_colorNormal="@color/primary"
-        fab:fab_colorPressed="@color/primary_pressed"
-        fab:fab_colorRipple="@color/ripple"/>
-    <com.melnykov.fab.FloatingActionButton
-        android:id="@+id/fab_cal1"
+        android:id="@+id/fab_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:src="@drawable/ic_action_notification_event_available"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/fab"
-        android:layout_toEndOf="@+id/fab"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="20dp"
-        fab:fab_type="mini"
         fab:fab_colorNormal="@color/primary"
         fab:fab_colorPressed="@color/primary_pressed"
-        fab:fab_colorRipple="@color/ripple"/>
+        fab:fab_colorRipple="@color/ripple"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp" />
 </RelativeLayout>
