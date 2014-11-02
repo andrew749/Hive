@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="2" >
+
+    <dataSet config="main" >
+        <source path="/home/andrew/Programming/hive2/Hive/Hive/library/src/main/res" >
+            <file
+                path="/home/andrew/Programming/hive2/Hive/Hive/library/src/main/res/values/attrs.xml"
+                qualifiers="" >
+                <declare-styleable name="SwipeFlingAdapterView" >
+                    <attr
+                        name="SwipeFlingStyle"
+                        format="reference" />
+                    <attr
+                        name="rotation_degrees"
+                        format="float" />
+                    <attr
+                        name="min_adapter_stack"
+                        format="integer" />
+                    <attr
+                        name="max_visible"
+                        format="integer" />
+                </declare-styleable>
+            </file>
+            <file
+                path="/home/andrew/Programming/hive2/Hive/Hive/library/src/main/res/values/strings.xml"
+                qualifiers="" >
+                <string name="app_name" >Fling Swipe Cards
+                </string>
+            </file>
+            <file
+                path="/home/andrew/Programming/hive2/Hive/Hive/library/src/main/res/values/styles.xml"
+                qualifiers="" >
+
+                <style name="SwipeFling" >
+                    <item name="rotation_degrees">
+15
+                    </item>
+                    <item name="min_adapter_stack">
+6
+                    </item>
+                    <item name="max_visible">
+4
+                    </item>
+                </style>
+            </file>
+        </source>
+        <source path="/home/andrew/Programming/hive2/Hive/Hive/library/build/generated/res/rs/debug" />
+        <source path="/home/andrew/Programming/hive2/Hive/Hive/library/build/generated/res/generated/debug" />
+    </dataSet>
+    <dataSet config="debug" >
+        <source path="/home/andrew/Programming/hive2/Hive/Hive/library/src/debug/res" />
+    </dataSet>
+
+</merger>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="2" >
+
+    <dataSet config="debug" >
+        <source path="/home/andrew/Programming/hive2/Hive/Hive/library/build/intermediates/bundles/debug/res" >
+            <file
+                path="/home/andrew/Programming/hive2/Hive/Hive/library/build/intermediates/bundles/debug/res/values/values.xml"
+                qualifiers="" >
+
+                <style name="SwipeFling" >
+                    <item name="rotation_degrees">
+15
+                    </item>
+                    <item name="min_adapter_stack">
+6
+                    </item>
+                    <item name="max_visible">
+4
+                    </item>
+                </style>
+
+                <declare-styleable name="SwipeFlingAdapterView" >
+                    <attr
+                        name="SwipeFlingStyle"
+                        format="reference" />
+                    <attr
+                        name="rotation_degrees"
+                        format="float" />
+                    <attr
+                        name="min_adapter_stack"
+                        format="integer" />
+                    <attr
+                        name="max_visible"
+                        format="integer" />
+                </declare-styleable>
+
+                <string name="app_name" >Fling Swipe Cards
+                </string>
+            </file>
+        </source>
+    </dataSet>
+    <dataSet config="main" >
+        <source path="/home/andrew/Programming/hive2/Hive/Hive/library/src/androidTest/res" />
+        <source path="/home/andrew/Programming/hive2/Hive/Hive/library/build/generated/res/rs/test/debug" />
+        <source path="/home/andrew/Programming/hive2/Hive/Hive/library/build/generated/res/generated/test/debug" />
+    </dataSet>
+
+</merger>
