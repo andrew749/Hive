@@ -22,7 +22,6 @@ import java.util.Date;
  */
 public class AddEventActivity extends ActionBarActivity implements  View.OnClickListener {
     EditText location, name;
-<<<<<<< HEAD
     TextView startdate,starttime,finishdate,finishtime;
     DateFormat format;
     int dateState=0;
@@ -40,7 +39,6 @@ public class AddEventActivity extends ActionBarActivity implements  View.OnClick
 datestart =new Date();
 dateend=new Date();
         location=(EditText)findViewById(R.id.editText3);
-<<<<<<< HEAD
         starttime=(TextView)findViewById(R.id.starttime);
         startdate=(TextView)findViewById(R.id.startdate);
         finishdate=(TextView)findViewById(R.id.finishdate);

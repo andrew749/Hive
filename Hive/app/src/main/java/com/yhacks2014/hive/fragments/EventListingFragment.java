@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -29,6 +32,7 @@ import com.yhacks2014.hive.R;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -126,7 +130,7 @@ GridView layout;
         fab_rsvp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container,new RSVPListingFragment(),"NearbyFragment").addToBackStack("Back").commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new RSVPListingFragment(), "NearbyFragment").addToBackStack("Back").commit();
             }
         });
 
@@ -197,6 +201,18 @@ GridView layout;
         mListener = null;
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -211,6 +227,10 @@ GridView layout;
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
+public void refreshList(){
+    getCats cats=new getCats();
+    cats.execute();
+}
 
     class getCats extends AsyncTask<Void, Void, ArrayList<Event>> {
         HiveCommunicator communicator;

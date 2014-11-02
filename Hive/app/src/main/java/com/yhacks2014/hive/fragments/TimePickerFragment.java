@@ -8,10 +8,8 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-<<<<<<< HEAD
 //import android.widget.DatePicker;
 import android.widget.TimePicker;
->>>>>>> 442236c87cd0440afa1bde88bacad3d7cb5e19a9
 
 import com.yhacks2014.hive.R;
 
@@ -64,11 +62,7 @@ public class TimePickerFragment extends DialogFragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-<<<<<<< HEAD
         getDialog().setTitle("Select a Time");
-=======
->>>>>>> 442236c87cd0440afa1bde88bacad3d7cb5e19a9
-
     }
 
     @Override
@@ -82,7 +76,6 @@ public class TimePickerFragment extends DialogFragment {
 //        TimePicker endtimepicker=(TimePicker)v.findViewById(R.id.timepickerend);
 
         return v;
->>>>>>> 442236c87cd0440afa1bde88bacad3d7cb5e19a9
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -101,11 +94,9 @@ public class TimePickerFragment extends DialogFragment {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
         }
-<<<<<<< HEAD
-=======
+
         //getDialog().setTitle("Select a Time");
 
->>>>>>> 442236c87cd0440afa1bde88bacad3d7cb5e19a9
     }
 
     @Override

@@ -31,7 +31,7 @@ public class HiveMainActivity extends ActionBarActivity implements GooglePlaySer
     private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
     private LocationClient mLocationClient;
-
+   EventListingFragment fragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,19 +40,28 @@ public class HiveMainActivity extends ActionBarActivity implements GooglePlaySer
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
         }
+        fragment=EventListingFragment.newInstance(null,null);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerToggle= new ActionBarDrawerToggle(this, mDrawerLayout,mToolbar, R.string.app_name, R.string.app_name);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container,EventListingFragment.newInstance(null,null)).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container,fragment).commit();
 
         mLocationClient = new LocationClient(this, this, this);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = new MenuInflater(this);
+        MenuInflater inflater=getMenuInflater();
         inflater.inflate(R.menu.hive_main,menu);
+        MenuItem refresh= (MenuItem) menu.findItem(R.id.action_settings);
+        refresh.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                    fragment.refreshList();
+                return false;
+            }
+        })  ;
         return true;
     }
 
