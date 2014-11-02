@@ -291,9 +291,18 @@ exports.postComment = function(req, res) {
  */
 
 exports.postConfirm = function(req, res) {
+    var decoded = jwt.decode(req.body.access_token, req.app.get('jwtTokenSecret'));
+    if (decoded.exp <= Date.now()) {
+      return res.json({msg:'Access token has expired'});
+    }
+    var _ObjectId = require('mongoose').Types.ObjectId;
+    query_id =  new _ObjectId(decoded.iss);
+    User.findOne({ _id: query_id }, function(err, user) {
+      req.user = user;
+        });
   if (!req.user){
     console.log("can't");
-    //return res.json({error:"Not logged in"});
+    return res.json({error:"Not logged in"});
   }
   else {
     //Find event and replace values with those in parameters
@@ -308,7 +317,7 @@ exports.postConfirm = function(req, res) {
 
       event.save(function(err) {
         if (err) return res.json({error:err});
-        req.flash('success', { msg: 'Confirmed event attendance.' });
+        res.json({ msg: 'Confirmed event attendance.' });
       });
     });
   }

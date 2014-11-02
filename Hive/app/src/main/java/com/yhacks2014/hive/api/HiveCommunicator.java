@@ -49,6 +49,7 @@ public class HiveCommunicator {
     String URL_VALIDATE = "http://hive-events.herokuapp.com/api/validate/";
     String URL_GETALL = "http://hive-events.herokuapp.com/event/byUser/";
     String URL_NEARBY = "http://hive-events.herokuapp.com/event/nearMe/";
+    String URL_CONFIRM = "http://hive-events.herokuapp.com/event/confirm/";
     String URL_REGISTER="http://hive-events.herokuapp.com/api/signup";
     public HiveCommunicator() {
     }
@@ -439,5 +440,47 @@ public String registerUser(String email, String password){
         }
 
         return token;
+    }
+
+    public JSONObject postRSVP(String id,String mToken) {
+        // Making HTTP request
+        try {
+            // defaultHttpClient
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost(URL_CONFIRM);
+            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+            nameValuePairs.add(new BasicNameValuePair("access_token", mToken));
+            nameValuePairs.add(new BasicNameValuePair("id", id));
+            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            HttpResponse httpResponse = httpClient.execute(httpPost);
+            HttpEntity httpEntity = httpResponse.getEntity();
+            is = httpEntity.getContent();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(
+                    is, "iso-8859-1"), 8);
+            StringBuilder sb = new StringBuilder();
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line + "");
+            }
+            is.close();
+            json = sb.toString();
+        } catch (Exception e) {
+            Log.e("Buffer Error", "Error converting result " + e.toString());
+        }
+        JSONObject array = new JSONObject();
+        try {
+            array = new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return array;
     }
 }

@@ -59,17 +59,17 @@ public class DetailActivity extends ActionBarActivity {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            deleteEntry e=new deleteEntry();
+                RSVPTask e=new RSVPTask();
                 e.execute();
             }
         });
     }
-    class deleteEntry extends AsyncTask<Void,Void,Void>{
+    class RSVPTask extends AsyncTask<Void,Void,Void>{
 
         @Override
         protected Void doInBackground(Void... voids) {
             String token=communicator.loginWithCredentials("me@me.com", "abc123");
-            communicator.deleteEntry(event.id,token);
+            communicator.postRSVP(event.id,token);
 
             return null;
         }
