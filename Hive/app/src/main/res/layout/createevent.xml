@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="What would you like to create?"
+        android:id="@+id/textView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/eventName"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/eventName"
+        android:layout_below="@id/textView"
+        />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="100dip"
+
+        android:id="@+id/linearLayout"
+        android:layout_below="@+id/eventName"
+        android:layout_alignParentLeft="true"
+android:weightSum="1"
+        android:layout_marginTop="41dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Location"
+            android:id="@+id/textView3"
+            android:layout_weight="0.3"
+            android:layout_below="@+id/textView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPostalAddress"
+            android:ems="10"
+            android:id="@+id/editText3"
+
+            android:layout_below="@+id/textView3"
+            android:layout_alignLeft="@+id/editText2"
+            android:layout_alignStart="@+id/editText2"
+            android:layout_weight="0.7" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="100dip"
+        android:weightSum="1.0"
+        android:layout_below="@id/linearLayout"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/linearLayout2">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Time"
+            android:layout_weight="0.3"
+            android:id="@+id/textView2"
+            android:layout_below="@+id/linearLayout"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <EditText
+            android:layout_height="wrap_content"
+            android:inputType="time"
+            android:ems="10"
+            android:id="@+id/time"
+            android:layout_weight="0.7"
+            android:layout_toEndOf="@+id/textView2"
+            android:layout_alignTop="@+id/textView2"
+            android:layout_toRightOf="@+id/textView2" />
+    </LinearLayout>
+
+    <HorizontalScrollView
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="100dip"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/horizontalScrollView">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent">
+            <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+                android:background="@drawable/round_button"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_button"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_button"/>
+        </LinearLayout>
+        </HorizontalScrollView>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/horizontalScrollView"
+        android:orientation="horizontal"
+        android:weightSum="2.0">
+    <Button
+        android:layout_height="wrap_content"
+
+        android:text="Create"
+        android:id="@+id/button"
+        android:layout_weight="1"
+        android:layout_below="@+id/horizontalScrollView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_width="wrap_content" />
+
+    <Button
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        android:id="@+id/button2"
+        android:layout_alignTop="@+id/button"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content" />
+    </LinearLayout>
+
+</RelativeLayout>

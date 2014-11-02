@@ -34,7 +34,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
@@ -44,7 +44,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
@@ -57,6 +57,17 @@
 
         <activity
             android:name="com.yhacks2014.hive.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:configChanges="orientation|screenLayout"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.yhacks2014.hive.AddEventActivity"
             android:label="@string/title_activity_login"
             android:configChanges="orientation|screenLayout"
             android:windowSoftInputMode="adjustResize|stateHidden" >
