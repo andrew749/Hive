@@ -23,6 +23,7 @@ var eventSchema = new mongoose.Schema({
     guests: Array,
     comments: Array,
     picture: String,
+    category: { type: Number, default: 0},
     createdBy: {type: mongoose.Schema.ObjectId, ref: 'User'} //TODO
 });
 eventSchema.index({
