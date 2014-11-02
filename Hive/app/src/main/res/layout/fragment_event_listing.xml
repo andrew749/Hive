@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".HiveMain"
     android:id="@+id/relative"
-    android:background="@color/primary">
+    android:background="@color/loginbackground">
     <com.lorentzos.flingswipe.SwipeFlingAdapterView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
