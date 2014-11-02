@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- From: file:/home/andrew/Programming/hive2/Hive/Hive/library/src/main/res/values/attrs.xml -->
+    <!-- From: file:/C:/Users/YuChen/Dropbox/Projects/Hive/Hive/library/src/main/res/values/attrs.xml -->
     <eat-comment />
 
     <declare-styleable name="SwipeFlingAdapterView">
@@ -10,11 +10,11 @@
         <attr name="min_adapter_stack" format="integer" />
         <attr name="max_visible" format="integer" />
     </declare-styleable>
-    <!-- From: file:/home/andrew/Programming/hive2/Hive/Hive/library/src/main/res/values/strings.xml -->
+    <!-- From: file:/C:/Users/YuChen/Dropbox/Projects/Hive/Hive/library/src/main/res/values/strings.xml -->
     <eat-comment />
 
     <string name="app_name">Fling Swipe Cards</string>
-    <!-- From: file:/home/andrew/Programming/hive2/Hive/Hive/library/src/main/res/values/styles.xml -->
+    <!-- From: file:/C:/Users/YuChen/Dropbox/Projects/Hive/Hive/library/src/main/res/values/styles.xml -->
     <eat-comment />
 
     <style name="SwipeFling">

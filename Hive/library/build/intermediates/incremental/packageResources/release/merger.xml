@@ -2,9 +2,9 @@
 <merger version="2" >
 
     <dataSet config="main" >
-        <source path="/home/andrew/Programming/hive2/Hive/Hive/library/src/main/res" >
+        <source path="C:\Users\YuChen\Dropbox\Projects\Hive\Hive\library\src\main\res" >
             <file
-                path="/home/andrew/Programming/hive2/Hive/Hive/library/src/main/res/values/attrs.xml"
+                path="C:\Users\YuChen\Dropbox\Projects\Hive\Hive\library\src\main\res\values\attrs.xml"
                 qualifiers="" >
                 <declare-styleable name="SwipeFlingAdapterView" >
                     <attr
@@ -22,13 +22,13 @@
                 </declare-styleable>
             </file>
             <file
-                path="/home/andrew/Programming/hive2/Hive/Hive/library/src/main/res/values/strings.xml"
+                path="C:\Users\YuChen\Dropbox\Projects\Hive\Hive\library\src\main\res\values\strings.xml"
                 qualifiers="" >
                 <string name="app_name" >Fling Swipe Cards
                 </string>
             </file>
             <file
-                path="/home/andrew/Programming/hive2/Hive/Hive/library/src/main/res/values/styles.xml"
+                path="C:\Users\YuChen\Dropbox\Projects\Hive\Hive\library\src\main\res\values\styles.xml"
                 qualifiers="" >
 
                 <style name="SwipeFling" >
@@ -44,11 +44,11 @@
                 </style>
             </file>
         </source>
-        <source path="/home/andrew/Programming/hive2/Hive/Hive/library/build/generated/res/rs/release" />
-        <source path="/home/andrew/Programming/hive2/Hive/Hive/library/build/generated/res/generated/release" />
+        <source path="C:\Users\YuChen\Dropbox\Projects\Hive\Hive\library\build\generated\res\rs\release" />
+        <source path="C:\Users\YuChen\Dropbox\Projects\Hive\Hive\library\build\generated\res\generated\release" />
     </dataSet>
     <dataSet config="release" >
-        <source path="/home/andrew/Programming/hive2/Hive/Hive/library/src/release/res" />
+        <source path="C:\Users\YuChen\Dropbox\Projects\Hive\Hive\library\src\release\res" />
     </dataSet>
 
 </merger>

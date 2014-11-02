@@ -2,10 +2,10 @@
 <merger version="2" >
 
     <dataSet config="main" >
-        <source path="/home/andrew/Programming/hive2/Hive/Hive/library/src/main/assets" />
+        <source path="C:\Users\YuChen\Dropbox\Projects\Hive\Hive\library\src\main\assets" />
     </dataSet>
     <dataSet config="release" >
-        <source path="/home/andrew/Programming/hive2/Hive/Hive/library/src/release/assets" />
+        <source path="C:\Users\YuChen\Dropbox\Projects\Hive\Hive\library\src\release\assets" />
     </dataSet>
 
 </merger>

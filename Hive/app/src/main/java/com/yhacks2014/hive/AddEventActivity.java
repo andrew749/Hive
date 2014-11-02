@@ -6,16 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-<<<<<<< HEAD
 import android.widget.TextView;
-=======
-import android.widget.Spinner;
-<<<<<<< HEAD
-=======
-import android.widget.TextView;
->>>>>>> 442236c87cd0440afa1bde88bacad3d7cb5e19a9
-import android.widget.TimePicker;
->>>>>>> 4455c8bae7e53156f7da62e7871d193118f56b22
 
 import com.fourmob.datetimepicker.date.DatePickerDialog;
 import com.sleepbot.datetimepicker.time.RadialPickerLayout;
@@ -31,17 +22,9 @@ import java.util.Date;
  */
 public class AddEventActivity extends ActionBarActivity implements  View.OnClickListener {
     EditText location, name;
-<<<<<<< HEAD
     TextView startdate,starttime,finishdate,finishtime;
     DateFormat format;
     int dateState=0;
-=======
-<<<<<<< HEAD
-    Spinner time;
-=======
-    TextView time;
->>>>>>> 442236c87cd0440afa1bde88bacad3d7cb5e19a9
->>>>>>> 4455c8bae7e53156f7da62e7871d193118f56b22
     Button create,delete;
     public static final String DATEPICKER_TAG = "Pick a Date";
     public static final String TIMEPICKER_TAG = "Pick a Time";
@@ -56,7 +39,6 @@ public class AddEventActivity extends ActionBarActivity implements  View.OnClick
 datestart =new Date();
 dateend=new Date();
         location=(EditText)findViewById(R.id.editText3);
-<<<<<<< HEAD
         starttime=(TextView)findViewById(R.id.starttime);
         startdate=(TextView)findViewById(R.id.startdate);
         finishdate=(TextView)findViewById(R.id.finishdate);
@@ -73,36 +55,6 @@ dateend=new Date();
         datePickerDialog=DatePickerDialog.newInstance(null, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
          timePickerDialog = com.sleepbot.datetimepicker.time.TimePickerDialog.newInstance(null, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false, true);
 
-=======
-<<<<<<< HEAD
-        time=(Spinner)findViewById(R.id.spinner);
-=======
-        time=(TextView)findViewById(R.id.textView4);
->>>>>>> 442236c87cd0440afa1bde88bacad3d7cb5e19a9
-
-        name=(EditText)findViewById(R.id.eventName);
-        create=(Button)findViewById(R.id.button);
-        delete=(Button)findViewById(R.id.button2);
-        time.setOnClickListener(new View.OnClickListener() {
-<<<<<<< HEAD
-            @Override
-            public void onClick(View view) {
-                    FragmentManager fm = getSupportFragmentManager();
-                    TimePickerFragment editNameDialog = new TimePickerFragment();
-                    editNameDialog.show(fm, "fragment_edit_time");
-                }
-=======
-
-
-            @Override
-            public void onClick( View view) {
-                FragmentManager fm = getSupportFragmentManager();
-                TimePickerFragment editNameDialog = new TimePickerFragment();
-                editNameDialog.show(fm, "fragment_edit_time");
-            }
->>>>>>> 442236c87cd0440afa1bde88bacad3d7cb5e19a9
-        });
->>>>>>> 4455c8bae7e53156f7da62e7871d193118f56b22
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

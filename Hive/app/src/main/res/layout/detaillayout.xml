@@ -5,7 +5,11 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/loginbackground">
-
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        >
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -76,12 +80,10 @@
         android:id="@+id/map"
         class="com.google.android.gms.maps.MapFragment"
         android:layout_width="fill_parent"
-        android:layout_height="300dip"
+        android:layout_height="0dp"
         android:background="#000"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
+        android:layout_weight="1"/>
+    </LinearLayout>
     <com.melnykov.fab.FloatingActionButton
         android:id="@+id/deleteButton"
         android:layout_width="wrap_content"
@@ -91,8 +93,9 @@
         fab:fab_colorNormal="@color/primary"
         fab:fab_colorPressed="@color/primary_pressed"
         fab:fab_colorRipple="@color/ripple"
-        android:layout_alignBottom="@+id/map"
-        android:layout_alignLeft="@+id/map"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_margin="20dp"/>
 
 </RelativeLayout>
