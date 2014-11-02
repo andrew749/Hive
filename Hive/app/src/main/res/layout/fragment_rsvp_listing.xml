@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".HiveMain"
     android:id="@+id/rsvprelative"
-    android:background="@color/loginbackground">
+    android:background="@color/loginbackground"
+    android:layout_margin="10dp">
     <GridView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
