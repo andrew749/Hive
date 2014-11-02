@@ -62,17 +62,18 @@ exports.postNearMe = function(req, res) {
       if(err)res.send(err);
       console.log(err + " " + results+ " " + stats);
         var response = results;
+        res.json(results);
         var resTotal = [];
         for (index = 0; index < response.length; ++index) {
             //console.log(a[index]);
             //convert to epoch time
-            var reso = response[index]
+            var reso = response[index];
             reso.datetime_start_unix = new Date(reso.datetime_start).getTime();
             reso.datetime_end_unix = new Date(reso.datetime_end).getTime();
             resTotal.push(reso);
         }
 
-        res.json(resTotal);
+       // res.json(results);
     });
   }
 }
