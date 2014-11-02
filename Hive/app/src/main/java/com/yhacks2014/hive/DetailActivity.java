@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -41,12 +43,17 @@ public class DetailActivity extends ActionBarActivity {
         TextView duration = (TextView) findViewById(R.id.durationView);
         nameText.setText(event.name);
         duration.setText(format.format(date1) + " - " + format.format(date2));
-        LatLng position = new LatLng(Double.parseDouble(event.coordinates[0]), Double.parseDouble(event.coordinates[1]));
+        LatLng position = new LatLng( Double.parseDouble(event.coordinates[1]),Double.parseDouble(event.coordinates[0]));
         map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
         if (map != null) {
             Marker hamburg = map.addMarker(new MarkerOptions().position(position)
                     .title(event.name));
+            CameraUpdate center=
+                    CameraUpdateFactory.newLatLng(position);
+            CameraUpdate zoom=CameraUpdateFactory.zoomTo(12);
 
+            map.moveCamera(center);
+            map.animateCamera(zoom);
         }
         final FloatingActionButton deleteButton=(FloatingActionButton)findViewById(R.id.deleteButton);
         deleteButton.setOnClickListener(new View.OnClickListener() {
