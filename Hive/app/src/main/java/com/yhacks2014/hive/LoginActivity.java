@@ -383,7 +383,43 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
             }
         }
     }
+class UserRegistrationTask extends AsyncTask<Void, Void, String>{
+    String username; String password;
+    UserRegistrationTask (String username,String password){
+        this.username=username;
+        this.password=password;
+    }
+    @Override
+    protected String doInBackground(Void... params) {
+        HiveCommunicator communicator=new HiveCommunicator();
+        String token=communicator.registerUser(username,password);
+        if(token != null){
+            //valid login
+            savePreferences(token);
+        }else{
+        }
+        return token;
+    }
 
+    @Override
+    protected void onPostExecute(String s) {
+        super.onPostExecute(s);
+        /*
+        Do something with the token like log in
+         */
+        mAuthTask = null;
+        showProgress(false);
+
+        if (s!=null) {
+            Intent intent = new Intent(getApplicationContext(), HiveMainActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            mPasswordView.setError(getString(R.string.error_incorrect_password));
+            mPasswordView.requestFocus();
+        }
+    }
+}
     /**
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
