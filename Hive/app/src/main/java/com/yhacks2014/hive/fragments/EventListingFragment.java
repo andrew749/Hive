@@ -91,7 +91,6 @@ GridView layout;
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_event_listing, container, false);
         errorText=(TextView)v.findViewById(R.id.errorText);
-        final ArrayList<Event> events=new ArrayList<Event>();
 
         flingContainer = (SwipeFlingAdapterView) v.findViewById(R.id.fling);
         //events will be an array of events
@@ -102,16 +101,6 @@ GridView layout;
         HiveCommunicator communicator=new HiveCommunicator();
         getCats cats=new getCats();
         cats.execute();
-        flingContainer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getActivity(), DetailActivity.class);
-                intent.putExtra("data", events);
-                startActivity(intent);
-            }
-        });
 
         FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab);
         //fab.attachToListView(layout);
@@ -129,7 +118,13 @@ GridView layout;
             public void removeFirstObjectInAdapter() {
                 // this is the simplest way to delete an object from the Adapter (/AdapterView)
                 Log.d("LIST", "removed object!");
-                events.remove(0);
+                if(events.size() == 0){
+                    String[] arrr = {"0","0"};
+                    events.add(new Event("No More Events To Show!",0,0,null,arrr));
+                }else{
+                    events.remove(0);
+                }
+
                 adapter.notifyDataSetChanged();
             }
 
@@ -226,10 +221,10 @@ GridView layout;
         protected void onPostExecute(final ArrayList<Event> aVoid) {
             super.onPostExecute(aVoid);
 
-            adapter = new CardAdapter(getActivity(), aVoid);
+            adapter = new CardAdapter(getActivity(), events);
             flingContainer.setAdapter(adapter);
             adapter.notifyDataSetChanged();
-            if(aVoid.size()<=0)
+            if(events.size()<=0)
                 errorText.setVisibility(View.VISIBLE);
                errorText.setVisibility(View.VISIBLE);
             Log.d("Done", "a");
@@ -237,10 +232,11 @@ GridView layout;
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     Intent intent = new Intent(getActivity(), DetailActivity.class);
-                    intent.putExtra("data", aVoid.get(i));
+                    intent.putExtra("data", events.get(i));
                     startActivity(intent);
                 }
             });
+            events.addAll(aVoid);
         }
     }
 
