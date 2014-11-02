@@ -44,6 +44,7 @@ exports.getInfo = function(req, res) {
  */
 
 exports.postNearMe = function(req, res) {
+    console.log("hellos");
   //Ensure user is logged in
   if (!req.user){
     console.log("can't");
