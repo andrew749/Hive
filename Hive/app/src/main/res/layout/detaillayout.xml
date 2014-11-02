@@ -4,7 +4,14 @@
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/toolbar">
+    android:background="@color/loginbackground">
+
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/descript"
+        android:background="@color/primary">
 
     <TextView
         android:id="@+id/namePlace"
@@ -17,7 +24,10 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:textColor="#000"
-        android:layout_margin="20dp"/>
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="5dp"/>
 
     <TextView
         android:id="@+id/durationView"
@@ -29,18 +39,55 @@
         android:layout_below="@+id/namePlace"
         android:layout_alignLeft="@+id/namePlace"
         android:layout_alignStart="@+id/namePlace"
+<<<<<<< HEAD
         android:layout_below="@+id/namePlace"
         android:layout_marginBottom="20dip"
         android:text="Duration"
         android:textAppearance="?android:attr/textAppearanceMedium"
+=======
+        android:textColor="#000"
+        android:layout_marginBottom="20dp"/>
 
-        android:textColor="#000"/>
+        </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/descript"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/description"
+            android:textColor="#000"
+            android:id="@+id/description_hint"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="4dp"
+            android:textColor="#000"
+            android:layout_marginBottom="20dp"
+            android:text="@string/loremipsum"
+            android:layout_toRightOf="@id/description_hint"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/description" />
+
+        </RelativeLayout>
+
+>>>>>>> 442236c87cd0440afa1bde88bacad3d7cb5e19a9
+
     <fragment
         android:id="@+id/map"
         class="com.google.android.gms.maps.MapFragment"
         android:layout_width="fill_parent"
-        android:layout_height="400dip"
-class="com.google.android.gms.maps.MapFragment"
+        android:layout_height="300dip"
+        class="com.google.android.gms.maps.MapFragment"
         android:id="@+id/map"
         android:background="#000"
         android:layout_alignParentBottom="true"
@@ -56,9 +103,8 @@ class="com.google.android.gms.maps.MapFragment"
         fab:fab_colorNormal="@color/primary"
         fab:fab_colorPressed="@color/primary_pressed"
         fab:fab_colorRipple="@color/ripple"
-        android:layout_above="@+id/map"
-        android:layout_margin="20dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignBottom="@+id/map"
+        android:layout_alignLeft="@+id/map"
+        android:layout_margin="20dp"/>
 
 </RelativeLayout>

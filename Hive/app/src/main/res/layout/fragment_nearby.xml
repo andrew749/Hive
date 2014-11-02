@@ -10,6 +10,7 @@
     <fragment
         android:id="@+id/mapContainer"
         class="com.google.android.gms.maps.MapFragment"
+<<<<<<< HEAD
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
@@ -20,4 +21,11 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         tools:context="com.yhacks2014.hive.fragments.NearbyFragment"></FrameLayout>
+=======
+        />
+    <FrameLayout android:layout_width="match_parent"
+        android:layout_height="0dp" android:layout_weight="1"
+        tools:context="com.yhacks2014.hive.fragments.RSVPFragment" android:id="@+id/listContainer">
+    </FrameLayout>
+>>>>>>> 442236c87cd0440afa1bde88bacad3d7cb5e19a9
 </LinearLayout>

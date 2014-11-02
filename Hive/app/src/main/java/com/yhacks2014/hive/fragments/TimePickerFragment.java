@@ -8,6 +8,11 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+<<<<<<< HEAD
+=======
+import android.widget.DatePicker;
+import android.widget.TimePicker;
+>>>>>>> 442236c87cd0440afa1bde88bacad3d7cb5e19a9
 
 import com.yhacks2014.hive.R;
 
@@ -60,7 +65,10 @@ public class TimePickerFragment extends DialogFragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+<<<<<<< HEAD
         getDialog().setTitle("Select a Time");
+=======
+>>>>>>> 442236c87cd0440afa1bde88bacad3d7cb5e19a9
 
     }
 
@@ -68,7 +76,17 @@ public class TimePickerFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+<<<<<<< HEAD
         return inflater.inflate(R.layout.fragment_time_picker, container, false);
+=======
+        View v= inflater.inflate(R.layout.fragment_time_picker, container, false);
+        DatePicker startdatepicker=(DatePicker)v.findViewById(R.id.datePicker);
+        TimePicker starttimepicker=(TimePicker)v.findViewById(R.id.starttime);
+        DatePicker enddatepicker=(DatePicker)v.findViewById(R.id.datepickerend);
+        TimePicker endtimepicker=(TimePicker)v.findViewById(R.id.timepickerend);
+
+        return v;
+>>>>>>> 442236c87cd0440afa1bde88bacad3d7cb5e19a9
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -87,6 +105,11 @@ public class TimePickerFragment extends DialogFragment {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+<<<<<<< HEAD
+=======
+        //getDialog().setTitle("Select a Time");
+
+>>>>>>> 442236c87cd0440afa1bde88bacad3d7cb5e19a9
     }
 
     @Override

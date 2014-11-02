@@ -60,6 +60,7 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private UserLoginTask mAuthTask = null;
+    private UserRegistrationTask mRegTask=null;
 
     // UI references.
     private AutoCompleteTextView mEmailView;
@@ -69,7 +70,7 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
     private SignInButton mPlusSignInButton;
     private View mSignOutButtons;
     private View mLoginFormView;
-
+    private Button mRegisterButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,7 +116,13 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
                 attemptLogin();
             }
         });
-
+        mRegisterButton=(Button)findViewById(R.id.email_register_button);
+        mRegisterButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                attemptRegistration();
+            }
+        });
         //mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
         mEmailLoginFormView = findViewById(R.id.email_login_form);
@@ -135,7 +142,52 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
     private void populateAutoComplete() {
         getLoaderManager().initLoader(0, null, this);
     }
+    public void attemptRegistration(){
+        if (mRegTask != null) {
+            return;
+        }
 
+        // Reset errors.
+        mEmailView.setError(null);
+        mPasswordView.setError(null);
+
+        // Store values at the time of the login attempt.
+        String email = mEmailView.getText().toString();
+        String password = mPasswordView.getText().toString();
+
+        boolean cancel = false;
+        View focusView = null;
+
+
+        // Check for a valid password, if the user entered one.
+        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+            mPasswordView.setError(getString(R.string.error_invalid_password));
+            focusView = mPasswordView;
+            cancel = true;
+        }
+
+        // Check for a valid email address.
+        if (TextUtils.isEmpty(email)) {
+            mEmailView.setError(getString(R.string.error_field_required));
+            focusView = mEmailView;
+            cancel = true;
+        } else if (!isEmailValid(email)) {
+            mEmailView.setError(getString(R.string.error_invalid_email));
+            focusView = mEmailView;
+            cancel = true;
+        }
+
+        if (cancel) {
+            // There was an error; don't attempt login and focus the first
+            // form field with an error.
+            focusView.requestFocus();
+        } else {
+            // Show a progress spinner, and kick off a background task to
+            // perform the user login attempt.
+            showProgress(true);
+            mRegTask = new UserRegistrationTask(email, password);
+            mRegTask.execute((Void) null);
+        }    }
 
     /**
      * Attempts to sign in or register the account specified by the login form.
@@ -383,7 +435,43 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
             }
         }
     }
+class UserRegistrationTask extends AsyncTask<Void, Void, String>{
+    String username; String password;
+    UserRegistrationTask (String username,String password){
+        this.username=username;
+        this.password=password;
+    }
+    @Override
+    protected String doInBackground(Void... params) {
+        HiveCommunicator communicator=new HiveCommunicator();
+        String token=communicator.registerUser(username,password);
+        if(token != null){
+            //valid login
+            savePreferences(token);
+        }else{
+        }
+        return token;
+    }
 
+    @Override
+    protected void onPostExecute(String s) {
+        super.onPostExecute(s);
+        /*
+        Do something with the token like log in
+         */
+        mAuthTask = null;
+        showProgress(false);
+
+        if (s!=null) {
+            Intent intent = new Intent(getApplicationContext(), HiveMainActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            mPasswordView.setError(getString(R.string.error_incorrect_password));
+            mPasswordView.requestFocus();
+        }
+    }
+}
     /**
      * Represents an asynchronous login/registration task used to authenticate
      * the user.

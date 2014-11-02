@@ -10,7 +10,11 @@
 
 
     <TextView
+<<<<<<< HEAD
         android:id="@+id/textView"
+=======
+        android:id="@+id/description"
+>>>>>>> 442236c87cd0440afa1bde88bacad3d7cb5e19a9
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -23,7 +27,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/eventName"
+<<<<<<< HEAD
         android:layout_below="@id/textView"
+=======
+        android:layout_below="@id/description"
+>>>>>>> 442236c87cd0440afa1bde88bacad3d7cb5e19a9
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -59,7 +67,11 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+<<<<<<< HEAD
             android:layout_below="@+id/textView"
+=======
+            android:layout_below="@+id/description"
+>>>>>>> 442236c87cd0440afa1bde88bacad3d7cb5e19a9
             android:layout_weight="0.3"
             android:text="Location" />
 
@@ -101,6 +113,7 @@
             android:orientation="vertical"
             >
 
+<<<<<<< HEAD
                 <Spinner
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -108,6 +121,16 @@
                     android:layout_weight="1" />
 
 
+=======
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Set Time"
+                android:id="@+id/textView4"
+                android:layout_weight="0.3" />
+>>>>>>> 442236c87cd0440afa1bde88bacad3d7cb5e19a9
         </LinearLayout>
     </LinearLayout>
 

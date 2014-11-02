@@ -22,6 +22,7 @@ import com.yhacks2014.hive.AddEventActivity;
 import com.yhacks2014.hive.CardAdapter;
 import com.yhacks2014.hive.DetailActivity;
 import com.yhacks2014.hive.Event;
+import com.yhacks2014.hive.HiveMainActivity;
 import com.yhacks2014.hive.api.HiveCommunicator;
 import com.yhacks2014.hive.R;
 
@@ -105,6 +106,7 @@ GridView layout;
 
         FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab);
         FloatingActionButton fab_prof = (FloatingActionButton) v.findViewById(R.id.fab_prof);
+        FloatingActionButton fab_rsvp = (FloatingActionButton) v.findViewById(R.id.fab_cal);
         //fab.attachToListView(layout);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,6 +117,15 @@ GridView layout;
             }
         });
 
+        //fab.attachToListView(layout);
+        fab_rsvp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container,new RSVPListingFragment(),"NearbyFragment").addToBackStack("Back").commit();
+            }
+        });
+
+
         //set the listener and the adapter
         //
         flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
@@ -124,7 +135,7 @@ GridView layout;
                 Log.d("LIST", "removed object!");
                 if(events.size() == 0){
                     String[] arrr = {"0","0"};
-                    events.add(new Event("No More Events To Show!",0,0,null,arrr));
+                    //events.add(new Event("No More Events To Show!",0,0,null,arrr));
                 }else{
                     events.remove(0);
                 }
@@ -210,7 +221,7 @@ GridView layout;
             try {
                 events1 = communicator.getEvents(communicator.getNearEvents(
                         communicator.loginWithCredentials(communicator.email, communicator.password)
-                        , loc, 1000));
+                        , loc, 100000));
                 Log.d("creating event", "ww");
             }catch(NullPointerException e){
                 e.printStackTrace();
@@ -225,12 +236,10 @@ GridView layout;
         protected void onPostExecute(final ArrayList<Event> aVoid) {
             super.onPostExecute(aVoid);
 
-            adapter = new CardAdapter(getActivity(), events);
+            Location myLoc = ((HiveMainActivity)getActivity()).getLocation();
+            adapter = new CardAdapter(getActivity(), events,myLoc);
             flingContainer.setAdapter(adapter);
             adapter.notifyDataSetChanged();
-            if(events.size()<=0)
-                errorText.setVisibility(View.VISIBLE);
-               errorText.setVisibility(View.VISIBLE);
             Log.d("Done", "a");
             // Optionally add an OnItemClickListener
             flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {

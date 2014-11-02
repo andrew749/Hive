@@ -21,12 +21,15 @@ public class Event implements Serializable {
     long endtime;
     String id;
     String[] coordinates;
-    public Event(String id,long startTime,long endTime, String name,String[] coordinates){
+    public String description;
+
+    public Event(String id,long startTime,long endTime, String name,String[] coordinates,String description){
         this.name=name;
         this.startTime=startTime;
         this.endtime=endTime;
         this.coordinates=coordinates;
         this.id=id;
+        this.description=description;
     }
 
 }

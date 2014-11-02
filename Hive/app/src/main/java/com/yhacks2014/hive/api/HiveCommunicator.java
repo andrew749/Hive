@@ -49,7 +49,8 @@ public class HiveCommunicator {
     String URL_VALIDATE = "http://hive-events.herokuapp.com/api/validate/";
     String URL_GETALL = "http://hive-events.herokuapp.com/event/byUser/";
     String URL_NEARBY = "http://hive-events.herokuapp.com/event/nearMe/";
-
+    String URL_CONFIRM = "http://hive-events.herokuapp.com/event/confirm/";
+    String URL_REGISTER="http://hive-events.herokuapp.com/api/signup";
     public HiveCommunicator() {
     }
 
@@ -102,7 +103,55 @@ token=object.getString("token");
         return token;
 
     }
+public String registerUser(String email, String password){
+    HttpResponse httpResponse = null;
+    HttpEntity httpEntity=null;
+    String json=null;
+    try {
+        HttpClient httpClient = new DefaultHttpClient();
+        HttpPost httpPost = new HttpPost(URL_REGISTER);
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+        nameValuePairs.add(new BasicNameValuePair("email", email));
+        nameValuePairs.add(new BasicNameValuePair("password", password));
 
+
+        httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+        httpResponse = httpClient.execute(httpPost);
+        httpEntity = httpResponse.getEntity();
+        is = httpEntity.getContent();
+
+    } catch (UnsupportedEncodingException e) {
+        e.printStackTrace();
+    } catch (ClientProtocolException e) {
+        e.printStackTrace();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    try {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(
+                is, "iso-8859-1"), 8);
+        StringBuilder sb = new StringBuilder();
+        String line = null;
+        while ((line = reader.readLine()) != null) {
+            sb.append(line + "");
+        }
+        is.close();
+        json = sb.toString();
+    } catch (Exception e) {
+        Log.e("Buffer Error", "Error converting result " + e.toString());
+    }
+    JSONObject object = new JSONObject();
+    String token = null;
+    try {
+        object = new JSONObject(json);
+        token=object.getString("token");
+    } catch (JSONException e) {
+        e.printStackTrace();
+    }
+
+    return token;
+
+}
     public JSONObject getEventInfo(String id) {
         // Making HTTP request
         try {
@@ -334,11 +383,20 @@ token=object.getString("token");
         }
         return "";
     }
+    public String getDescription(JSONObject response){
+        try {
+            String id=response.getString("description");
+            return id;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
     public ArrayList<Event> getEvents(JSONArray response) {
         ArrayList<Event> events = new ArrayList<Event>();
         for (int i = 0; i < response.length(); i++) {
             try {
-                events.add(new Event(getId(response.getJSONObject(i)),getTime(response.getJSONObject(i))[0].getTime(), getTime(response.getJSONObject(i))[1].getTime(), getName(response.getJSONObject(i)), getCoordinates(response.getJSONObject(i))));
+                events.add(new Event(getId(response.getJSONObject(i)),getTime(response.getJSONObject(i))[0].getTime(), getTime(response.getJSONObject(i))[1].getTime(), getName(response.getJSONObject(i)), getCoordinates(response.getJSONObject(i)),getDescription(response.getJSONObject(i))));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -354,7 +412,7 @@ token=object.getString("token");
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(URL_VALIDATE);
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-            nameValuePairs.add(new BasicNameValuePair("token", mToken));
+            nameValuePairs.add(new BasicNameValuePair("access_token", mToken));
 
             httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             httpResponse = httpClient.execute(httpPost);
@@ -391,5 +449,48 @@ token=object.getString("token");
         }
 
         return token;
+    }
+
+    public JSONObject postRSVP(String id, String mToken) {
+        // Making HTTP request
+        try {
+            // defaultHttpClient
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost(URL_CONFIRM);
+            httpPost.setHeader("Content-Type",
+                    "application/x-www-form-urlencoded;charset=UTF-8");
+            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+            nameValuePairs.add(new BasicNameValuePair("access_token", mToken));
+            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            HttpResponse httpResponse = httpClient.execute(httpPost);
+            HttpEntity httpEntity = httpResponse.getEntity();
+            is = httpEntity.getContent();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(
+                    is, "iso-8859-1"), 8);
+            StringBuilder sb = new StringBuilder();
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line + "");
+            }
+            is.close();
+            json = sb.toString();
+        } catch (Exception e) {
+            Log.e("Buffer Error", "Error converting result " + e.toString());
+        }
+        JSONObject array = new JSONObject();
+        try {
+            array = new JSONObject(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return array;
     }
 }

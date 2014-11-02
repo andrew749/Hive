@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/common_signin_btn_icon_pressed_dark" />
+        android:src="@drawable/ic_logo" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -84,6 +84,7 @@
                 android:maxLines="1"
                 android:singleLine="true" />
 
+<<<<<<< HEAD
             <Button
                 android:id="@+id/email_sign_in_button"
                 style="?android:textAppearanceSmall"
@@ -100,6 +101,25 @@
                 android:layout_height="wrap_content"
                 android:text="@string/action_register"
                 android:textStyle="bold" />
+=======
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <Button android:id="@+id/email_register_button" style="?android:textAppearanceSmall"
+                    android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                    android:text="@string/action_register"
+                    android:textStyle="bold" />
+
+                <Button android:id="@+id/email_sign_in_button" style="?android:textAppearanceSmall"
+                    android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                     android:text="@string/action_sign_in"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+>>>>>>> 442236c87cd0440afa1bde88bacad3d7cb5e19a9
         </LinearLayout>
     </LinearLayout>
 

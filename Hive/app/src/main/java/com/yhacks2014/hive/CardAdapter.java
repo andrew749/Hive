@@ -1,6 +1,7 @@
 package com.yhacks2014.hive;
 
 import android.content.Context;
+import android.location.Location;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,11 +21,13 @@ import java.util.Date;
  * Created by andrew on 31/10/14.
  */
 public class CardAdapter extends BaseAdapter {
+    private final Location myLoc;
     ArrayList<Event> events=new ArrayList<Event>();
     Context context;
-    public CardAdapter(Context context, ArrayList<Event> events){
+    public CardAdapter(Context context, ArrayList<Event> events, Location myLoc){
         this.events=events;
         this.context=context;
+        this.myLoc = myLoc;
     }
     @Override
     public int getCount() {
@@ -46,8 +50,18 @@ public class CardAdapter extends BaseAdapter {
         view=inflater.inflate(R.layout.maincard,viewGroup,false);
         TextView tv=(TextView)view.findViewById(R.id.nameText);
         tv.setText(events.get(i).name);
+
+        //Location
+        Location loc = new Location("dummyprovider");
+        loc.setLatitude(Double.valueOf(events.get(i).coordinates[1]));
+        loc.setLongitude(Double.valueOf(events.get(i).coordinates[0]));
+
         TextView locationtv=(TextView)view.findViewById(R.id.Location);
-        locationtv.setText(events.get(i).coordinates[0]+","+events.get(i).coordinates[1]);
+        double distance = myLoc.distanceTo(loc)/1000;
+        DecimalFormat df = new DecimalFormat("#.##");
+
+        locationtv.setText(df.format(distance) + " km away");
+        //locationtv.setText(events.get(i).coordinates[0]+","+events.get(i).coordinates[1]);
         TextView timetv=(TextView)view.findViewById(R.id.timetext);
         DateFormat format=new SimpleDateFormat("MMM dd HH:MM");
         Date date= null;
