@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fab="http://schemas.android.com/apk/res-auto"
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="10dp"
     android:gravity="center|center_horizontal"
-    android:layout_margin="10dp">
+    >
 
 
     <TextView
-<<<<<<< HEAD
-        android:id="@+id/textView"
-=======
         android:id="@+id/description"
->>>>>>> 442236c87cd0440afa1bde88bacad3d7cb5e19a9
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -27,11 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/eventName"
-<<<<<<< HEAD
-        android:layout_below="@id/textView"
-=======
         android:layout_below="@id/description"
->>>>>>> 442236c87cd0440afa1bde88bacad3d7cb5e19a9
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -67,11 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-<<<<<<< HEAD
-            android:layout_below="@+id/textView"
-=======
             android:layout_below="@+id/description"
->>>>>>> 442236c87cd0440afa1bde88bacad3d7cb5e19a9
             android:layout_weight="0.3"
             android:text="Location" />
 
@@ -110,27 +98,64 @@
         <LinearLayout
             android:layout_width="269dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
-<<<<<<< HEAD
-                <Spinner
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/spinner"
-                    android:layout_weight="1" />
+                    android:text="Start"
+                    android:layout_weight="0.3"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+                <TextView
+                    android:id="@+id/startdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Set Date"
+                    android:layout_weight="0.3"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
 
+                <TextView
+                    android:id="@+id/starttime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="Set Time"
 
-=======
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+            </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Set Time"
-                android:id="@+id/textView4"
-                android:layout_weight="0.3" />
->>>>>>> 442236c87cd0440afa1bde88bacad3d7cb5e19a9
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="End"
+                    android:layout_weight="0.3"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:id="@+id/finishdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Set Date"
+                    android:layout_weight="0.3"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <TextView
+                    android:id="@+id/finishtime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:layout_gravity="center_horizontal"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Set Time" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

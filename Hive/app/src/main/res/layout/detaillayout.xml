@@ -19,7 +19,6 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Event Name"
-        android:id="@+id/namePlace"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -35,16 +34,9 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Duration"
-        android:id="@+id/durationView"
         android:layout_below="@+id/namePlace"
         android:layout_alignLeft="@+id/namePlace"
         android:layout_alignStart="@+id/namePlace"
-<<<<<<< HEAD
-        android:layout_below="@+id/namePlace"
-        android:layout_marginBottom="20dip"
-        android:text="Duration"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-=======
         android:textColor="#000"
         android:layout_marginBottom="20dp"/>
 
@@ -80,15 +72,11 @@
 
         </RelativeLayout>
 
->>>>>>> 442236c87cd0440afa1bde88bacad3d7cb5e19a9
-
     <fragment
         android:id="@+id/map"
         class="com.google.android.gms.maps.MapFragment"
         android:layout_width="fill_parent"
         android:layout_height="300dip"
-        class="com.google.android.gms.maps.MapFragment"
-        android:id="@+id/map"
         android:background="#000"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"

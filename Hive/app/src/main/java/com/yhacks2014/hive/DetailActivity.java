@@ -1,6 +1,7 @@
 package com.yhacks2014.hive;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -61,17 +62,26 @@ public class DetailActivity extends ActionBarActivity {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RSVPTask e=new RSVPTask();
+                SharedPreferences prefs = getSharedPreferences(
+                        "Login", Context.MODE_PRIVATE);
+                String token = prefs.getString("Token", "0");
+                RSVPTask e=new RSVPTask(token);
                 e.execute();
             }
         });
     }
     class RSVPTask extends AsyncTask<Void,Void,Void>{
 
+        private String token;
+
+        public RSVPTask(String token1) {
+            token = token1;
+        }
+
         @Override
         protected Void doInBackground(Void... voids) {
-            String token=communicator.loginWithCredentials("me@me.com", "abc123");
-            communicator.postRSVP(event.id,token);
+            token = communicator.validateToken(token);
+            communicator.postRSVP(event.id, token);
 
             return null;
         }

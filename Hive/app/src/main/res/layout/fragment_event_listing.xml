@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HiveMain"
-    android:id="@+id/relative"
     android:background="@color/loginbackground">
     <com.lorentzos.flingswipe.SwipeFlingAdapterView
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -27,19 +26,7 @@
         android:layout_alignParentBottom="true"
         android:verticalSpacing="10dp"
         android:id="@+id/mainlayout"></GridView> -->
-<<<<<<< HEAD
-    <TextView
-        android:id="@+id/errorText"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:text="Looks like there are no events near you."
-        android:visibility="invisible"
-        android:id="@+id/errorText"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-=======
->>>>>>> 442236c87cd0440afa1bde88bacad3d7cb5e19a9
+
     <com.melnykov.fab.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
@@ -49,9 +36,6 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="20dp"
         android:layout_centerHorizontal="true"
-        android:layout_gravity="bottom|right"
-        android:layout_marginBottom="20dp"
-        android:src="@drawable/ic_action_content_add"
         fab:fab_colorNormal="@color/primary"
         fab:fab_colorPressed="@color/primary_pressed"
         fab:fab_colorRipple="@color/ripple"/>

@@ -3,15 +3,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/card"
     android:layout_width="match_parent"
-<<<<<<< HEAD
-    android:layout_height="200dp"
-    android:layout_margin="10dp"
-    android:background="@drawable/background_card"
-    android:orientation="vertical"
-    android:padding="20dp">
-=======
     android:layout_height="300dp"
-    android:id="@+id/card"
     android:layout_margin="10dp"
     android:padding="20dp"
     android:background="@drawable/background_card">
@@ -35,21 +27,13 @@
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
         android:layout_centerVertical="true"/>
->>>>>>> 442236c87cd0440afa1bde88bacad3d7cb5e19a9
 
     <TextView
         android:id="@+id/timetext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
-        android:layout_alignParentRight="true"
-        android:text="00:00"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#000" />
-=======
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="00:00"
-        android:id="@+id/timetext"
         android:textColor="#000"
         android:layout_centerVertical="true"
         android:layout_toEndOf="@id/time"
@@ -58,21 +42,10 @@
 
     </RelativeLayout>
 
->>>>>>> 442236c87cd0440afa1bde88bacad3d7cb5e19a9
-
     <TextView
         android:id="@+id/nameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-
-        android:layout_toLeftOf="@id/timetext"
-        android:text="Name of Event"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#000" />
-=======
         android:textColor="#000"
         android:textAppearance="?android:attr/textAppearanceLarge"
 
@@ -80,30 +53,20 @@
         android:fontFamily="sans-serif-condensed"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:id="@+id/nameText"
         android:layout_marginTop="26dp"
         android:layout_below="@+id/timewrap"
         android:layout_centerHorizontal="true"/>
->>>>>>> 442236c87cd0440afa1bde88bacad3d7cb5e19a9
 
 
     <TextView
         android:id="@+id/Location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
-        android:layout_below="@id/nameText"
-        android:text="Location"
-        android:textColor="#000" />
-=======
-        android:id="@+id/Location"
         android:text="Location"
         android:fontFamily="sans-serif-condensed"
         android:textSize="20sp"
         android:textColor="#000"
         android:layout_below="@+id/nameText"
         android:layout_centerHorizontal="true" />
-
->>>>>>> 442236c87cd0440afa1bde88bacad3d7cb5e19a9
 
 </RelativeLayout>
