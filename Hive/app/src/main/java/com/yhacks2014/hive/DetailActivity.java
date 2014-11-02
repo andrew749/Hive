@@ -13,6 +13,7 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.melnykov.fab.FloatingActionButton;
 import com.yhacks2014.hive.api.HiveCommunicator;
 
 import java.text.DateFormat;
@@ -47,7 +48,7 @@ public class DetailActivity extends ActionBarActivity {
                     .title(event.name));
 
         }
-        final Button deleteButton=(Button)findViewById(R.id.deleteButton);
+        final FloatingActionButton deleteButton=(FloatingActionButton)findViewById(R.id.deleteButton);
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -43,13 +43,13 @@ public class CardAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         LayoutInflater inflater= (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view=inflater.inflate(R.layout.maincard,null,false);
+        view=inflater.inflate(R.layout.maincard,viewGroup,false);
         TextView tv=(TextView)view.findViewById(R.id.nameText);
         tv.setText(events.get(i).name);
         TextView locationtv=(TextView)view.findViewById(R.id.Location);
         locationtv.setText(events.get(i).coordinates[0]+","+events.get(i).coordinates[1]);
         TextView timetv=(TextView)view.findViewById(R.id.timetext);
-        DateFormat format=new SimpleDateFormat("MMM dd");
+        DateFormat format=new SimpleDateFormat("MMM dd HH:MM");
         Date date= null;
         date = new Date(events.get(i).startTime);
 

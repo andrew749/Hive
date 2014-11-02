@@ -37,17 +37,15 @@ class="com.google.android.gms.maps.MapFragment"
         android:id="@+id/map"
         android:background="#000"/>
 
-    <Button
-        android:layout_width="60dip"
-        android:layout_height="60dip"
-        android:text="X"
-        android:textSize="40dip"
+    <com.melnykov.fab.FloatingActionButton
         android:id="@+id/deleteButton"
-        android:layout_alignTop="@+id/namePlace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginRight="15dp"
+        android:src="@drawable/ic_action_content_add"
+        android:layout_above="@+id/durationView"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:textColor="#FF0000"
-        android:background="@drawable/round_button"/>
-
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

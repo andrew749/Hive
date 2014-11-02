@@ -1,6 +1,7 @@
 package com.yhacks2014.hive.api;
 
 
+import android.location.Location;
 import android.util.Log;
 
 import com.yhacks2014.hive.Event;
@@ -47,6 +48,7 @@ public class HiveCommunicator {
     String URL_LOGIN = "http://hive-events.herokuapp.com/api/login/";
     String URL_VALIDATE = "http://hive-events.herokuapp.com/api/validate/";
     String URL_GETALL = "http://hive-events.herokuapp.com/event/byUser/";
+    String URL_NEARBY = "http://hive-events.herokuapp.com/event/nearMe/";
 
     public HiveCommunicator() {
     }
@@ -139,6 +141,52 @@ token=object.getString("token");
         return array;
     }
 
+    public JSONArray getNearEvents(String token,Location l,double distance) {
+        HttpResponse httpResponse = null;
+        try {
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost(URL_NEARBY);
+            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+            nameValuePairs.add(new BasicNameValuePair("access_token", token));
+            nameValuePairs.add(new BasicNameValuePair("lng", String.valueOf(l.getLongitude())));
+            nameValuePairs.add(new BasicNameValuePair("lat", String.valueOf(l.getLatitude())));
+            nameValuePairs.add(new BasicNameValuePair("distance", String.valueOf(distance)));
+            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            httpPost.setHeader("x-access-token", token);
+
+            httpResponse = httpClient.execute(httpPost);
+            HttpEntity httpEntity = httpResponse.getEntity();
+            is = httpEntity.getContent();
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(
+                    is, "iso-8859-1"), 8);
+            StringBuilder sb = new StringBuilder();
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line + "");
+            }
+            is.close();
+            json = sb.toString();
+        } catch (Exception e) {
+            Log.e("Buffer Error", "Error converting result " + e.toString());
+        }
+        JSONArray array = new JSONArray();
+        try {
+            array = new JSONArray(json);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return array;
+    }
+
     public JSONArray getAllUserEvents(String token) {
         HttpResponse httpResponse = null;
         try {
@@ -181,6 +229,7 @@ token=object.getString("token");
         }
         return array;
     }
+
 
     //gets the coordinates of the location
     public String[] getCoordinates(JSONObject response) {

@@ -38,7 +38,7 @@ exports.getInfo = function(req, res) {
 };
 
 /**
- * POST /events/nearMe
+ * POST /event/nearMe
  * Finds nearby events
  * Requires location [longitude,latitude] and distance parameters
  */
@@ -47,7 +47,7 @@ exports.postNearMe = function(req, res) {
   //Ensure user is logged in
   if (!req.user){
     console.log("can't");
-    return res.json({error:"Not logged in"});
+    //return res.json({error:"Not logged in"});
   }
   else {
     //check to see if parameters are all there
@@ -66,7 +66,7 @@ exports.postNearMe = function(req, res) {
         for (index = 0; index < response.length; ++index) {
             //console.log(a[index]);
             //convert to epoch time
-            var reso = response[index].toObject();
+            var reso = response[index]
             reso.datetime_start_unix = new Date(reso.datetime_start).getTime();
             reso.datetime_end_unix = new Date(reso.datetime_end).getTime();
             resTotal.push(reso);
@@ -134,7 +134,7 @@ exports.postByUser = function(req, res) {
 exports.postCreate = function(req, res) {
     if (!req.user){
       console.log("can't");
-      return res.json({error:"Not logged in"});
+      //return res.json({error:"Not logged in"});
     }
     else {
       //creating an event from parameters
@@ -167,7 +167,7 @@ exports.postCreate = function(req, res) {
 exports.postEdit = function(req, res) {
   if (!req.user){
     console.log("can't");
-    return res.json({error:"Not logged in"});
+    //return res.json({error:"Not logged in"});
   }
   else {
     //Find event and replace values with those in parameters
@@ -209,7 +209,7 @@ exports.postDeleteEvent = function(req, res, next) {
       req.user = user;
     if (!req.user){
     console.log("can't");
-    return res.json({error:"Not logged in"});
+    //return res.json({error:"Not logged in"});
     }
     else {
     Event.remove({ _id: req.body.id }, function(err) {

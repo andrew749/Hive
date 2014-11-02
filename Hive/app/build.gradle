@@ -26,6 +26,8 @@ dependencies {
     compile 'com.google.android.gms:play-services:6.1.11'
     compile 'com.android.support:appcompat-v7:21.0.0'
     compile 'com.android.support:support-v4:21.0.0'
+    compile 'com.melnykov:floatingactionbutton:1.0.6'
+    compile 'com.lorentzos.swipecards:library:1.0.+@aar'
 }
 
 

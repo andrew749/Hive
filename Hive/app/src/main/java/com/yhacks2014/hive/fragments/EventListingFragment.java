@@ -2,6 +2,7 @@ package com.yhacks2014.hive.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,9 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.lorentzos.flingswipe.SwipeFlingAdapterView;
+import com.melnykov.fab.FloatingActionButton;
 import com.yhacks2014.hive.CardAdapter;
 import com.yhacks2014.hive.DetailActivity;
 import com.yhacks2014.hive.Event;
@@ -45,7 +49,10 @@ GridView layout;
     private OnFragmentInteractionListener mListener;
     private View v;
     CardAdapter adapter;
+    //ArrayAdapter adapter;
     ArrayList<Event> events=new ArrayList<Event>();
+    private SwipeFlingAdapterView flingContainer;
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -86,21 +93,66 @@ GridView layout;
         errorText=(TextView)v.findViewById(R.id.errorText);
         final ArrayList<Event> events=new ArrayList<Event>();
 
+        flingContainer = (SwipeFlingAdapterView) v.findViewById(R.id.fling);
         //events will be an array of events
-         layout= (GridView) v.findViewById(R.id.mainlayout);
-        adapter=new CardAdapter(getActivity(), events);
-        layout.setAdapter(adapter);
+        // layout= (GridView) v.findViewById(R.id.mainlayout);
+        //adapter=new CardAdapter(getActivity(), events);
+        flingContainer.setAdapter(adapter);
+        //layout.setAdapter(adapter);
         HiveCommunicator communicator=new HiveCommunicator();
         getCats cats=new getCats();
         cats.execute();
-        layout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        flingContainer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent=new Intent(getActivity(),DetailActivity.class);
-                intent.putExtra("data",events);
+                Intent intent = new Intent(getActivity(), DetailActivity.class);
+                intent.putExtra("data", events);
                 startActivity(intent);
+            }
+        });
+
+        FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab);
+        //fab.attachToListView(layout);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO new event
+            }
+        });
+
+        //set the listener and the adapter
+        //
+        flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
+            @Override
+            public void removeFirstObjectInAdapter() {
+                // this is the simplest way to delete an object from the Adapter (/AdapterView)
+                Log.d("LIST", "removed object!");
+                events.remove(0);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onLeftCardExit(Object dataObject) {
+                //Do something on the left!
+                //You also have access to the original object.
+                //If you want to use it just cast it (String) dataObject
+                //Toast.makeText(MyActivity.this, "Left!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onRightCardExit(Object dataObject) {
+               // Toast.makeText(MyActivity.this, "Right!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onAdapterAboutToEmpty(int itemsInAdapter) {
+                // TODO Ask for more data here
+                /* al.add("XML ".concat(String.valueOf(i)));
+                arrayAdapter.notifyDataSetChanged();
+                Log.d("LIST", "notified");
+                i++; */
             }
         });
         return v;
@@ -153,8 +205,13 @@ GridView layout;
             communicator = new HiveCommunicator();
             Log.d("result", "getting");
             ArrayList<Event> events1=new ArrayList<Event>();
+            Location loc = new Location("dummyprovider");
+            loc.setLongitude(-72.922343);
+            loc.setLatitude(41.316324);
             try {
-                events1 = communicator.getEvents(communicator.getAllUserEvents(communicator.loginWithCredentials(communicator.email, communicator.password)));
+                events1 = communicator.getEvents(communicator.getNearEvents(
+                        communicator.loginWithCredentials(communicator.email, communicator.password)
+                        , loc, 1000));
                 Log.d("creating event", "ww");
             }catch(NullPointerException e){
                 e.printStackTrace();
@@ -170,19 +227,17 @@ GridView layout;
             super.onPostExecute(aVoid);
 
             adapter = new CardAdapter(getActivity(), aVoid);
-            layout.setAdapter(adapter);
+            flingContainer.setAdapter(adapter);
             adapter.notifyDataSetChanged();
             if(aVoid.size()<=0)
                 errorText.setVisibility(View.VISIBLE);
                errorText.setVisibility(View.VISIBLE);
             Log.d("Done", "a");
-            layout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-
+            flingContainer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Intent intent=new Intent(getActivity(),DetailActivity.class);
-                    intent.putExtra("data",aVoid.get(i));
+                    Intent intent = new Intent(getActivity(), DetailActivity.class);
+                    intent.putExtra("data", aVoid.get(i));
                     startActivity(intent);
                 }
             });
