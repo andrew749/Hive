@@ -1,36 +1,32 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.yhacks2014.hive.fragments.TimePickerFragment">
+<?xml version="1.0" encoding="utf-8"?>
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <!-- TODO: Update blank fragment layout -->
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.yhacks2014.hive.fragments.TimePickerFragment">
         <TextView
             android:id="@+id/toptext"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
             android:text="Start Time" />
 
         <DatePicker
             android:id="@+id/datePicker"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/toptext"
-            android:layout_alignParentLeft="true"
             android:layout_below="@id/toptext"
             android:calendarViewShown="false" />
-
+<!--
         <TimePicker
             android:id="@+id/starttime"
             android:layout_width="wrap_content"
-            android:layout_alignParentRight="true"
             android:layout_height="wrap_content"
             android:layout_below="@id/toptext"
-            android:layout_toRightOf="@id/datePicker"></TimePicker>
+            android:layout_toRightOf="@id/datePicker"/>
 
         <TextView
             android:id="@+id/endtext"
@@ -44,10 +40,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/endtext"
-            android:layout_toRightOf="@id/endtext"
-            android:calendarViewShown="false">
+            android:calendarViewShown="false"/>
 
-        </DatePicker>
 
         <TimePicker
             android:id="@+id/timepickerend"
@@ -60,7 +54,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/timepickerend"
             android:layout_alignParentBottom="true"
-            android:text="OK" />
+            android:text="OK" />-->
     </RelativeLayout>
 
-</FrameLayout>

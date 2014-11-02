@@ -95,10 +95,15 @@ GridView layout;
         errorText=(TextView)v.findViewById(R.id.errorText);
 
         flingContainer = (SwipeFlingAdapterView) v.findViewById(R.id.fling);
+        flingContainer .setAccessibilityDelegate(new View.AccessibilityDelegate() {
+            public boolean performAccessibilityAction (View host, int action, Bundle args){
+                return true;
+            }
+        });
         //events will be an array of events
         // layout= (GridView) v.findViewById(R.id.mainlayout);
         //adapter=new CardAdapter(getActivity(), events);
-        flingContainer.setAdapter(adapter);
+        //flingContainer.setAdapter(adapter);
         //layout.setAdapter(adapter);
         HiveCommunicator communicator=new HiveCommunicator();
         getCats cats=new getCats();
@@ -235,6 +240,7 @@ GridView layout;
                errorText.setVisibility(View.VISIBLE);
             Log.d("Done", "a");
             // Optionally add an OnItemClickListener
+
             flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClicked(int itemPosition, Object dataObject) {

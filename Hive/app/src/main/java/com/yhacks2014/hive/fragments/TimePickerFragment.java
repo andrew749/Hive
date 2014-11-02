@@ -8,7 +8,7 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
+//import android.widget.DatePicker;
 import android.widget.TimePicker;
 
 import com.yhacks2014.hive.R;
@@ -69,19 +69,19 @@ public class TimePickerFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v= inflater.inflate(R.layout.fragment_time_picker, container, false);
-        DatePicker startdatepicker=(DatePicker)v.findViewById(R.id.datePicker);
-        TimePicker starttimepicker=(TimePicker)v.findViewById(R.id.starttime);
-        DatePicker enddatepicker=(DatePicker)v.findViewById(R.id.datepickerend);
-        TimePicker endtimepicker=(TimePicker)v.findViewById(R.id.timepickerend);
+        View v= inflater.inflate(R.layout.fragment_time_picker, null, false);
+     //   DatePicker startdatepicker=(DatePicker)v.findViewById(R.id.datePicker);
+//        TimePicker starttimepicker=(TimePicker)v.findViewById(R.id.starttime);
+//        DatePicker enddatepicker=(DatePicker)v.findViewById(R.id.datepickerend);
+//        TimePicker endtimepicker=(TimePicker)v.findViewById(R.id.timepickerend);
 
         return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    public void onButtonPressed(String[] string) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onFragmentInteraction(string);
         }
     }
 
@@ -116,7 +116,7 @@ public class TimePickerFragment extends DialogFragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
+        public void onFragmentInteraction(String[] time);
     }
 
 }
