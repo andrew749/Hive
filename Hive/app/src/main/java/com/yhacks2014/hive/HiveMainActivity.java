@@ -155,6 +155,8 @@ public class HiveMainActivity extends ActionBarActivity implements GooglePlaySer
     }
 
     public Location getLocation(){
+        if(mLocationClient.isConnected())
         return mLocationClient.getLastLocation();
+        else return null;
     }
 }
