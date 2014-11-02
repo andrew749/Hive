@@ -18,19 +18,18 @@ import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.location.LocationClient;
 import com.yhacks2014.hive.fragments.DrawerFragment;
 import com.yhacks2014.hive.fragments.EventListingFragment;
-import com.yhacks2014.hive.fragments.RSVPFragment;
+import com.yhacks2014.hive.fragments.RSVPListingFragment;
 
 import java.util.ArrayList;
 
 
 public class HiveMainActivity extends ActionBarActivity implements GooglePlayServicesClient.ConnectionCallbacks,
-        GooglePlayServicesClient.OnConnectionFailedListener, EventListingFragment.OnFragmentInteractionListener, DrawerFragment.OnFragmentInteractionListener, RSVPFragment.OnFragmentInteractionListener{
+        GooglePlayServicesClient.OnConnectionFailedListener, EventListingFragment.OnFragmentInteractionListener, DrawerFragment.OnFragmentInteractionListener, RSVPListingFragment.OnFragmentInteractionListener{
     ArrayList<Event> events=new ArrayList<Event>();
     CardAdapter adapter;
     private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
-    private RSVPFragment mNearbyFragment;
     private LocationClient mLocationClient;
 
     @Override
@@ -103,12 +102,12 @@ public class HiveMainActivity extends ActionBarActivity implements GooglePlaySer
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container,EventListingFragment.newInstance(null,null)).commit();
                 break;
             case 1:
-                mNearbyFragment = (RSVPFragment) getSupportFragmentManager().findFragmentByTag("NearbyFragment");
+                /* mNearbyFragment = (RSVPFragment) getSupportFragmentManager().findFragmentByTag("NearbyFragment");
                 if(mNearbyFragment == null){
                     //set up map
                     mNearbyFragment = RSVPFragment.newInstance(null, null);
                    // getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container,mNearbyFragment,"NearbyFragment").commit();
-                }
+                } */
                 break;
             case 2:
                 break;

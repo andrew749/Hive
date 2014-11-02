@@ -106,6 +106,7 @@ GridView layout;
 
         FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab);
         FloatingActionButton fab_prof = (FloatingActionButton) v.findViewById(R.id.fab_prof);
+        FloatingActionButton fab_rsvp = (FloatingActionButton) v.findViewById(R.id.fab_cal);
         //fab.attachToListView(layout);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,6 +116,15 @@ GridView layout;
                 startActivity(intent);
             }
         });
+
+        //fab.attachToListView(layout);
+        fab_rsvp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container,new RSVPListingFragment(),"NearbyFragment").commit();
+            }
+        });
+
 
         //set the listener and the adapter
         //
