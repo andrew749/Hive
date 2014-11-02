@@ -1,130 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/loginbackground">
+    android:background="@color/loginbackground"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:paddingTop="40dp"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingTop="40dp">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:paddingTop="10dp"
-            android:paddingBottom="5dp">
+            android:orientation="vertical"
+            android:paddingBottom="5dp"
+            android:paddingTop="10dp">
 
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="Username"
-                android:gravity="center"
-                android:textSize="25dp"/>
+                android:textSize="25dp" />
 
             <EditText
+                android:id="@+id/username"
                 android:layout_width="300dp"
                 android:layout_height="40dp"
-                android:layout_margin="5dp"
-                android:id="@+id/username" />
+                android:layout_margin="5dp" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:paddingTop="10dp"
-            android:paddingBottom="5dp">
+            android:orientation="vertical"
+            android:paddingBottom="5dp"
+            android:paddingTop="10dp">
 
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="Email"
-                android:gravity="center"
-                android:textSize="25dp"/>
+                android:textSize="25dp" />
 
             <EditText
+                android:id="@+id/email"
                 android:layout_width="300dp"
                 android:layout_height="40dp"
-                android:layout_margin="5dp"
-                android:id="@+id/email" />
+                android:layout_margin="5dp" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:paddingTop="10dp"
-            android:paddingBottom="5dp">
+            android:orientation="vertical"
+            android:paddingBottom="5dp"
+            android:paddingTop="10dp">
 
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="Password"
-                android:gravity="center"
-                android:textSize="25dp"/>
+                android:textSize="25dp" />
 
             <EditText
+                android:id="@+id/password"
                 android:layout_width="300dp"
                 android:layout_height="40dp"
                 android:layout_margin="5dp"
-                android:inputType="textPassword"
                 android:ems="10"
-                android:id="@+id/password" />
+                android:inputType="textPassword" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:paddingTop="10dp"
-            android:paddingBottom="5dp">
+            android:orientation="vertical"
+            android:paddingBottom="5dp"
+            android:paddingTop="10dp">
 
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Re-enter your password"
                 android:gravity="center"
-                android:textSize="25dp"/>
+                android:text="Re-enter your password"
+                android:textSize="25dp" />
 
             <EditText
+                android:id="@+id/password_check"
                 android:layout_width="300dp"
                 android:layout_height="40dp"
                 android:layout_margin="5dp"
-                android:inputType="textPassword"
                 android:ems="10"
-                android:id="@+id/password_check" />
+                android:inputType="textPassword" />
 
         </LinearLayout>
 
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
+            android:orientation="horizontal"
             android:paddingTop="20dp">
 
             <Button
+                android:id="@+id/signup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sign up"
-                android:id="@+id/signup"
                 android:layout_gravity="center_horizontal"
-                android:layout_margin="10dp"/>
+                android:layout_margin="10dp"
+                android:text="Sign up" />
 
         </LinearLayout>
 

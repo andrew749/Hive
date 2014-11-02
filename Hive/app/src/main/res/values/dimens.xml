@@ -3,5 +3,6 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="drawer_width">200dp</dimen>
-    <dimen name="buttonradius">30dip</dimen>
+    <dimen name="buttonborderradius">40dip</dimen>
+    <dimen name="buttonradius">70dip</dimen>
 </resources>
